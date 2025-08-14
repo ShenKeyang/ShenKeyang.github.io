@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>算法笔记(C++)-IO | YOLO</title>
+  <title>算法笔记(C++)——IO | YOLO</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="一些关于C++算法中输入和输出的语法笔记，以便于查阅">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法笔记(C++)-IO">
+<meta property="og:title" content="算法笔记(C++)——IO">
 <meta property="og:url" content="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C/index.html">
 <meta property="og:site_name" content="YOLO">
 <meta property="og:description" content="一些关于C++算法中输入和输出的语法笔记，以便于查阅">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-14T14:18:35.000Z">
-<meta property="article:modified_time" content="2025-08-14T16:45:43.324Z">
+<meta property="article:modified_time" content="2025-08-14T17:04:33.534Z">
 <meta property="article:author" content="ShenKeyang">
 <meta property="article:tag" content="sky">
 <meta property="article:tag" content="ShenKeyang">
@@ -94,7 +94,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      算法笔记(C++)-IO
+      算法笔记(C++)——IO
     </h1>
   
 
@@ -148,13 +148,13 @@
 <h2 id="动态数组容器vector"><a href="#动态数组容器vector" class="headerlink" title="动态数组容器vector"></a>动态数组容器vector</h2><p>相较于一般数组，<code>vector</code>可以定义动态数组向量，参数可以用变量来设置，更为灵活。用法如下：  </p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;      <span class="comment">//定义一个整型变量</span></span><br><span class="line">    cin &gt;&gt; n;   <span class="comment">//输入给变量赋值</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">arr</span><span class="params">(n)</span></span>; <span class="comment">//定义一个元素种类为int的vector向量</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>用<code>vector</code>定义二维数组（矩阵）的用法如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m ;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt; &gt; <span class="built_in">matrix</span>(n,<span class="built_in">vector</span>(m)); <span class="comment">//vector嵌套vector形成一个二维矩阵</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">      </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m ;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt; &gt; <span class="built_in">matrix</span>(n,<span class="built_in">vector</span>(m)); <span class="comment">//vector嵌套vector形成一个二维矩阵</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>若上述实现全部使用传统的静态数组，则无法使用变量作为开辟数组的大小，需要定义静态的、超额大小的数组，如：<code>int arr[1000][1000] = &#123;0&#125;</code>，或先在函数外宏定义<code>#define SIZE 1000</code>再定义静态数组<code>int arr[SIZE][SIZE] = &#123;0&#125;</code>。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C/" data-id="cmebn3nk80001q8961fc432h1" data-title="算法笔记(C++)-IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C/" data-id="cmebngr470001wk96cf0s71me" data-title="算法笔记(C++)——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -205,7 +205,7 @@
       <ul>
         
           <li>
-            <a href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C/">算法笔记(C++)-IO</a>
+            <a href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C/">算法笔记(C++)——IO</a>
           </li>
         
           <li>
