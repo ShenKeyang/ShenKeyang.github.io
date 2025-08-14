@@ -1,5 +1,5 @@
 ---
-title: 算法笔记(C++)-IO
+title: 算法笔记(C++)——IO
 date: 2025-08-14 22:18:35
 comments: true
 tags:
@@ -278,7 +278,7 @@ int main()
 #include <iostream>
 #include <vector>
 using namespace std;
-
+      
 int main()
 {
     int n,m;
