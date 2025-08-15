@@ -107,4 +107,39 @@ int main() {
 
 
 
-## 
+## auto
+auto 是 C++11 引入的一个关键字，主要用于自动推导变量的类型。它使得编程变得更加简洁，减少了显式指定类型的需求，特别是当类型复杂或不容易记住时。  
+
+__使用场景：__
+1. 变量声明：在声明变量时，可以使用 auto 来代替显式的类型声明，编译器会根据右边的表达式自动推导出变量的类型。
+```c++
+auto x = 10;  // x的类型是int
+auto y = 3.14;  // y的类型是double
+```
+2. 容器迭代器：在使用 STL 容器（如 vector）时，容器的迭代器类型通常比较复杂。使用 auto 可以让代码更加简洁和易读。
+```c++
+vector<int> vec = {1, 2, 3};
+for (auto it = vec.begin(); it != vec.end(); ++it) {
+    cout << *it << endl;
+}
+```
+3. 函数返回类型：如果函数返回一个复杂的类型或是模板类型，使用 auto 可以减少繁琐的类型声明。
+```c++
+auto add(int a, int b) {
+    return a + b;  // 返回值类型为int
+}
+```
+4. 范围 for 循环：在范围 for 循环中，auto 用来推导容器中元素的类型。
+```c++
+vector<int> nums = {1, 2, 3};
+for (auto num : nums) {
+    cout << num << endl;  // num 的类型是int
+}
+```
+  
+
+<br><br>
+
+
+
+
