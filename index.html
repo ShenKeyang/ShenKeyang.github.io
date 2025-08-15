@@ -80,6 +80,77 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-算法笔记-C-——哈希表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" class="article-date">
+  <time class="dt-published" datetime="2025-08-15T14:13:28.000Z" itemprop="datePublished">2025-08-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/">算法笔记(C++) ——哈希表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="哈希表的概念"><a href="#哈希表的概念" class="headerlink" title="哈希表的概念"></a>哈希表的概念</h2><p>哈希表是一种基于哈希函数（Hash Function）的数据结构，用于实现键值对的快速存储和查找。它的主要特点是：</p>
+<ol>
+<li><p>快速查找：平均情况下，哈希表的查找、插入和删除操作的时间复杂度都是 O(1)。</p>
+</li>
+<li><p>键值对存储：哈希表存储的是键值对，每个键（Key）唯一对应一个值（Value）。</p>
+</li>
+<li><p>哈希函数：通过哈希函数将键映射到哈希表中的位置，从而实现快速存取。</p>
+</li>
+</ol>
+<p><strong>C++ 中的哈希表 ——<code>unordered_map</code>：</strong>   </p>
+<p>在 C++ 中，<code>unordered_map</code>是标准库提供的哈希表实现。它具有以下特点：</p>
+<ol>
+<li><p>键值对存储：unordered_map&lt;Key, T&gt; 存储的是键为 Key，值为 T 的键值对。</p>
+</li>
+<li><p>快速访问：提供了常数时间复杂度的查找、插入和删除操作。</p>
+</li>
+</ol>
+<p><strong>主要操作：</strong>   </p>
+<ol>
+<li>插入元素：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; hash_map;  <span class="comment">//定义哈希表</span></span><br><span class="line">hash_map[key] = value;  <span class="comment">// 插入或更新键为 key 的值为 value</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>查找元素： 在C++的<code>unordered_map</code>（或<code>map</code>）中，<code>find(key)</code>方法用于查找关键字<code>key</code>是否存在。<code>find(key)</code>返回一个迭代器，如果<code>key</code>存在，迭代器指向元素，否则指向<code>end()</code>。使用<code>find(key)</code>可以高效检查<code>key</code>的存在。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (hash_map.<span class="built_in">find</span>(key) != hash_map.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    <span class="comment">// 找到了 key</span></span><br><span class="line">    <span class="type">int</span> value = hash_map[key];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 没找到 key</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>获取某键key的键值：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> count = hash_map[key];  <span class="comment">// 如果key不存在，会自动插入key并初始化值为0</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例代码（有一个包含n个整数的口袋，同时提出q个问题，每个问题询问特定的数字在口袋中出现了多少次。）：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,q,num;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; q;</span><br><span class="line"></span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; map;  <span class="comment">//定义哈希表</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; num;</span><br><span class="line">        map[num]++;   </span><br><span class="line">        <span class="comment">//如果key不存在，会自动插入key并初始化值为0，遇到相应key键时对应的键值自增</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>; i&lt;q; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; num;</span><br><span class="line">        <span class="keyword">if</span>(map.<span class="built_in">find</span>(num)!=map.<span class="built_in">end</span>())  <span class="comment">//如果能找到对应键值的话</span></span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; map[num] &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl;   <span class="comment">//如果找不到对应键值，则输出0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmecyxg2m0003o0968vn65um6" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-算法笔记-C-——栈" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" class="article-date">
@@ -134,11 +205,30 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    cin &gt;&gt; s;  <span class="comment">// 输入括号字符串</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; stk;  <span class="comment">// 创建一个栈</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">char</span> ch : s) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ch == <span class="string">&#x27;(&#x27;</span>) &#123;</span><br><span class="line">            stk.<span class="built_in">push</span>(ch);  <span class="comment">// 遇到左括号，压入栈中</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (stk.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;  <span class="comment">// 栈为空，说明没有匹配的左括号</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            stk.<span class="built_in">pop</span>();  <span class="comment">// 弹出栈顶元素，匹配对应的左括号</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果栈为空，说明所有左括号都有匹配</span></span><br><span class="line">    cout &lt;&lt; (stk.<span class="built_in">empty</span>() ? <span class="string">&quot;Yes&quot;</span> : <span class="string">&quot;No&quot;</span>) &lt;&lt; endl;  <span class="comment">// 输出结果</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>总的来说，C++中的stack是一个非常简单且高效的数据结构，适合处理“先进后出”类型的需求。  </p>
 <p><br><br></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+<h2 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h2><p>auto 是 C++11 引入的一个关键字，主要用于自动推导变量的类型。它使得编程变得更加简洁，减少了显式指定类型的需求，特别是当类型复杂或不容易记住时。  </p>
+<p><strong>使用场景：</strong></p>
+<ol>
+<li>变量声明：在声明变量时，可以使用 auto 来代替显式的类型声明，编译器会根据右边的表达式自动推导出变量的类型。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> x = <span class="number">10</span>;  <span class="comment">// x的类型是int</span></span><br><span class="line"><span class="keyword">auto</span> y = <span class="number">3.14</span>;  <span class="comment">// y的类型是double</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>容器迭代器：在使用 STL 容器（如 vector）时，容器的迭代器类型通常比较复杂。使用 auto 可以让代码更加简洁和易读。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; vec = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = vec.<span class="built_in">begin</span>(); it != vec.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>函数返回类型：如果函数返回一个复杂的类型或是模板类型，使用 auto 可以减少繁琐的类型声明。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;  <span class="comment">// 返回值类型为int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>范围 for 循环：在范围 for 循环中，auto 用来推导容器中元素的类型。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; nums = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> num : nums) &#123;</span><br><span class="line">    cout &lt;&lt; num &lt;&lt; endl;  <span class="comment">// num 的类型是int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmecvoxlv0003zk963p2hhico" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmecyxg2m0004o096631u6pcf" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -184,7 +274,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmecvoxlv0002zk964xz7du8h" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmecyxg2i0002o096hbfg9mq5" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -283,7 +373,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmecvoxlt0001zk96f3iw4c68" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmecyxg2g0001o09655mufvru" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -349,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmecvoxlq0000zk967hczfj5i" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmecyxg2d0000o0966y4m3ftp" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -390,6 +480,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/">算法笔记(C++) ——哈希表</a>
+          </li>
         
           <li>
             <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/">算法笔记(C++) ——栈</a>

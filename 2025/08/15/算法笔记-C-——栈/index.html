@@ -14,7 +14,7 @@
 <meta property="og:description" content="栈的特性：LIFO（后进先出）原则：栈中的元素是从栈顶添加和移除的，栈顶的元素是最先被访问的。只能在一端操作：栈的操作只能在栈顶进行。    栈的应用：函数调用管理：在程序运行过程中，函数调用的顺序和返回都由栈来管理。每次函数调用时，程序会把当前函数的信息压入栈中，函数执行完成后会从栈中弹出，返回到调用函数的位置。表达式求值：栈常用于数学表达式的求值，尤其是处理括号匹配和运算符优先级时。浏览器的历">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-15T09:36:38.000Z">
-<meta property="article:modified_time" content="2025-08-15T10:16:36.624Z">
+<meta property="article:modified_time" content="2025-08-15T14:12:36.784Z">
 <meta property="article:author" content="ShenKeyang">
 <meta property="article:tag" content="sky">
 <meta property="article:tag" content="ShenKeyang">
@@ -134,11 +134,30 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    cin &gt;&gt; s;  <span class="comment">// 输入括号字符串</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; stk;  <span class="comment">// 创建一个栈</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">char</span> ch : s) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ch == <span class="string">&#x27;(&#x27;</span>) &#123;</span><br><span class="line">            stk.<span class="built_in">push</span>(ch);  <span class="comment">// 遇到左括号，压入栈中</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (stk.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;  <span class="comment">// 栈为空，说明没有匹配的左括号</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            stk.<span class="built_in">pop</span>();  <span class="comment">// 弹出栈顶元素，匹配对应的左括号</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果栈为空，说明所有左括号都有匹配</span></span><br><span class="line">    cout &lt;&lt; (stk.<span class="built_in">empty</span>() ? <span class="string">&quot;Yes&quot;</span> : <span class="string">&quot;No&quot;</span>) &lt;&lt; endl;  <span class="comment">// 输出结果</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>总的来说，C++中的stack是一个非常简单且高效的数据结构，适合处理“先进后出”类型的需求。  </p>
 <p><br><br></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+<h2 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h2><p>auto 是 C++11 引入的一个关键字，主要用于自动推导变量的类型。它使得编程变得更加简洁，减少了显式指定类型的需求，特别是当类型复杂或不容易记住时。  </p>
+<p><strong>使用场景：</strong></p>
+<ol>
+<li>变量声明：在声明变量时，可以使用 auto 来代替显式的类型声明，编译器会根据右边的表达式自动推导出变量的类型。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> x = <span class="number">10</span>;  <span class="comment">// x的类型是int</span></span><br><span class="line"><span class="keyword">auto</span> y = <span class="number">3.14</span>;  <span class="comment">// y的类型是double</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>容器迭代器：在使用 STL 容器（如 vector）时，容器的迭代器类型通常比较复杂。使用 auto 可以让代码更加简洁和易读。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; vec = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = vec.<span class="built_in">begin</span>(); it != vec.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>函数返回类型：如果函数返回一个复杂的类型或是模板类型，使用 auto 可以减少繁琐的类型声明。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;  <span class="comment">// 返回值类型为int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>范围 for 循环：在范围 for 循环中，auto 用来推导容器中元素的类型。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; nums = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> num : nums) &#123;</span><br><span class="line">    cout &lt;&lt; num &lt;&lt; endl;  <span class="comment">// num 的类型是int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmecvoxlv0003zk963p2hhico" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmecyxg2m0004o096631u6pcf" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -147,6 +166,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          算法笔记(C++) ——哈希表
+        
+      </div>
+    </a>
   
   
     <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" id="article-nav-older" class="article-nav-link-wrap">
@@ -187,6 +215,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/">算法笔记(C++) ——哈希表</a>
+          </li>
         
           <li>
             <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/">算法笔记(C++) ——栈</a>
