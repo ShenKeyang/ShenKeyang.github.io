@@ -14,7 +14,7 @@
 <meta property="og:description" content="常用的string成员函数1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556&#x2F;&#x2F;构造函数string s1;                &#x2F;&#x2F; 默认构造，创建一个空字符串string s2(&quot;Hello, C++!&quot;);">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-15T08:51:38.000Z">
-<meta property="article:modified_time" content="2025-08-15T09:20:37.290Z">
+<meta property="article:modified_time" content="2025-08-15T10:14:02.615Z">
 <meta property="article:author" content="ShenKeyang">
 <meta property="article:tag" content="sky">
 <meta property="article:tag" content="ShenKeyang">
@@ -108,11 +108,13 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 检查字符串是否是回文示例（非函数形式）</span></span><br><span class="line"><span class="type">bool</span> is_palindrome = <span class="literal">true</span>; <span class="comment">//先假定其是回文串</span></span><br><span class="line">        </span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; c.<span class="built_in">length</span>() / <span class="number">2</span>; j++) &#123;</span><br><span class="line">    <span class="comment">// 对称位置字符不相等，不是回文</span></span><br><span class="line">    <span class="keyword">if</span> (c[j] != c[c.<span class="built_in">length</span>() - <span class="number">1</span> - j]) &#123;</span><br><span class="line">        is_palindrome = <span class="literal">false</span>; </span><br><span class="line">        <span class="keyword">break</span>;  <span class="comment">//不执行则is_palindrome 仍为 true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 检查字符串是否是回文示例（函数形式）</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="type">const</span> string&amp; str)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> left = <span class="number">0</span>, right = str.<span class="built_in">length</span>() - <span class="number">1</span>; <span class="comment">//双指针</span></span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">if</span> (str[left] != str[right]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 如果不相等，返回 false</span></span><br><span class="line">        &#125;</span><br><span class="line">        left++;</span><br><span class="line">        right--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">// 全部字符都匹配，返回 true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>  <br><br>  </p>
+<h2 id="for循环的另一种用法"><a href="#for循环的另一种用法" class="headerlink" title="for循环的另一种用法"></a>for循环的另一种用法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">char</span> ch : s) </span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个基于范围的 for 循环（C++11 及以上支持），用于遍历字符串s中的每个字符，<code>char ch</code>表示每次循环中获取的字符串元素（单个字符）<br>  <br><br>  </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmecmbrsh0002dw969hln07pi" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmecvoxlv0002zk964xz7du8h" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -121,6 +123,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          算法笔记(C++) ——栈
+        
+      </div>
+    </a>
   
   
     <a href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" id="article-nav-older" class="article-nav-link-wrap">
@@ -161,6 +172,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/">算法笔记(C++) ——栈</a>
+          </li>
         
           <li>
             <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/">算法笔记(C++) ——字符串</a>

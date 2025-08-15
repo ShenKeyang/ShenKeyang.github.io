@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>算法笔记(C++) ——栈 | YOLO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="栈的特性：LIFO（后进先出）原则：栈中的元素是从栈顶添加和移除的，栈顶的元素是最先被访问的。只能在一端操作：栈的操作只能在栈顶进行。    栈的应用：函数调用管理：在程序运行过程中，函数调用的顺序和返回都由栈来管理。每次函数调用时，程序会把当前函数的信息压入栈中，函数执行完成后会从栈中弹出，返回到调用函数的位置。表达式求值：栈常用于数学表达式的求值，尤其是处理括号匹配和运算符优先级时。浏览器的历">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记(C++) ——栈">
+<meta property="og:url" content="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/index.html">
+<meta property="og:site_name" content="YOLO">
+<meta property="og:description" content="栈的特性：LIFO（后进先出）原则：栈中的元素是从栈顶添加和移除的，栈顶的元素是最先被访问的。只能在一端操作：栈的操作只能在栈顶进行。    栈的应用：函数调用管理：在程序运行过程中，函数调用的顺序和返回都由栈来管理。每次函数调用时，程序会把当前函数的信息压入栈中，函数执行完成后会从栈中弹出，返回到调用函数的位置。表达式求值：栈常用于数学表达式的求值，尤其是处理括号匹配和运算符优先级时。浏览器的历">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-15T09:36:38.000Z">
+<meta property="article:modified_time" content="2025-08-15T10:16:36.624Z">
+<meta property="article:author" content="ShenKeyang">
+<meta property="article:tag" content="sky">
+<meta property="article:tag" content="ShenKeyang">
+<meta property="article:tag" content="YOLO">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="YOLO" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">YOLO</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">You Only Live Once</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://shenkeyang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-算法笔记-C-——栈" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" class="article-date">
+  <time class="dt-published" datetime="2025-08-15T09:36:38.000Z" itemprop="datePublished">2025-08-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      算法笔记(C++) ——栈
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="栈的特性："><a href="#栈的特性：" class="headerlink" title="栈的特性："></a>栈的特性：</h2><p><code>LIFO（后进先出）原则</code>：栈中的元素是从栈顶添加和移除的，栈顶的元素是最先被访问的。<br><code>只能在一端操作</code>：栈的操作只能在栈顶进行。  </p>
+<p><br><br></p>
+<h2 id="栈的应用："><a href="#栈的应用：" class="headerlink" title="栈的应用："></a>栈的应用：</h2><p><code>函数调用管理</code>：在程序运行过程中，函数调用的顺序和返回都由栈来管理。每次函数调用时，程序会把当前函数的信息压入栈中，函数执行完成后会从栈中弹出，返回到调用函数的位置。<br><code>表达式求值</code>：栈常用于数学表达式的求值，尤其是处理括号匹配和运算符优先级时。<br><code>浏览器的历史记录</code>：浏览器在你浏览网页时会将每个页面的链接压入栈中，这样你按回退按钮时就可以弹出最近访问的页面。  </p>
+<p><br><br></p>
+<h2 id="栈的实现："><a href="#栈的实现：" class="headerlink" title="栈的实现："></a>栈的实现：</h2><p>栈可以通过数组或链表来实现。常见的实现方式有：<br><code>数组实现</code>：使用数组来存储栈的元素，栈顶指针记录栈顶元素的位置。<br><code>链表实现</code>：通过链表的头结点来表示栈顶，头结点指向栈顶元素。<br>栈的操作时间复杂度通常是<code>O(1)</code>，即每次操作的时间是常数级别的，因为它只涉及栈顶元素.  </p>
+<p><br><br></p>
+<h2 id="栈的C-实现和操作"><a href="#栈的C-实现和操作" class="headerlink" title="栈的C++实现和操作"></a>栈的C++实现和操作</h2><p><strong>C++自带的<code>stack</code>容器：</strong><br>C++中的<code>stack</code>是一个标准库容器，用来实现栈（Stack）数据结构。栈是一种后进先出（LIFO，Last In, First Out）的数据结构，意味着最后加入的元素会最先被移除。C++的stack容器是基于其他容器（例如deque或vector）实现的，但提供了一个简化的接口，专注于栈的基本操作。</p>
+<p><strong>stack的主要操作:</strong>  </p>
+<ol>
+<li><code>push()</code>： 向栈顶添加一个元素。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line">s.<span class="built_in">push</span>(<span class="number">10</span>);  <span class="comment">// 栈顶添加元素10</span></span><br><span class="line">s.<span class="built_in">push</span>(<span class="number">20</span>);  <span class="comment">// 栈顶添加元素20</span></span><br><span class="line">s.<span class="built_in">push</span>(<span class="number">30</span>);  <span class="comment">// 栈顶添加元素30</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><code>pop()</code>： 移除栈顶的元素，但并不返回该元素。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.<span class="built_in">pop</span>();  <span class="comment">// 移除栈顶元素30</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><code>top()</code>： 返回栈顶的元素，但不移除它。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; s.<span class="built_in">top</span>();  <span class="comment">// 输出栈顶元素20</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><code>empty()</code>： 检查栈是否为空。如果栈为空，返回true，否则返回false。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (s.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;栈是空的&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;栈不为空&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li><code>size()</code>： 返回栈中元素的数量。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; <span class="string">&quot;栈的大小：&quot;</span> &lt;&lt; s.<span class="built_in">size</span>() &lt;&lt; endl;  <span class="comment">// 输出栈中的元素数量</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例代码（合法括号判断）：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    cin &gt;&gt; s;  <span class="comment">// 输入括号字符串</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; stk;  <span class="comment">// 创建一个栈</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">char</span> ch : s) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ch == <span class="string">&#x27;(&#x27;</span>) &#123;</span><br><span class="line">            stk.<span class="built_in">push</span>(ch);  <span class="comment">// 遇到左括号，压入栈中</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (stk.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;  <span class="comment">// 栈为空，说明没有匹配的左括号</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            stk.<span class="built_in">pop</span>();  <span class="comment">// 弹出栈顶元素，匹配对应的左括号</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果栈为空，说明所有左括号都有匹配</span></span><br><span class="line">    cout &lt;&lt; (stk.<span class="built_in">empty</span>() ? <span class="string">&quot;Yes&quot;</span> : <span class="string">&quot;No&quot;</span>) &lt;&lt; endl;  <span class="comment">// 输出结果</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总的来说，C++中的stack是一个非常简单且高效的数据结构，适合处理“先进后出”类型的需求。  </p>
+<p><br><br></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmecvoxlv0003zk963p2hhico" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">算法笔记(C++) ——字符串</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/">算法笔记(C++) ——栈</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/">算法笔记(C++) ——字符串</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/">算法笔记(C++) ——IO</a>
+          </li>
+        
+          <li>
+            <a href="/2025/06/27/I-m-back/">I&#39;m back!</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 ShenKeyang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
