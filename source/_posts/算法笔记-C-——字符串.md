@@ -101,3 +101,23 @@ bool isPalindrome(const string& str) {
 ```
   
   <br><br>  
+
+
+
+
+
+
+## for循环的另一种用法
+```c++
+for (char ch : s) 
+{
+    ...
+}
+```
+这是一个基于范围的 for 循环（C++11 及以上支持），用于遍历字符串s中的每个字符，`char ch`表示每次循环中获取的字符串元素（单个字符）  
+  <br><br>  
+
+
+
+
+

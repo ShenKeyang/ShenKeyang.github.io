@@ -37,7 +37,7 @@ tags:
 
 
 ## C++的命名空间
-在C++中，`using namespace std;`是一个用于简化代码的语句，它的作用是告诉编译器你希望使用标准库中的名称而不需要加上 `std::`前缀。  
+在C++中，`using namespace std;`是一个用于简化代码的语句，它的作用是告诉编译器你希望使用标准库中的名称而不需要加上 ``前缀。  
 
 <br><br>
 
@@ -47,7 +47,7 @@ tags:
 
 
 ## 输入输出格式化
-C++ 提供了多种方式来控制输入输出的格式，常用的包括 `std::setw`、`std::setprecision`、`std::fixed`等。
+C++ 提供了多种方式来控制输入输出的格式，常用的包括 `setw`、`setprecision`、`fixed`等。
 ```c++
 #include <iostream>
 #include <iomanip>  // 提供格式化工具
@@ -55,16 +55,16 @@ C++ 提供了多种方式来控制输入输出的格式，常用的包括 `std::
 int main() {
     double pi = 3.14159265358979;
     
-    std::cout << "原始值: " << pi << std::endl;
+    cout << "原始值: " << pi << endl;
 
     // 设置输出精度为 2 位小数
-    std::cout << "保留两位小数: " << std::fixed << std::setprecision(2) << pi << std::endl;
+    cout << "保留两位小数: " << fixed << setprecision(2) << pi << endl;
     return 0;
 }
 ```
-`std::setw(width)`用于设置输出的宽度。  
-`std::setprecision(n)`设置浮点数的精度。  
-`std::fixed`控制浮点数按照固定格式输出。   
+`setw(width)`用于设置输出的宽度。  
+`setprecision(n)`设置浮点数的精度。  
+`fixed`控制浮点数按照固定格式输出。   
 
 <br><br>  
 
@@ -112,7 +112,7 @@ int main() {
 
 ## stringstream
 1.创建和初始化
-可以通过以下几种方式创建`std::stringstream`对象：
+可以通过以下几种方式创建`stringstream`对象：
 
 - 默认构造：创建一个空的 stringstream 对象。  
 - 使用字符串初始化：通过构造函数将一个字符串传给 stringstream。
@@ -121,10 +121,10 @@ int main() {
 #include <sstream>
 int main() {
     // 默认构造
-    std::stringstream ss1;
+    stringstream ss1;
     
     // 使用字符串初始化
-    std::stringstream ss2("123 456");
+    stringstream ss2("123 456");
     
     return 0;
 }
@@ -137,7 +137,7 @@ int main() {
 #include <sstream>
 
 int main() {
-    std::stringstream ss;
+    stringstream ss;
     
     int x = 10;
     double y = 3.14;
@@ -145,7 +145,7 @@ int main() {
     // 向stringstream中写入数据
     ss << "Integer: " << x << ", Double: " << y;
     
-    std::cout << ss.str() << std::endl;  // 输出字符串
+    cout << ss.str() << endl;  // 输出字符串
     return 0;
 }
 ```
@@ -158,7 +158,7 @@ int main() {
 #include <sstream>
 
 int main() {
-    std::stringstream ss("100 200 3.14");
+    stringstream ss("100 200 3.14");
 
     int a, b;
     double c;
@@ -166,7 +166,7 @@ int main() {
     // 从stringstream中读取数据
     ss >> a >> b >> c;
     
-    std::cout << "a: " << a << ", b: " << b << ", c: " << c << std::endl;
+    cout << "a: " << a << ", b: " << b << ", c: " << c << endl;
     return 0;
 }
 ```
@@ -179,13 +179,13 @@ int main() {
 #include <sstream>
 
 int main() {
-    std::stringstream ss;
+    stringstream ss;
     ss << "Hello, world!";
     
-    std::cout << ss.str() << std::endl;  // 输出 "Hello, world!"
+    cout << ss.str() << endl;  // 输出 "Hello, world!"
     
     ss.str("");  // 清空内容
-    std::cout << ss.str() << std::endl;  // 输出空字符串
+    cout << ss.str() << endl;  // 输出空字符串
     
     return 0;
 }
@@ -286,7 +286,28 @@ int main()
     return 0;
 }
 ```
-若上述实现全部使用传统的静态数组，则无法使用变量作为开辟数组的大小，需要定义静态的、超额大小的数组，如：`int arr[1000][1000] = {0}`，或先在函数外宏定义`#define SIZE 1000`再定义静态数组`int arr[SIZE][SIZE] = {0}`。
+若上述实现全部使用传统的静态数组，则无法使用变量作为开辟数组的大小，需要定义静态的、超额大小的数组，如：`int arr[1010][1010] = {0}`，或先在函数外定义`const int SIZE = 1010;`再定义静态数组`int arr[SIZE][SIZE] = {0}`。
+
+__也可以不设置开辟大小参数，就要用到`.push_back()`（入栈_尾部）成员函数，与之相对应的还有`.push_front()`（入栈_头部）成员函数：__
+
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+      
+int main()
+{
+    vector<int> arr; //不设开辟大小参数
+    int num;
+    while(cin >> num){
+        arr.push_back(num); 
+        //.push_back() 是 C++ 标准库中序列容器（如 vector、list、deque、string等）的成员函数。它的作用是在容器的末尾添加一个新元素。
+        if (cin.get() == '\n') break;  //如果是通过换行符结束输入，可以用此判断
+    }
+    ...
+    return 0;
+}
+```
   
 <br><br>
 
