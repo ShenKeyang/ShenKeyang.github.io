@@ -4,9 +4,9 @@
 
 # Site
 title: YOLO
-subtitle: 'You Only Live Once'
+subtitle: 'You Only Live Once.'
 description: 'YOLO的个人博客'
-keywords: [sky, ShenKeyang, YOLO]
+keywords: [sky, shenkeyang, YOLO]
 author: ShenKeyang
 language: zh-CN
 timezone: 'Asia/Shanghai' # Set your timezone, e.g., 'Asia/Shanghai', 'America/New_York'
