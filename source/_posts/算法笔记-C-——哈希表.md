@@ -143,3 +143,121 @@ __如何计算时间复杂度：__
 
 
 
+## STL容器的嵌套使用
+STL（Standard Template Library）容器的嵌套是指在一个容器中存储另一个容器作为其元素。例如，可以用`vector<vector>`表示一个二维数组，或用`map<int, vector>`表示一种键值对的映射。通过容器的嵌套，可以灵活地表示复杂的数据结构，如树、图、矩阵等。  
+示例：
+```c++
+//题目描述：给定一个长度为 n 的数组 a 和 q 个询问。每个询问包含一个数 x 和一个整数 k 。对于每个询问，求数 x 在数组中第 k 次出现的位置（位置从 1 开始）。如果 x 在数组中出现次数不足 k 次，则输出 −1。
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n,q;
+    cin >> n >> q;
+    vector<int> arr(n);
+    vector<int> res(q);
+    unordered_map<int,vector<int>> pos; 
+    //嵌套定义：键为整数，键值为一维数组的哈希表
+
+    for(int i =0;i<n;i++)
+    {
+        cin >> arr[i];
+        pos[arr[i]].push_back(i+1); //向键为arr[i]的对应键值（数组）压入元素 i+1
+    }
+    
+    for(int i =0;i<q;i++)
+    {
+        int x,k;
+        cin >> x >> k;
+        if (pos[x].size() < k) {
+            res[i]=-1;
+        } else {
+            res[i]=pos[x][k - 1];//pos[x]是键为x所对应的键值（数组），相当于arr[k-1]
+        }
+    }
+
+    for(int i =0 ; i<q ; i++)
+    {
+        cout << res[i] <<endl;
+    }
+
+    return 0;
+}
+```
+
+<br>
+
+
+
+
+
+
+## 哈希表例题 ——严格递增三元组
+__题目描述：__  
+给定一个大小为n的数组，找出所有的严格递增三元组(0 ≤ i < j < k < n) , 使得 a[i] = a[k] = a[j]+1 , 输出其数量`（有算法运行时间限制TL）`。
+
+__输入描述：__  
+第一行输入一个正整数 n（3 ≤ n ≤ 10^5）。  
+第二行输入数组元素（1 ≤ a[i] ≤ 10^9）。  
+
+__输出描述：__  
+一个正整数，代表符合条件的三元组数量。  
+
+__题目分析：__  
+我们需要找出所有符合条件的严格递增三元组 (i, j, k)，使得：  
+`1 <= i < j < k <= n`  
+`a[i] = a[k] = a[j] + 1`  
+换句话说，给定一个数 a[j] ，我们希望找到两个 i 和 k，使得 a[i] = a[k] = a[j] + 1 且 i < j < k。这可以形象地看作寻找形如 (x+1 , x , x+1) 的三元组。将求和过程先聚焦于中间的这个 x ，那么最终的答案等价于：
+1. 对于位置 i 的数 a[i] , 寻找它前缀中 a[i]+1 的个数和后缀中 a[i]+1 的个数 , 根据乘法原理，答案是个数相乘
+2. 对每个位置的个数进行求和。  
+
+
+__示例代码：__
+```c++
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    int res = 0;
+
+    // 使用哈希表存储频率
+    unordered_map<int, int> countLeft;
+    unordered_map<int, int> countRight;
+
+    // 读取数组
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+
+    // 初始化 countRight
+    for (int i = 0; i < n; i++) {
+        countRight[a[i]]++;
+    }
+
+    // 遍历每个元素，计算符合条件的三元组数量
+    for (int i = 0; i < n; i++) {
+        int t = a[i] + 1;  // 计算 t = a[j] + 1
+        res += countLeft[t] * countRight[t];
+
+        // 更新 countLeft 和 countRight
+        countLeft[a[i]]++;
+        countRight[a[i]]--;
+    }
+
+    // 输出结果
+    cout << res << endl;
+
+    return 0;
+}
+
+
+```
