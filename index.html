@@ -135,11 +135,26 @@
 </ul>
 <p><strong>注解：</strong><br>在上述向量 arr 共有 5 个元素，索引分别为0，1，2，3，4，<code>arr.begin()</code>指代的是 0 号索引，<code>arr.end()</code>指代的是5号索引（不存在，其对应元素值记为 0 ），p所指代的是某个元素的位置，通过加减符可以转化为整数索引用于输出，而可以用<code>*p</code>指代p所指的元素，例如在upper_bound示例中，<code>*p</code>即为 5 。  </p>
 <p><br><br></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+<h2 id="ios-sync-with-stdio-false-cin-tie-0"><a href="#ios-sync-with-stdio-false-cin-tie-0" class="headerlink" title="ios::sync_with_stdio(false); &amp; cin.tie(0);"></a><code>ios::sync_with_stdio(false);</code> &amp; <code>cin.tie(0);</code></h2><ol>
+<li><code>ios::sync_with_stdio(false);</code><br>C++ 标准库的输入输出（cin&#x2F;cout）默认会与 C 语言的输入输出（scanf&#x2F;printf）同步，目的是保证混用两种 I&#x2F;O 方式时的安全性（避免输出顺序混乱）。<br>但这种同步会带来性能开销，导致cin&#x2F;cout的速度变慢。<br>这行代码的作用是关闭同步，使cin&#x2F;cout不再与 C 语言的 I&#x2F;O 绑定，从而提高效率。</li>
+<li><code>cin.tie(0);</code><br>tie()是一个函数，用于关联输入流（cin）和输出流（cout）。默认情况下，cin会与cout绑定，即每次执行cin前会自动刷新cout的缓冲区（确保输出内容先显示）。<br>这行代码的作用是解除cin与cout的绑定（参数0表示不关联任何流），减少不必要的缓冲区刷新操作，进一步提升输入效率。</li>
+</ol>
+<ul>
+<li>注意：  <ul>
+<li>关闭同步后，不能混用cin&#x2F;cout与scanf&#x2F;printf，否则可能导致输出顺序错误。</li>
+<li>这两行代码通常成对出现，且需放在所有 I&#x2F;O 操作之前（如main函数开头），才能发挥优化效果。</li>
+<li>对于需要大量输入输出的场景（如算法竞赛），这两行代码能显著提升程序运行速度。</li>
+</ul>
+</li>
+<li>示例代码：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*题目描述：</span></span><br><span class="line"><span class="comment">给定一个升序排列的数组 arr，长度为 n，以及 Q 次询问。每次询问</span></span><br><span class="line"><span class="comment">都会给出一个目标值 target。对于每个目标值，请找出数组中比目标</span></span><br><span class="line"><span class="comment">值小的最大值 max_val 和比目标值大的最小值 min_val。</span></span><br><span class="line"><span class="comment">具体而言，要求对于每个询问：</span></span><br><span class="line"><span class="comment">从arr 所有小于 target 的元素中找到最大值 max_val。</span></span><br><span class="line"><span class="comment">从arr 所有大于 target 的元素中找到最小值 min_val。</span></span><br><span class="line"><span class="comment">如果不存在比 target 小的值，则 max_val 输出为 -1；</span></span><br><span class="line"><span class="comment">如果不存在比 target 大的值，则 min_val 输出为 -1。*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);  <span class="comment">//&lt;--</span></span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="number">0</span>);  <span class="comment">//&lt;--</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n,q;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; q;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">arr</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;n ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(q--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> num;</span><br><span class="line">        cin &gt;&gt; num;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> pos_max = <span class="built_in">lower_bound</span>(arr.<span class="built_in">begin</span>(), arr.<span class="built_in">end</span>(), num) - arr.<span class="built_in">begin</span>() <span class="number">-1</span>;</span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> max_val = (pos_max &gt;=<span class="number">0</span>) ? arr[pos_max] : <span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> pos_min = <span class="built_in">upper_bound</span>(arr.<span class="built_in">begin</span>(), arr.<span class="built_in">end</span>(), num) - arr.<span class="built_in">begin</span>();</span><br><span class="line">        <span class="type">long</span> <span class="type">long</span> min_val = (pos_min &lt; n) ? arr[pos_min] : <span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        cout &lt;&lt; max_val &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; min_val &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmeoakxlw0001ho969pz3977k" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmeodiprf0001qo9679dgdjun" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -257,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmeoakxly0002ho96h1fsfk2f" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmeodiprh0003qo96180g1kxs" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -346,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmeoakxm30005ho96f4xs5n8d" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmeodipri0005qo96hv7i1b1u" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -392,7 +407,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmeoakxlz0004ho9633av0d81" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmeodiprh0004qo96bbkoeuac" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -491,7 +506,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmeoakxlz0003ho96hsnf1xz0" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmeodiprg0002qo9683wi8z7p" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -557,7 +572,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmeoakxlt0000ho961g2v40j4" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmeodiprb0000qo96gim473qv" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
