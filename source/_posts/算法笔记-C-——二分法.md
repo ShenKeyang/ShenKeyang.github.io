@@ -139,7 +139,7 @@ __注解：__
 
 
 
-## `ios::sync_with_stdio(false);` & `cin.tie(0);`
+## ios::sync_with_stdio(false); & cin.tie(0);
 1. `ios::sync_with_stdio(false);`
 C++ 标准库的输入输出（cin/cout）默认会与 C 语言的输入输出（scanf/printf）同步，目的是保证混用两种 I/O 方式时的安全性（避免输出顺序混乱）。
 但这种同步会带来性能开销，导致cin/cout的速度变慢。
