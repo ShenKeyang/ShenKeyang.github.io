@@ -104,3 +104,7 @@ deploy:
   type: git
   repo: git@github.com:ShenKeyang/ShenKeyang.github.io.git
   branch: main
+
+
+favicon:
+  medium: /images/favicon-32x32.png
