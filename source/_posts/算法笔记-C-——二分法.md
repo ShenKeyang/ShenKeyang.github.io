@@ -139,4 +139,66 @@ __注解：__
 
 
 
-## 
+## `ios::sync_with_stdio(false);` & `cin.tie(0);`
+1. `ios::sync_with_stdio(false);`
+C++ 标准库的输入输出（cin/cout）默认会与 C 语言的输入输出（scanf/printf）同步，目的是保证混用两种 I/O 方式时的安全性（避免输出顺序混乱）。
+但这种同步会带来性能开销，导致cin/cout的速度变慢。
+这行代码的作用是关闭同步，使cin/cout不再与 C 语言的 I/O 绑定，从而提高效率。
+2. `cin.tie(0);`
+tie()是一个函数，用于关联输入流（cin）和输出流（cout）。默认情况下，cin会与cout绑定，即每次执行cin前会自动刷新cout的缓冲区（确保输出内容先显示）。
+这行代码的作用是解除cin与cout的绑定（参数0表示不关联任何流），减少不必要的缓冲区刷新操作，进一步提升输入效率。  
+- 注意：  
+    - 关闭同步后，不能混用cin/cout与scanf/printf，否则可能导致输出顺序错误。
+    - 这两行代码通常成对出现，且需放在所有 I/O 操作之前（如main函数开头），才能发挥优化效果。
+    - 对于需要大量输入输出的场景（如算法竞赛），这两行代码能显著提升程序运行速度。  
+- 示例代码：
+```c++
+/*题目描述：
+给定一个升序排列的数组 arr，长度为 n，以及 Q 次询问。每次询问
+都会给出一个目标值 target。对于每个目标值，请找出数组中比目标
+值小的最大值 max_val 和比目标值大的最小值 min_val。
+具体而言，要求对于每个询问：
+从arr 所有小于 target 的元素中找到最大值 max_val。
+从arr 所有大于 target 的元素中找到最小值 min_val。
+如果不存在比 target 小的值，则 max_val 输出为 -1；
+如果不存在比 target 大的值，则 min_val 输出为 -1。*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    ios::sync_with_stdio(false);  //<--
+    cin.tie(0);  //<--
+
+    int n,q;
+    cin >> n >> q;
+    vector<int> arr(n);
+    for(int i = 0;i<n ; i++)
+    {
+        cin >> arr[i];
+    }
+
+    while(q--)
+    {
+        int num;
+        cin >> num;
+
+        int pos_max = lower_bound(arr.begin(), arr.end(), num) - arr.begin() -1;
+        long long max_val = (pos_max >=0) ? arr[pos_max] : -1;
+        
+        int pos_min = upper_bound(arr.begin(), arr.end(), num) - arr.begin();
+        long long min_val = (pos_min < n) ? arr[pos_min] : -1;
+        
+        cout << max_val << " " << min_val << endl;
+    }
+    return 0;
+}
+```
+  
+<br><br>
+
+
+
+
+
