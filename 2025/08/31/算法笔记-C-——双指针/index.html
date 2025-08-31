@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>算法笔记(C++) ——双指针 | YOLO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="双指针算法概述:双指针算法（双指针技术）是一种在处理线性数据结构（如数组、链表）时常用的算法策略。它通过同时使用两个指针，以不同的方式遍历数据结构，从而优化时间复杂度或简化问题的解决过程。双指针算法广泛应用于各种经典问题，如数组排序、链表操作、字符串处理等。    双指针的常见类型   快慢指针（快指针与慢指针）:    用途：常用于检测链表中的环、找到链表的中间节点等。 原理：设定两个指针，快指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记(C++) ——双指针">
+<meta property="og:url" content="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/index.html">
+<meta property="og:site_name" content="YOLO">
+<meta property="og:description" content="双指针算法概述:双指针算法（双指针技术）是一种在处理线性数据结构（如数组、链表）时常用的算法策略。它通过同时使用两个指针，以不同的方式遍历数据结构，从而优化时间复杂度或简化问题的解决过程。双指针算法广泛应用于各种经典问题，如数组排序、链表操作、字符串处理等。    双指针的常见类型   快慢指针（快指针与慢指针）:    用途：常用于检测链表中的环、找到链表的中间节点等。 原理：设定两个指针，快指">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-31T13:37:05.000Z">
+<meta property="article:modified_time" content="2025-08-31T15:29:05.434Z">
+<meta property="article:author" content="ShenKeyang">
+<meta property="article:tag" content="sky">
+<meta property="article:tag" content="shenkeyang">
+<meta property="article:tag" content="YOLO">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="YOLO" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">YOLO</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">You Only Live Once.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://shenkeyang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-算法笔记-C-——双指针" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" class="article-date">
+  <time class="dt-published" datetime="2025-08-31T13:37:05.000Z" itemprop="datePublished">2025-08-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      算法笔记(C++) ——双指针
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="双指针算法概述"><a href="#双指针算法概述" class="headerlink" title="双指针算法概述:"></a>双指针算法概述:</h2><p>双指针算法（双指针技术）是一种在处理线性数据结构（如数组、链表）时常用的算法策略。它通过同时使用两个指针，以不同的方式遍历数据结构，从而优化时间复杂度或简化问题的解决过程。双指针算法广泛应用于各种经典问题，如数组排序、链表操作、字符串处理等。  </p>
+<ul>
+<li>双指针的常见类型</li>
+</ul>
+<ol>
+<li><p>快慢指针（快指针与慢指针）:  </p>
+<ul>
+<li>用途：常用于检测链表中的环、找到链表的中间节点等。</li>
+<li>原理：设定两个指针，快指针一次移动两步，慢指针一次移动一步。如果链表中存在环，快指针最终会与慢指针相遇；如果不存在环，快指针会先到达链表末尾。</li>
+</ul>
+</li>
+<li><p>左右指针（双端指针）:  </p>
+<ul>
+<li>用途：常用于处理有序数组中的问题，如两数之和、三数之和、四数之和等。</li>
+<li>原理：设定一个指针指向数组的起始位置，另一个指针指向数组的末尾，根据当前指针对应的值与目标值的关系来移动指针，以缩小搜索范围。</li>
+</ul>
+</li>
+<li><p>滑动窗口:  </p>
+<ul>
+<li>用途：用于解决字符串或数组中满足特定条件的子串或子数组问题，如最长不重复子串、最小覆盖子串等。</li>
+<li>原理：通过维护一个“窗口”区间（左右边界通常由两个指针left和right表示），动态调整窗口的范围来高效地解决问题。窗口扩展：通常通过固定左指针left、右移（枚举）右指针right来扩大窗口，纳入新的元素；窗口收缩：当窗口内不满足条件时，通过固定右指针right、右移左指针left来缩小窗口，排除不需要的元素；动态调整：根据题目要求，动态调整窗口的大小和位置，直到找到满足条件的解。</li>
+</ul>
+</li>
+</ol>
+<p><br><br></p>
+<h2 id="例题：互相嘲笑的两个人"><a href="#例题：互相嘲笑的两个人" class="headerlink" title="例题：互相嘲笑的两个人"></a>例题：互相嘲笑的两个人</h2><ul>
+<li><p>题目描述：<br>小红和小堡正在玩一个游戏，每一关都有一个分数。如果某人某一关分数比上一关高，但另一个人这一关分数比上一关低，那么他就可以嘲笑对方。如果两个人这一关游戏的分数都比上一关多，则增量更多的可以嘲笑对方;如果两个人这一关游戏的分数都比上一关少，则减量更少的可以嘲笑对方。只有当他们的增量相同或者减量相同时，才不会互相嘲笑。<br>例如，假设小红第一关的分数为2，第二关的分数为8;小堡第一关的分数为5，第二关的分数为10，显然小红增加的比小堡多，那么小红就可以嘲笑小堡。<br>现在给定了小红和小堡每一关的分数，你可以选择一段连续的关卡，使得一段关卡中两个人都不会互相嘲笑，问最多可以选择多少个关卡。特别的一段连续关卡中的第一关两人不会互相嘲笑。</p>
+</li>
+<li><p>输入：</p>
+<ul>
+<li>第一行输入一个正整数n,代表关卡数。</li>
+<li>第二行输入n个整数a_i,代表小红每一关的分数。</li>
+<li>第三行输入n个整数b_i,代表小堡每一关的分数。</li>
+</ul>
+</li>
+<li><p>输出：  </p>
+<ul>
+<li>输出可以选择最多的关卡数。</li>
+</ul>
+</li>
+<li><p>题解代码：</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span>,<span class="title">b</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 计算差分数组</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">diff_a</span><span class="params">(n - <span class="number">1</span>)</span>, <span class="title">diff_b</span><span class="params">(n - <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">        diff_a[i] = a[i + <span class="number">1</span>] - a[i];</span><br><span class="line">        diff_b[i] = b[i + <span class="number">1</span>] - b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>,res=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> m = diff_a.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(l&lt;m)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (r &lt; m &amp;&amp; diff_a[r] == diff_b[r]) &#123;</span><br><span class="line">            r++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 计算该区间的长度</span></span><br><span class="line">        res = <span class="built_in">max</span>(res, r - l + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 左指针移动到右指针的位置，开始新的检查</span></span><br><span class="line">        l = r + <span class="number">1</span>;</span><br><span class="line">        r = l;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; res &lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmezujson0003yo96fhui4lxo" data-title="算法笔记(C++) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">算法笔记(C++) ——递归</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/">算法笔记(C++) ——双指针</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/">算法笔记(C++) ——递归</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/">算法笔记(C++) ——二分法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/">算法笔记(C++) ——哈希表</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/">算法笔记(C++) ——栈</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 ShenKeyang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -14,7 +14,7 @@
 <meta property="og:description" content="查询是否存在某个数二分算法是一种高效的查找算法，适用于已经排好序的数组或集合。其基本思想是通过每次将待查找的区间分成两半来逐步缩小查找范围，从而快速定位目标元素。与线性查找不同，二分查找能够大大减少查找次数，时间复杂度为O(log n)，其中n为数组的长度，效率远高于线性查找（O(n)）。查找过程：     设定一个查找范围的左右边界（双指针），通常用两个变量表示，low 和 high。 计算当前">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-23T11:40:53.000Z">
-<meta property="article:modified_time" content="2025-08-23T14:49:24.999Z">
+<meta property="article:modified_time" content="2025-08-31T15:17:43.290Z">
 <meta property="article:author" content="ShenKeyang">
 <meta property="article:tag" content="sky">
 <meta property="article:tag" content="shenkeyang">
@@ -116,7 +116,9 @@
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*给定一个升序排列的整数数组 A 和一个整数 Q，表示接下来有 Q 次查询。</span></span><br><span class="line"><span class="comment">  对于每次查询，您需要判断给定的整数 x 是否存在于数组 A 中。*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二分查找函数</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">binarySearch</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; A, <span class="type">int</span> x)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> left = <span class="number">0</span>, right = A.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right)  <span class="comment">//限定条件</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (A[mid] == x) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">// 找到元素</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (A[mid] &lt; x) &#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;  <span class="comment">// 查找右半部分</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            right = mid - <span class="number">1</span>; <span class="comment">// 查找左半部分</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 没有找到元素</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, Q;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; Q;</span><br><span class="line">    </span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">A</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) </span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; A[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对每个查询进行二分查找</span></span><br><span class="line">    <span class="keyword">while</span> (Q--)   <span class="comment">//共有 Q 次询问</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> x;</span><br><span class="line">        cin &gt;&gt; x;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 使用手写的二分查找函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">binarySearch</span>(A, x)) </span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; endl;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br><br></p>
-<h2 id="lower-bound函数与upper-bound函数"><a href="#lower-bound函数与upper-bound函数" class="headerlink" title="lower_bound函数与upper_bound函数"></a>lower_bound函数与upper_bound函数</h2><p>在C++中，<code>lower_bound</code>和<code>upper_bound</code>是两个常用的标准库函数，位于<code>&lt;algorithm&gt;</code>头文件中。这两个函数主要用于在已排序的范围内进行二分查找，帮助快速定位元素的位置。  </p>
+<h2 id="sort-函数"><a href="#sort-函数" class="headerlink" title="sort()函数"></a>sort()函数</h2><p><code>sort(arr.begin(),arr.end());</code><br>对数组进行从小到大排序。</p>
+<p><br><br></p>
+<h2 id="lower-bound函数与upper-bound函数"><a href="#lower-bound函数与upper-bound函数" class="headerlink" title="lower_bound函数与upper_bound函数"></a>lower_bound函数与upper_bound函数</h2><p>在C++中，<code>lower_bound</code>和<code>upper_bound</code>是两个常用的标准库函数，位于<code>&lt;algorithm&gt;</code>头文件中。这两个函数主要用于在<code>已排序好的</code>范围内进行二分查找，帮助快速定位元素的位置。  </p>
 <ol>
 <li><strong>lower_bound:</strong><br><code>lower_bound</code>函数返回一个指向第一个不小于（&gt;&#x3D;）给定值的元素的迭代器。如果所有元素都小于该值，则返回范围的结束迭代器（arr.end()）。<br>示例：</li>
 </ol>
@@ -125,6 +127,7 @@
 <li><strong>upper_bound:</strong><br><code>upper_bound</code>函数返回一个指向第一个大于（&gt;）给定值的元素的迭代器。如果所有元素都小于该值，则返回范围的结束迭代器（arr.end()）。<br>示例：</li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; arr = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>&#125;;</span><br><span class="line">    <span class="keyword">auto</span> p = <span class="built_in">upper_bound</span>(arr.<span class="built_in">begin</span>(), arr.<span class="built_in">end</span>(), <span class="number">3</span>);  <span class="comment">//用auto定义</span></span><br><span class="line">    <span class="keyword">if</span> (p != v.<span class="built_in">end</span>()) </span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;upper_bound of 3 is at position: &quot;</span> &lt;&lt; (p - arr.<span class="built_in">begin</span>()) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出：upper_bound of 3 is at position: 3</span></span><br></pre></td></tr></table></figure>
+<p>特别地：<br><code>count = upper_bound(arr.begin(),arr.end(),x)-lower_bound(arr.begin(),arr.end(),x);</code><br>即为x在数组arr中出现的次数。  </p>
 <ul>
 <li>为什么要使用<code>(p - arr.begin())</code>?<br>在上述示例中，p 是一个迭代器，指向容器中某个元素的位置。为了输出该元素在容器中的索引位置，需要将迭代器转换为整数索引。这时，使用 <code>(p - arr.begin())</code>进行迭代器的减法运算，其意义如下：<ol>
 <li>迭代器的减法：在C++中，随机访问迭代器（如 std::vector 的迭代器）支持直接的减法运算。<code>p - arr.begin()</code>计算的是 p 距离 arr.begin() 的距离，即 p 所指向元素的索引。</li>
@@ -154,7 +157,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmeodlpn30003us9608j6abxg" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmezujsom0002yo96979d4i1g" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -163,6 +166,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          算法笔记(C++) ——递归
+        
+      </div>
+    </a>
   
   
     <a href="/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
@@ -205,6 +217,14 @@
       <ul>
         
           <li>
+            <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/">算法笔记(C++) ——双指针</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/">算法笔记(C++) ——递归</a>
+          </li>
+        
+          <li>
             <a href="/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/">算法笔记(C++) ——二分法</a>
           </li>
         
@@ -214,14 +234,6 @@
         
           <li>
             <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/">算法笔记(C++) ——栈</a>
-          </li>
-        
-          <li>
-            <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/">算法笔记(C++) ——字符串</a>
-          </li>
-        
-          <li>
-            <a href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/">算法笔记(C++) ——IO</a>
           </li>
         
       </ul>

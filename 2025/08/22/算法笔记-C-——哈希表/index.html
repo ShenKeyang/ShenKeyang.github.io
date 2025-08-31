@@ -14,7 +14,7 @@
 <meta property="og:description" content="哈希表的概念哈希表是一种基于哈希函数（Hash Function）的数据结构，用于实现键值对的快速存储和查找。它的主要特点是：  快速查找：平均情况下，哈希表的查找、插入和删除操作的时间复杂度都是O(1)。  键值对存储：哈希表存储的是键值对，每个键（Key）唯一对应一个值（Value）。  哈希函数：通过哈希函数将键映射到哈希表中的位置，从而实现快速存取。   C++ 中的哈希表 ——unord">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-22T14:13:28.000Z">
-<meta property="article:modified_time" content="2025-08-23T13:19:11.195Z">
+<meta property="article:modified_time" content="2025-08-31T15:23:57.653Z">
 <meta property="article:author" content="ShenKeyang">
 <meta property="article:tag" content="sky">
 <meta property="article:tag" content="shenkeyang">
@@ -182,11 +182,32 @@
 <p><strong>示例代码：</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用哈希表存储频率</span></span><br><span class="line">    unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; countLeft;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; countRight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取数组</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化 countRight</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        countRight[a[i]]++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历每个元素，计算符合条件的三元组数量</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> t = a[i] + <span class="number">1</span>;  <span class="comment">// 计算 t = a[j] + 1</span></span><br><span class="line">        res += countLeft[t] * countRight[t];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新 countLeft 和 countRight</span></span><br><span class="line">        countLeft[a[i]]++;</span><br><span class="line">        countRight[a[i]]--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br><br></p>
+<h2 id="哈希集合"><a href="#哈希集合" class="headerlink" title="哈希集合"></a>哈希集合</h2><p>哈希表（Hash Table）和哈希集合（Hash Set）都是基于哈希表数据结构实现的，但它们在存储内容和用途上有明显区别：  </p>
+<ul>
+<li>核心区别：<ul>
+<li>存储内容不同<br>  哈希表：存储键值对（Key-Value），例如 {key1: value1, key2: value2}；<br>  哈希集合：仅存储单一元素（Value），相当于只存储键值对中的键（Key），例如 {value1, value2, value3}；  </li>
+<li>主要用途不同<br>  哈希表：用于通过键快速查找对应的值，适合需要键值映射关系的场景（如字典、缓存）；<br>  哈希集合：用于快速判断某个元素是否存在，适合去重、 membership 检查等场景；  </li>
+<li>元素特性<br>  两者都不允许重复的 “键”（哈希集合中元素本身就是键）；<br>  哈希表可以通过键关联额外数据，哈希集合仅关注元素本身是否存在。</li>
+</ul>
+</li>
+<li>举例：  <ul>
+<li>哈希表：<code>unordered_map&lt;int, string&gt;</code>存储 {1: “a”, 2: “b”}；</li>
+<li>哈希集合：<code>unordered_set&lt;int&gt;</code>存储 {1, 2, 3}。</li>
+</ul>
+</li>
+</ul>
+<p>简单来说，哈希集合可以看作是哈希表的一种特殊形式（只存键不存值），两者都提供 O (1) 平均时间复杂度的插入、删除和查找操作。  </p>
+<br>
+
+
+
+
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmeodlpn00001us96hk4uetff" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmezujsoo0004yo962tqo6i4g" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -246,6 +267,14 @@
       <ul>
         
           <li>
+            <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/">算法笔记(C++) ——双指针</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/">算法笔记(C++) ——递归</a>
+          </li>
+        
+          <li>
             <a href="/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/">算法笔记(C++) ——二分法</a>
           </li>
         
@@ -255,14 +284,6 @@
         
           <li>
             <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/">算法笔记(C++) ——栈</a>
-          </li>
-        
-          <li>
-            <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/">算法笔记(C++) ——字符串</a>
-          </li>
-        
-          <li>
-            <a href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/">算法笔记(C++) ——IO</a>
           </li>
         
       </ul>

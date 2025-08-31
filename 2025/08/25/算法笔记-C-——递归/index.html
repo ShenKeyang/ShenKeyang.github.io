@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>算法笔记(C++) ——递归 | YOLO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="递归的概念递归是一种函数调用自己的编程技巧。递归的基本思想是将一个复杂的问题分解为更简单的子问题，直到子问题的规模足够小，能够直接解决。递归通常由两个部分组成：  终止条件：递归的终止条件，防止无限递归。 递归调用：将当前问题转化为更小规模的同类问题，并在其上进行求解。  示例： 123456789101112131415161718#include &lt;iostream&gt;using n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记(C++) ——递归">
+<meta property="og:url" content="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/index.html">
+<meta property="og:site_name" content="YOLO">
+<meta property="og:description" content="递归的概念递归是一种函数调用自己的编程技巧。递归的基本思想是将一个复杂的问题分解为更简单的子问题，直到子问题的规模足够小，能够直接解决。递归通常由两个部分组成：  终止条件：递归的终止条件，防止无限递归。 递归调用：将当前问题转化为更小规模的同类问题，并在其上进行求解。  示例： 123456789101112131415161718#include &lt;iostream&gt;using n">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-25T10:16:14.000Z">
+<meta property="article:modified_time" content="2025-08-31T15:17:42.076Z">
+<meta property="article:author" content="ShenKeyang">
+<meta property="article:tag" content="sky">
+<meta property="article:tag" content="shenkeyang">
+<meta property="article:tag" content="YOLO">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="YOLO" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">YOLO</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">You Only Live Once.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://shenkeyang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-算法笔记-C-——递归" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" class="article-date">
+  <time class="dt-published" datetime="2025-08-25T10:16:14.000Z" itemprop="datePublished">2025-08-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      算法笔记(C++) ——递归
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="递归的概念"><a href="#递归的概念" class="headerlink" title="递归的概念"></a>递归的概念</h2><p>递归是一种函数调用自己的编程技巧。递归的基本思想是将一个复杂的问题分解为更简单的子问题，直到子问题的规模足够小，能够直接解决。递归通常由两个部分组成：</p>
+<ol>
+<li>终止条件：递归的终止条件，防止无限递归。</li>
+<li>递归调用：将当前问题转化为更小规模的同类问题，并在其上进行求解。</li>
+</ol>
+<p><strong>示例：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 递归函数计算斐波那契数列</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fibonacci</span><span class="params">(<span class="type">int</span> n)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 斐波那契数列的第0项</span></span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>; <span class="comment">// 斐波那契数列的第1项</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">fibonacci</span>(n - <span class="number">1</span>) + <span class="built_in">fibonacci</span>(n - <span class="number">2</span>); <span class="comment">// 递归计算F(n)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n; <span class="comment">// 输入整数n</span></span><br><span class="line">    cout &lt;&lt; <span class="built_in">fibonacci</span>(n) &lt;&lt; endl; <span class="comment">// 输出斐波那契数列的第n项</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br></p>
+<h2 id="树以及二叉树的概念"><a href="#树以及二叉树的概念" class="headerlink" title="树以及二叉树的概念"></a>树以及二叉树的概念</h2><ol>
+<li>树（Tree）：<br>树是一种由节点（Node）组成的非线性数据结构，其中的每个节点可以有零个或多个子节点。树通常用来表示层次结构的数据关系，比如文件系统、家谱等。<br><code>根节点（Root）</code>：树中的第一个节点，根节点没有父节点。<br><code>父节点（Parent）</code>：一个节点的直接上级节点。<br><code>子节点（Child）</code>：一个节点的直接下级节点。<br><code>叶子节点（Leaf）</code>：没有任何子节点的节点。<br><code>深度（Depth）</code>：从根节点到当前节点的路径长度。<br><code>高度（Height）</code>：从当前节点到叶子节点的最长路径长度。<br><code>度（Degree）</code>：节点的子节点数目。</li>
+</ol>
+<ul>
+<li>树的常见类型有：  <ul>
+<li>二叉树：每个节点最多有两个子节点。</li>
+<li>平衡树：比如AVL树，二叉搜索树（BST）等，它们有一些特定的规则来保证树的平衡性。</li>
+</ul>
+</li>
+</ul>
+<br>
+2. 二叉树（Binary Tree）：  
+二叉树是一种特殊的树结构，它的每个节点最多有两个子节点，通常称为左子节点和右子节点。二叉树是最常见的一种树结构，广泛应用于各种算法和数据结构中。  
+
+<ul>
+<li><p>二叉树的性质：  </p>
+<ol>
+<li>每个节点最多有两个子节点。  </li>
+<li>每个节点有两个指针，一个指向左子节点，另一个指向右子节点。</li>
+</ol>
+</li>
+<li><p>二叉树的类型：  </p>
+<ol>
+<li>满二叉树：所有的非叶子节点都有两个子节点，且所有叶子节点都在同一层。  </li>
+<li>完全二叉树：除了最后一层外，其他每一层的节点都达到最大节点数，且最后一层的节点从左到右连续排列。  </li>
+<li>二叉搜索树（BST）：对于每一个节点，其左子树的所有节点值都小于该节点的值，右子树的所有节点值都大于该节点的值。  </li>
+<li>平衡二叉树（AVL树、红黑树）：为了保持高效的查询、插入和删除操作，这些树会自动保持平衡，即左右子树的高度差不超过某个阈值。</li>
+</ol>
+</li>
+<li><p>二叉树的遍历：  </p>
+<ol>
+<li>前序遍历（Pre-order）：访问根节点，再访问左子树，最后访问右子树。</li>
+<li>中序遍历（In-order）：访问左子树，再访问根节点，最后访问右子树。 </li>
+<li>后序遍历（Post-order）：访问左子树，再访问右子树，最后访问根节点。</li>
+<li>层序遍历（Level-order）：从上到下、从左到右按层次遍历。</li>
+</ol>
+</li>
+</ul>
+<p><br><br></p>
+<h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>完全二叉树是一种特殊的二叉树，它具有以下特点：</p>
+<ol>
+<li>每一层节点都要填满：除了最后一层外，完全二叉树的每一层都必须是满的，也就是说，除了最底层，其他层的节点数都达到最大值。  </li>
+<li>最后一层的节点尽量靠左：最后一层的节点从左到右依次排列，不能有空缺。也就是说，最后一层的节点虽然可以不满，但必须尽量靠左对齐。</li>
+</ol>
+<p>完全二叉树的一个重要特点是，它是非常紧凑的结构，不像普通二叉树那样可能会出现大量的空白位置。由于这一特性，完全二叉树通常用于堆数据结构（例如最大堆或最小堆）中，因为在这种树形结构下，插入和删除节点的操作效率较高。</p>
+<p>举例说明：<br>假设有7个节点，它们按顺序排列构建成完全二叉树，结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">     1</span><br><span class="line">   /   \</span><br><span class="line">  2     3</span><br><span class="line"> / \   / </span><br><span class="line">4   5 6   </span><br></pre></td></tr></table></figure>
+<ol>
+<li>这棵树的第1层有1个节点，第2层有2个节点，第3层有3个节点。</li>
+<li>最后一层的节点是从左到右依次排列的，没有空缺。</li>
+</ol>
+<p><br><br></p>
+<h2 id="例题：路径统计"><a href="#例题：路径统计" class="headerlink" title="例题：路径统计"></a>例题：路径统计</h2><ul>
+<li><p>题目描述：<br>给定一个大小为 n * n 的二维网格。你从坐标 (sx, sy) 出发，允许你每次移动到上下左右四个方向之一。每次移动的步数记为 1 步。现在给定一个目标坐标 (ex, ey)，请问在最多  k  步以内，你可以到达目标位置 (ex, ey) 的不同路径数。<br>请注意，你可以在任何时刻选择停止，不一定要在刚好  k  步时到达目标。</p>
+</li>
+<li><p>输入：</p>
+<ul>
+<li>第一行输入一个整数  n ，表示网格的大小（ 1 \leq n \leq 10 ）。</li>
+<li>第二行输入四个整数  sx, sy, ex, ey ，表示起点 (sx, sy) 和终点 (ex, ey) 的坐标。</li>
+<li>第三行输入一个整数  k ，表示最多的步数（ 1 \leq k \leq 10 ）。</li>
+</ul>
+</li>
+<li><p>输出：  </p>
+<ul>
+<li>输出一个整数，表示在最多  k  步以内从 (sx, sy) 到达 (ex, ey) 的不同路径数。</li>
+</ul>
+</li>
+<li><p>题解代码：</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, sx, sy, ex, ey, k;</span><br><span class="line"><span class="type">long</span> <span class="type">long</span> countPaths = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 四个方向：上，下，左，右</span></span><br><span class="line"><span class="type">int</span> dx[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">1</span>&#125;;</span><br><span class="line"><span class="type">int</span> dy[<span class="number">4</span>] = &#123;<span class="number">-1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 递归函数，当前坐标 (x, y)，已经走的步数 steps</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> steps)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 如果当前坐标是终点，则计数加一</span></span><br><span class="line">    <span class="keyword">if</span> (x == ex &amp;&amp; y == ey) </span><br><span class="line">    &#123;</span><br><span class="line">        countPaths++;</span><br><span class="line">        <span class="comment">// 注意：即使达到终点，也可以选择继续移动，直到步数达到 k</span></span><br><span class="line">        <span class="comment">// 所以不在此处 return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果已经达到最大步数，停止递归</span></span><br><span class="line">    <span class="keyword">if</span> (steps == k)  <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 尝试四个方向移动</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> dir = <span class="number">0</span>; dir &lt; <span class="number">4</span>; dir++) &#123;</span><br><span class="line">        <span class="type">int</span> newX = x + dx[dir];</span><br><span class="line">        <span class="type">int</span> newY = y + dy[dir];</span><br><span class="line">        <span class="comment">// 检查新位置是否在网格内</span></span><br><span class="line">        <span class="keyword">if</span>(newX &gt;= <span class="number">1</span> &amp;&amp; newX &lt;= n &amp;&amp; newY &gt;=<span class="number">1</span> &amp;&amp; newY &lt;=n) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">dfs</span>(newX, newY, steps + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    cin &gt;&gt; sx &gt;&gt; sy &gt;&gt; ex &gt;&gt; ey;</span><br><span class="line">    cin &gt;&gt; k;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">dfs</span>(sx, sy, <span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; countPaths;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmezujst50007yo9610zm4eph" data-title="算法笔记(C++) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          算法笔记(C++) ——双指针
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">算法笔记(C++) ——二分法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/">算法笔记(C++) ——双指针</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/">算法笔记(C++) ——递归</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/">算法笔记(C++) ——二分法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/">算法笔记(C++) ——哈希表</a>
+          </li>
+        
+          <li>
+            <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/">算法笔记(C++) ——栈</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 ShenKeyang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
