@@ -77,8 +77,19 @@ int main()
 
 
 
+## sort()函数
+`sort(arr.begin(),arr.end());`  
+对数组进行从小到大排序。
+  
+<br><br>
+
+
+
+
+
+
 ## lower_bound函数与upper_bound函数
-在C++中，`lower_bound`和`upper_bound`是两个常用的标准库函数，位于`<algorithm>`头文件中。这两个函数主要用于在已排序的范围内进行二分查找，帮助快速定位元素的位置。  
+在C++中，`lower_bound`和`upper_bound`是两个常用的标准库函数，位于`<algorithm>`头文件中。这两个函数主要用于在`已排序好的`范围内进行二分查找，帮助快速定位元素的位置。  
 1. __lower_bound:__  
 `lower_bound`函数返回一个指向第一个不小于（>=）给定值的元素的迭代器。如果所有元素都小于该值，则返回范围的结束迭代器（arr.end()）。  
 示例：  
@@ -121,6 +132,10 @@ int main()
 }
 //输出：upper_bound of 3 is at position: 3
 ```
+特别地：  
+`count = upper_bound(arr.begin(),arr.end(),x)-lower_bound(arr.begin(),arr.end(),x);`  
+即为x在数组arr中出现的次数。  
+
 - 为什么要使用`(p - arr.begin())`?
 在上述示例中，p 是一个迭代器，指向容器中某个元素的位置。为了输出该元素在容器中的索引位置，需要将迭代器转换为整数索引。这时，使用 `(p - arr.begin())`进行迭代器的减法运算，其意义如下：
     1. 迭代器的减法：在C++中，随机访问迭代器（如 std::vector 的迭代器）支持直接的减法运算。`p - arr.begin()`计算的是 p 距离 arr.begin() 的距离，即 p 所指向元素的索引。
