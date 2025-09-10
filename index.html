@@ -80,6 +80,154 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-算法笔记-C-——深度优先搜索" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" class="article-date">
+  <time class="dt-published" datetime="2025-09-10T14:06:32.000Z" itemprop="datePublished">2025-09-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">算法笔记(C++) ——深度优先搜索</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="树的存储和遍历"><a href="#树的存储和遍历" class="headerlink" title="树的存储和遍历"></a>树的存储和遍历</h2><p>深度优先搜索(Depth First Search , DFS)是一种用于遍历或搜索图（图可以是树、无向图、有向图等）的算法。它按照深度优先的策略，优先访问当前节点的下一层邻接节点，直到无法继续为止，再回溯到上一层。可以粗略的理解为：DFS就是在图上做特定的递归，DFS⊂递归。  </p>
+<p><strong>树的两种读入方式：</strong></p>
+<ol>
+<li>边形式:</li>
+</ol>
+<ul>
+<li>存储：这种读入形式将树看成一张图进行读入，本质就是上一篇中的的读入形式，所以可以使用邻接表直接存储。但特别要注意的是，虽然树在定义上是有向图，但有时读入的数据可能会不符合其定义。例如，树中的一条有向边从节点 1 指向节点 2，但在输入时可能会以 2 1 的形式读入，所以为了能够正确进行遍历，就需要使用无向图的存储方式(也就是对于读入进来的边，正反都存储一遍)。  </li>
+<li>遍历:由于存储结构被迫变成了无向图(虽然它本应该是有向图的结构)，那么在递归遍历的时候(或者说在深度优先搜索的过程中)，我们需要注意由于返祖边的存在导致的无限递归（返祖边:假设树里存在一条从节点 1 指向节点 2的有向边1 2。那么1是2的父亲，也是2的祖先。但在实际的存储中又存在从2指向1的边2 1。那么2 1 就是一条返祖边）。<br>解决方法: 增加父亲参数father，禁止由子节点访问父节点。</li>
+</ul>
+<ol start="2">
+<li>父亲数组：</li>
+</ol>
+<ul>
+<li>存储：树中的每个节点都有唯一的父节点，这种唯一性使得我们可以通过数组来存储父节点信息。所以树可以用父亲数组（father[]）来表示树的结构。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">示例 1：一棵简单的树  </span><br><span class="line"></span><br><span class="line">树的结构：</span><br><span class="line">    1</span><br><span class="line">   / \</span><br><span class="line">  2   3</span><br><span class="line">     / \</span><br><span class="line">    4   5</span><br><span class="line"></span><br><span class="line">父亲数组表示：</span><br><span class="line">father[1] = 0  （根节点无父节点，约定为 0）</span><br><span class="line">father[2] = 1  （节点 2 的父亲是 1）</span><br><span class="line">father[3] = 1  （节点 3 的父亲是 1）</span><br><span class="line">father[4] = 3  （节点 4 的父亲是 3）</span><br><span class="line">father[5] = 3  （节点 5 的父亲是 3）</span><br><span class="line"></span><br><span class="line">父亲数组：father = [0, 1, 1, 3, 3]</span><br></pre></td></tr></table></figure>
+<p>但由于我们访问的顺序是从父亲到儿子，而父亲数组存储的是每个儿子的父亲。所以我们无法直接利用父亲数组进行DFS。我们还是将父亲数组转化为邻接表进行存储：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adjList[father[i]].<span class="built_in">push_back</span>(i);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>遍历：<br>在这种读入形式下，不再存在第一种形式所提及的无限递归问题。可以直接进行遍历。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">sort</span>(adjList[i].<span class="built_in">begin</span>(), adjList[i].<span class="built_in">end</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFS</span><span class="params">(<span class="type">int</span> node, <span class="type">int</span> parent)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	traversalResult.<span class="built_in">push_back</span>(node); <span class="comment">// 访问当前节点</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;child : adjList[node]) </span><br><span class="line">    &#123;</span><br><span class="line">		<span class="keyword">if</span>(child != parent) </span><br><span class="line">        &#123; <span class="comment">// 避免回到父节点</span></span><br><span class="line">			<span class="built_in">DFS</span>(child, node); <span class="comment">// 递归访问子节点</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：</strong><br><code>vector&lt;int&gt; matrix(MAX);</code>和<code>vector&lt;int&gt; arr[MAX];</code>的区别：<br>在 C++ 中，二者是两种完全不同的定义方式，核心区别在于数据结构的类型和用途：  </p>
+<ul>
+<li><code>vector&lt;int&gt; tree(MAX);</code><br>本质：定义一个单个 vector<int> 对象，其元素为int类型，并指定其初始大小为 MAX。<br>这个 vector 会预先分配能容纳 MAX 个 int 元素的内存，且每个元素会被默认初始化（int 类型默认值为 0）。<br>用途：需要一个初始大小固定的动态数组时使用，例如需要存储 MAX 个元素的序列。</li>
+<li><code>vector&lt;int&gt; tree[MAX];</code><br>本质：定义一个数组，数组的每个元素都是一个 vector<int> 对象。<br>其中 MAX 是数组的大小（必须是编译期常量），表示这个数组包含 MAX 个 vector<int> 容器。<br>用途：通常用于表示邻接表（如树、图的存储），例如 tree[i] 表示第 i 个节点的所有邻接节点。</li>
+</ul>
+<br>
+
+
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmfe71x4i0007ug969emh6zeq" data-title="算法笔记(C++) ——深度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-算法笔记-C-——图的存储" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" class="article-date">
+  <time class="dt-published" datetime="2025-09-10T10:11:36.000Z" itemprop="datePublished">2025-09-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/">算法笔记(C++) ——图的存储</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ul>
+<li>稀疏图：边的数量远小于顶点数的平方。  </li>
+<li>稠密图：边的数量接近顶点数的平方。  </li>
+<li>有向图：边具有方向性。  </li>
+<li>无向图：边没有方向，可以视作双向边。  </li>
+<li>有权图与无权图：有权图的边具有权值，无权图的边没有权值。</li>
+</ul>
+<p><br><br></p>
+<h2 id="邻接矩阵（Adjacency-Matrix）"><a href="#邻接矩阵（Adjacency-Matrix）" class="headerlink" title="邻接矩阵（Adjacency Matrix）"></a>邻接矩阵（Adjacency Matrix）</h2><p>邻接矩阵用一个二维数组表示图，matrix[i][j] 表示从顶点 i 到 j 的边的信息（例如 1 代表有边，0 代表无边），适用于稠密图。<br><img src="/images/cpp_8_1.png" alt=" ">  </p>
+<p><strong>实现：</strong>  </p>
+<ol>
+<li>建表操作</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 建立一张具有n个节点的图，此时这张图没有任何一条边</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">adjMatrix</span>(n + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n + <span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>加边操作<br>有时，一张图的读入通常以给定若干条边u v w 的形式给出，其中u代表这条边的起点,v代表这条边的终点,w代表这条边的权值。如果不含w，则读入的是无权图。<br>对于邻接矩阵而言，需要了解如何对一张图进行加边操作</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">    adjMatrix[u][v] = <span class="number">1</span>;</span><br><span class="line">    adjMatrix[v][u] = <span class="number">1</span>; <span class="comment">// 无向图</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>输出邻接矩阵</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">        cout &lt;&lt; (adjMatrix[i][j] ? <span class="string">&quot;有边&quot;</span> : <span class="string">&quot;无边&quot;</span>) &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br></p>
+<h2 id="邻接表（Adjacency-List）"><a href="#邻接表（Adjacency-List）" class="headerlink" title="邻接表（Adjacency List）"></a>邻接表（Adjacency List）</h2><p>对于稀疏图，邻接表是一种更高效的存储方式，只存储实际存在的边，使用数组或 vector 存储每个顶点的邻居列表。<br><img src="/images/cpp_8_1.png" alt=" "> </p>
+<p><strong>实现：</strong>  </p>
+<ol>
+<li>建表操作<br>使用结构体表示边信息，如果是无权图，可以直接使用 vector<int> adjList[n + 1]：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">adjList</span>(n + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或定义边的结构体</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> to, weight;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;vector&lt;Edge&gt;&gt; <span class="built_in">adjList</span>(n + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>加边操作<br>无向图的加边操作：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v, <span class="type">int</span> w)</span> </span>&#123;</span><br><span class="line">    adjList[u].<span class="built_in">push_back</span>(&#123;v, w&#125;);</span><br><span class="line">    adjList[v].<span class="built_in">push_back</span>(&#123;u, w&#125;); <span class="comment">// 无向图</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>遍历操作<br>遍历邻接表的示例：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> u = <span class="number">1</span>; u &lt;= n; u++) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Vertex &quot;</span> &lt;&lt; u &lt;&lt; <span class="string">&quot; connects to &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> edge : adjList[u]) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;(&quot;</span> &lt;&lt; edge.to &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; edge.weight &lt;&lt; <span class="string">&quot;) &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" data-id="cmfe71x4h0005ug967kkudvr7" data-title="算法笔记(C++) ——图的存储" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-算法笔记-C-——双指针" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" class="article-date">
@@ -149,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmezujson0003yo96fhui4lxo" data-title="算法笔记(C++) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmfe71x4g0003ug961acpei26" data-title="算法笔记(C++) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -265,7 +413,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmezujst50007yo9610zm4eph" data-title="算法笔记(C++) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmfe71x4j0009ug96epjo2qm0" data-title="算法笔记(C++) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -354,7 +502,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmezujsom0002yo96979d4i1g" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmfe71x4f0002ug964d4b0bxg" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -493,7 +641,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmezujsoo0004yo962tqo6i4g" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmfe71x4h0004ug968znf3j2o" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -582,7 +730,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmezujsop0006yo966iigh1ml" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmfe71x4i0006ug96efdxhdzk" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -628,7 +776,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmezujsoo0005yo96efre2ih0" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmfe71x4j0008ug969enmagry" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -727,7 +875,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmezujsol0001yo96bucm8t1h" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmfe71x4e0001ug9635hrfpt9" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -793,7 +941,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmezujsoh0000yo967gw8gh36" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmfe71x490000ug96f0dq5h1w" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -823,7 +971,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li></ul>
     </div>
   </div>
 
@@ -836,6 +984,14 @@
       <ul>
         
           <li>
+            <a href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">算法笔记(C++) ——深度优先搜索</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/">算法笔记(C++) ——图的存储</a>
+          </li>
+        
+          <li>
             <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/">算法笔记(C++) ——双指针</a>
           </li>
         
@@ -845,14 +1001,6 @@
         
           <li>
             <a href="/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/">算法笔记(C++) ——二分法</a>
-          </li>
-        
-          <li>
-            <a href="/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/">算法笔记(C++) ——哈希表</a>
-          </li>
-        
-          <li>
-            <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/">算法笔记(C++) ——栈</a>
           </li>
         
       </ul>
