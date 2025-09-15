@@ -108,7 +108,7 @@
 <li>边形式:</li>
 </ol>
 <ul>
-<li>存储：这种读入形式将树看成一张图进行读入，本质就是上一篇中的的读入形式，所以可以使用邻接表直接存储。但特别要注意的是，虽然树在定义上是有向图，但有时读入的数据可能会不符合其定义。例如，树中的一条有向边从节点 1 指向节点 2，但在输入时可能会以 2 1 的形式读入，所以为了能够正确进行遍历，就需要使用无向图的存储方式(也就是对于读入进来的边，正反都存储一遍)。  </li>
+<li>存储：这种读入形式将树看成一张图进行读入，本质就是上一篇中的的读入形式，所以可以使用邻接表（记录对应节点的相邻节点信息的表格）直接存储。但特别要注意的是，虽然树在定义上是有向图，但有时读入的数据可能会不符合其定义。例如，树中的一条有向边从节点 1 指向节点 2，但在输入时可能会以 2 1 的形式读入，所以为了能够正确进行遍历，就需要使用无向图的存储方式(也就是对于读入进来的边，正反都存储一遍)。  </li>
 <li>遍历:由于存储结构被迫变成了无向图(虽然它本应该是有向图的结构)，那么在递归遍历的时候(或者说在深度优先搜索的过程中)，我们需要注意由于返祖边的存在导致的无限递归（返祖边:假设树里存在一条从节点 1 指向节点 2的有向边1 2。那么1是2的父亲，也是2的祖先。但在实际的存储中又存在从2指向1的边2 1。那么2 1 就是一条返祖边）。<br>解决方法: 增加父亲参数father，禁止由子节点访问父节点。</li>
 </ul>
 <ol start="2">
@@ -140,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmfe71x4i0007ug969emh6zeq" data-title="算法笔记(C++) ——深度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmfl9ig9q0005js96g6gjge5j" data-title="算法笔记(C++) ——深度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -216,7 +216,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" data-id="cmfe71x4h0005ug967kkudvr7" data-title="算法笔记(C++) ——图的存储" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" data-id="cmfl9ig9o0003js969gwu2hmz" data-title="算法笔记(C++) ——图的存储" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -297,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmfe71x4g0003ug961acpei26" data-title="算法笔记(C++) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmfl9ig9p0004js9603gjdzug" data-title="算法笔记(C++) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -413,7 +413,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmfe71x4j0009ug96epjo2qm0" data-title="算法笔记(C++) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmfl9ig9q0006js960e0act16" data-title="算法笔记(C++) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -502,7 +502,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmfe71x4f0002ug964d4b0bxg" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmfl9ig9j0002js965b4p5ouf" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -641,7 +641,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmfe71x4h0004ug968znf3j2o" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmfl9ig9r0007js9641q7b4yu" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -730,7 +730,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmfe71x4i0006ug96efdxhdzk" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmfl9ig9s0009js960ugv5mn6" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -776,7 +776,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmfe71x4j0008ug969enmagry" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmfl9ig9r0008js964noye73h" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -875,7 +875,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmfe71x4e0001ug9635hrfpt9" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmfl9ig9g0001js96bwi33dw5" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -941,7 +941,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmfe71x490000ug96f0dq5h1w" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmfl9ig9d0000js965ugxel8t" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
