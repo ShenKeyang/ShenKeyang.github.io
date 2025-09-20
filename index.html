@@ -136,11 +136,15 @@
 
 
 
-
+<h2 id="深度优先搜索（DFS）"><a href="#深度优先搜索（DFS）" class="headerlink" title="深度优先搜索（DFS）"></a>深度优先搜索（DFS）</h2><p><strong>核心思想：</strong>  </p>
+<p>DFS 的本质是 “不撞南墙不回头”，其关键在于 “回溯”（Backtracking）—— 当当前路径无法继续探索时，撤销上一步的选择，回到之前的状态并尝试新的可能性。<br>可以用一个生活化的例子理解：假设你走进一个迷宫，面前有 3 条岔路（A、B、C）。DFS 会先选择岔路 A，一直走到尽头（可能是出口，也可能是死胡同）；如果是死胡同，就退回到岔路口，再选择岔路 B，重复探索；最后再探索岔路 C。整个过程中，“退回岔路口” 就是回溯，“走到底” 就是深度优先。</p>
+<p><strong>实现方式：</strong></p>
+<p>递归是DFS最主要的一种实现方式，其中树又是DFS的典型应用场景。以下是一道运用递归对树的各节点&#x2F;子树进行递归深度优先搜索的例题：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*题目描述：</span></span><br><span class="line"><span class="comment">有一棵有n个节点的树，根节点为1号节点，树的每个节点是红色或者黑色，想知道有多少节点的子树中同时包含红点和黑点。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入描述：</span></span><br><span class="line"><span class="comment">第一行输入一个整数n表示节点数量</span></span><br><span class="line"><span class="comment">第二行输入一个长度为n的字符串s表示节点的颜色，第i个节点的颜色为si ，若si为&#x27;B&#x27;表示节点的颜色为黑色，若si为&#x27;R&#x27; 则表示节点的颜色为红色。 接下来n−1行，每行输入两个整数 u,v(1≤u,v≤n)表示树上的边.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输出描述：</span></span><br><span class="line"><span class="comment">输出一个整数表示答案。*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义全局变量邻接表、颜色信息向量、结果值</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; adj;</span><br><span class="line">vector&lt;<span class="type">char</span>&gt; colors;</span><br><span class="line"><span class="type">int</span> result = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">dfs</span><span class="params">(<span class="type">int</span> node, <span class="type">int</span> parent)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 标记当前子树是否包含红色和黑色</span></span><br><span class="line">    <span class="type">bool</span> hasRed = <span class="literal">false</span>, hasBlack = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (colors[node] == <span class="string">&#x27;R&#x27;</span>) hasRed = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> hasBlack = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> neighbor : adj[node]) <span class="comment">//遍历每一个孩子节点，探索每一种可能性（回溯）</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (neighbor != parent) <span class="comment">//邻接表是无向的，应确保搜索的是子树而不是父节点</span></span><br><span class="line">        &#123;</span><br><span class="line">            vector&lt;<span class="type">bool</span>&gt; child = <span class="built_in">dfs</span>(neighbor, node);</span><br><span class="line">            <span class="comment">//针对每一个孩子节点，递归调用进行深度优先搜索（DFS）</span></span><br><span class="line">            <span class="keyword">if</span>(child[<span class="number">0</span>])</span><br><span class="line">            &#123;</span><br><span class="line">                hasRed = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(child[<span class="number">1</span>])</span><br><span class="line">            &#123;</span><br><span class="line">                hasBlack = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果当前子树既有红色又有黑色节点，则满足条件</span></span><br><span class="line">    <span class="keyword">if</span> (hasRed &amp;&amp; hasBlack)</span><br><span class="line">    &#123;</span><br><span class="line">        result++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;hasRed, hasBlack&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//根据输入的n对全局变量resize</span></span><br><span class="line">    colors.<span class="built_in">resize</span>(n);</span><br><span class="line">    adj.<span class="built_in">resize</span>(n);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; colors[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u, v;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        adj[u<span class="number">-1</span>].<span class="built_in">push_back</span>(v<span class="number">-1</span>); <span class="comment">//由于题目中的根节点是从1开始标号</span></span><br><span class="line">        adj[v<span class="number">-1</span>].<span class="built_in">push_back</span>(u<span class="number">-1</span>); <span class="comment">//故而实际代码中应先-1后再存入</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">dfs</span>(<span class="number">0</span>, <span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; result &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmfl9ig9q0005js96g6gjge5j" data-title="算法笔记(C++) ——深度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmfs0gem20005sk961w9w9jas" data-title="算法笔记(C++) ——深度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -216,7 +220,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" data-id="cmfl9ig9o0003js969gwu2hmz" data-title="算法笔记(C++) ——图的存储" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" data-id="cmfs0gem30008sk96g32c6q57" data-title="算法笔记(C++) ——图的存储" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -297,7 +301,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmfl9ig9p0004js9603gjdzug" data-title="算法笔记(C++) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmfs0gem10004sk9630r655o2" data-title="算法笔记(C++) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -413,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmfl9ig9q0006js960e0act16" data-title="算法笔记(C++) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmfs0gem40009sk968l4wg95q" data-title="算法笔记(C++) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -502,7 +506,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmfl9ig9j0002js965b4p5ouf" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmfs0gem10003sk965o3l8gnn" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -641,7 +645,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmfl9ig9r0007js9641q7b4yu" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmfs0gem00002sk96eqo63lpv" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -730,7 +734,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmfl9ig9s0009js960ugv5mn6" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmfs0gem30007sk96h0zwfefe" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -776,7 +780,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmfl9ig9r0008js964noye73h" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmfs0gem20006sk9692cw1tq9" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -875,7 +879,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmfl9ig9g0001js96bwi33dw5" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmfs0gelz0001sk96dd66clji" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -941,7 +945,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmfl9ig9d0000js965ugxel8t" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmfs0gelv0000sk968k7f5tpg" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
