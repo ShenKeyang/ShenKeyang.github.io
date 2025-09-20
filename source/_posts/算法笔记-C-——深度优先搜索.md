@@ -77,3 +77,91 @@ __注：__
 
 
 
+## 深度优先搜索（DFS）
+__核心思想：__  
+
+DFS 的本质是 “不撞南墙不回头”，其关键在于 “回溯”（Backtracking）—— 当当前路径无法继续探索时，撤销上一步的选择，回到之前的状态并尝试新的可能性。
+可以用一个生活化的例子理解：假设你走进一个迷宫，面前有 3 条岔路（A、B、C）。DFS 会先选择岔路 A，一直走到尽头（可能是出口，也可能是死胡同）；如果是死胡同，就退回到岔路口，再选择岔路 B，重复探索；最后再探索岔路 C。整个过程中，“退回岔路口” 就是回溯，“走到底” 就是深度优先。
+
+__实现方式：__
+
+递归是DFS最主要的一种实现方式，其中树又是DFS的典型应用场景。以下是一道运用递归对树的各节点/子树进行递归深度优先搜索的例题：
+```c++
+/*题目描述：
+有一棵有n个节点的树，根节点为1号节点，树的每个节点是红色或者黑色，想知道有多少节点的子树中同时包含红点和黑点。
+
+输入描述：
+第一行输入一个整数n表示节点数量
+第二行输入一个长度为n的字符串s表示节点的颜色，第i个节点的颜色为si ，若si为'B'表示节点的颜色为黑色，若si为'R' 则表示节点的颜色为红色。 接下来n−1行，每行输入两个整数 u,v(1≤u,v≤n)表示树上的边.
+
+输出描述：
+输出一个整数表示答案。*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+//定义全局变量邻接表、颜色信息向量、结果值
+vector<vector<int>> adj;
+vector<char> colors;
+int result = 0;
+
+vector<bool> dfs(int node, int parent)
+{
+    // 标记当前子树是否包含红色和黑色
+    bool hasRed = false, hasBlack = false;
+    if (colors[node] == 'R') hasRed = true;
+    else hasBlack = true;
+
+    for (int neighbor : adj[node]) //遍历每一个孩子节点，探索每一种可能性（回溯）
+    {
+        if (neighbor != parent) //邻接表是无向的，应确保搜索的是子树而不是父节点
+        {
+            vector<bool> child = dfs(neighbor, node);
+            //针对每一个孩子节点，递归调用进行深度优先搜索（DFS）
+            if(child[0])
+            {
+                hasRed = true;
+            }
+            if(child[1])
+            {
+                hasBlack = true;
+            }
+        }
+    }
+    // 如果当前子树既有红色又有黑色节点，则满足条件
+    if (hasRed && hasBlack)
+    {
+        result++;
+    }
+
+    return {hasRed, hasBlack};
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    //根据输入的n对全局变量resize
+    colors.resize(n);
+    adj.resize(n);
+    
+    for (int i = 0; i < n; i++)
+    {
+        cin >> colors[i];
+    }
+    
+    for (int i = 0; i < n - 1; i++)
+    {
+        int u, v;
+        cin >> u >> v;
+        adj[u-1].push_back(v-1); //由于题目中的根节点是从1开始标号
+        adj[v-1].push_back(u-1); //故而实际代码中应先-1后再存入
+    }
+
+    dfs(0, -1);
+
+    cout << result << endl;
+
+    return 0;
+}
+```
