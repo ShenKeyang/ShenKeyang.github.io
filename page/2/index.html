@@ -80,6 +80,105 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-算法笔记-C-——IO" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" class="article-date">
+  <time class="dt-published" datetime="2025-08-14T14:18:35.000Z" itemprop="datePublished">2025-08-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/">算法笔记(C++) ——IO</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="C-万能头文件"><a href="#C-万能头文件" class="headerlink" title="C++万能头文件"></a>C++万能头文件</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="它包含（但不限于）："><a href="#它包含（但不限于）：" class="headerlink" title="它包含（但不限于）："></a>它包含（但不限于）：</h4><ol>
+<li><p>基础头文件：<br><code>&lt;iostream</code>：输入输出流，包含cin、cout等 I&#x2F;O 操作<br><code>&lt;cstdio&gt;</code>：C 风格输入输出，包含printf、scanf等函数<br><code>&lt;cmath&gt;</code>：数学函数库，包含sin、cos、sqrt等数学运算     </p>
+</li>
+<li><p>容器与数据结构:<br><code>&lt;vector&gt;</code>：动态数组容器<br><code>&lt;string&gt;</code>：字符串类及相关操作<br><code>&lt;map&gt;/&lt;unordered_map&gt;</code>：映射容器（键值对）<br><code>&lt;set&gt;/&lt;unordered_set&gt;</code>：集合容器<br><code>&lt;list&gt;</code>：双向链表容器<br><code>&lt;queue&gt;</code>：队列容器<br><code>&lt;stack&gt;</code>：栈容器<br><code>&lt;array&gt;</code>：固定大小数组（C++11）   </p>
+</li>
+<li><p>算法:<br><code>&lt;algorithm&gt;</code>：标准算法库，包含排序、查找等算法（如sort、find）</p>
+</li>
+</ol>
+<p><br><br>  </p>
+<h2 id="C-的命名空间"><a href="#C-的命名空间" class="headerlink" title="C++的命名空间"></a>C++的命名空间</h2><p>在C++中，<code>using namespace std;</code>是一个用于简化代码的语句，它的作用是告诉编译器你希望使用标准库中的名称而不需要加上 &#96;&#96;前缀。  </p>
+<p><br><br></p>
+<h2 id="输入输出格式化"><a href="#输入输出格式化" class="headerlink" title="输入输出格式化"></a>输入输出格式化</h2><p>C++ 提供了多种方式来控制输入输出的格式，常用的包括 <code>setw</code>、<code>setprecision</code>、<code>fixed</code>等。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iomanip&gt;</span>  <span class="comment">// 提供格式化工具</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">double</span> pi = <span class="number">3.14159265358979</span>;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;原始值: &quot;</span> &lt;&lt; pi &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置输出精度为 2 位小数</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;保留两位小数: &quot;</span> &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">2</span>) &lt;&lt; pi &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>setw(width)</code>用于设置输出的宽度。<br><code>setprecision(n)</code>设置浮点数的精度。<br><code>fixed</code>控制浮点数按照固定格式输出。   </p>
+<p><br><br>  </p>
+<h2 id="long-long"><a href="#long-long" class="headerlink" title="long long"></a>long long</h2><p>相比于<code>int</code>（通常为 4 字节，32位），<code>long long</code>拥有更大的存储范围（通常占用 8 字节,64 位整数类型，它的取值范围是：从 -2^63 到 2^63 - 1，即约 -9.2 × 10^18 到 9.2 × 10^18），适用于需要存储大整数的场合。如果你需要处理的整数值超过了<code>int</code>的最大值（大约 21 亿, 约为2 × 10^9），那么<code>long long</code>就是更合适的选择。  </p>
+<p><br><br></p>
+<h2 id="ACM模式下的评测反馈"><a href="#ACM模式下的评测反馈" class="headerlink" title="ACM模式下的评测反馈"></a>ACM模式下的评测反馈</h2><p><code>AC（Accepted，接受）</code>：<br>表示提交的程序正确，输出符合要求，并且在规定的时间和内存限制内运行完成。AC是最理想的反馈，说明选手的代码通过了所有的测试用例。  </p>
+<p><code>WA（Wrong Answer，错误答案）</code>：<br>这表示程序的输出与期望的结果不符。选手需要检查程序中的逻辑错误，特别是输入输出的处理部分，确保符合题目要求。 </p>
+<p><code>TLE（Time Limit Exceeded，超时）</code>：<br>如果程序运行时间超过了题目规定的时间限制，就会出现TLE错误。通常是算法效率的问题，选手需要优化算法，减少计算时间。 </p>
+<p><code>MLE（Memory Limit Exceeded，超出内存限制）</code>：<br>如果程序的内存使用量超过了题目要求的限制，系统会返回MLE反馈。通常是因为程序使用了过多的内存，可能是由于存储过多数据或不必要的数据结构。  </p>
+<p><code>RE（Runtime Error，运行时错误）</code>：<br>如果程序在运行过程中发生了错误（如除以零、访问非法内存等），则会返回RE错误。选手需要检查代码中的边界情况、异常处理等。  </p>
+<p><code>PE（Presentation Error，输出格式错误）</code>：<br>这个反馈表示程序的输出没有按照题目要求的格式输出。比如输出的数字顺序不对，或者多了不必要的空格或换行符。  </p>
+<p><code>CE（Compilation Error，编译错误）</code>：<br>如果提交的代码存在编译问题，平台会给出编译错误的反馈。选手需要检查代码是否存在语法错误或未定义的变量。  </p>
+<p><br><br></p>
+<h2 id="stringstream"><a href="#stringstream" class="headerlink" title="stringstream"></a>stringstream</h2><p>1.创建和初始化<br>可以通过以下几种方式创建<code>stringstream</code>对象：</p>
+<ul>
+<li>默认构造：创建一个空的 stringstream 对象。  </li>
+<li>使用字符串初始化：通过构造函数将一个字符串传给 stringstream。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 默认构造</span></span><br><span class="line">    stringstream ss1;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 使用字符串初始化</span></span><br><span class="line">    <span class="function">stringstream <span class="title">ss2</span><span class="params">(<span class="string">&quot;123 456&quot;</span>)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.输出操作<br>使用 &lt;&lt; 运算符，可以将数据写入到 stringstream 中，数据将会被存储为一个字符串。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    stringstream ss;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> x = <span class="number">10</span>;</span><br><span class="line">    <span class="type">double</span> y = <span class="number">3.14</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 向stringstream中写入数据</span></span><br><span class="line">    ss &lt;&lt; <span class="string">&quot;Integer: &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, Double: &quot;</span> &lt;&lt; y;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; ss.<span class="built_in">str</span>() &lt;&lt; endl;  <span class="comment">// 输出字符串</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上述代码中，ss.str() 返回的是字符串流中存储的字符串。  </p>
+<p>3.输入操作<br>使用 &gt;&gt; 运算符，从 stringstream 中读取数据。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">stringstream <span class="title">ss</span><span class="params">(<span class="string">&quot;100 200 3.14&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> a, b;</span><br><span class="line">    <span class="type">double</span> c;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 从stringstream中读取数据</span></span><br><span class="line">    ss &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;, b: &quot;</span> &lt;&lt; b &lt;&lt; <span class="string">&quot;, c: &quot;</span> &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，stringstream 中的字符串被解析并提取成不同的变量。</p>
+<p>4.清空 stringstream<br>如果想清空 stringstream 中的数据，可以使用 str(“”) 方法，将流的内容设置为空字符串，或者使用 clear() 来重置流的状态。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    stringstream ss;</span><br><span class="line">    ss &lt;&lt; <span class="string">&quot;Hello, world!&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; ss.<span class="built_in">str</span>() &lt;&lt; endl;  <span class="comment">// 输出 &quot;Hello, world!&quot;</span></span><br><span class="line">    </span><br><span class="line">    ss.<span class="built_in">str</span>(<span class="string">&quot;&quot;</span>);  <span class="comment">// 清空内容</span></span><br><span class="line">    cout &lt;&lt; ss.<span class="built_in">str</span>() &lt;&lt; endl;  <span class="comment">// 输出空字符串</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><br><br></p>
+<h2 id="多组不定组输入"><a href="#多组不定组输入" class="headerlink" title="多组不定组输入"></a>多组不定组输入</h2><p>在 C++ 中，处理多行不定数量的输入数据是一个常见的需求，特别是在面对不确定数据量的情况下。可以使用一些方法来读取不定行数的数据。下面是几种常见的方式：</p>
+<p>1.<code>getline</code>函数介绍<br><code>getline</code>函数是 C++ 中用于从输入流中读取一行文本的函数，通常用于读取用户输入或文件中的一行数据。它的基本用法是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string line;  <span class="comment">// 用来存储输入的文本</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 提示用户输入一行文本</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;请输入一行文本: &quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 getline 从标准输入中读取一整行</span></span><br><span class="line">    <span class="built_in">getline</span>(cin, line);  </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出用户输入的内容</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;你输入的内容是: &quot;</span> &lt;&lt; line &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>getline</code>会读取一整行数据，直到遇到换行符（\n）为止。它不会将换行符包含在返回的字符串中。  </p>
+<p>上面的代码举一个例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">请输入一行文本: 你好，世界！</span><br><span class="line">你输入的内容是: 你好，世界！</span><br></pre></td></tr></table></figure>
+<p>2.使用<code>cin</code>和循环<br>你可以使用<code>cin</code>来逐行读取输入数据，然后根据特定条件判断是否继续读取。例如，当输入数据结束时（通常是遇到文件结束符 EOF 或空行），停止读取。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string line;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">getline</span>(cin, line)) &#123;</span><br><span class="line">        <span class="comment">// 处理每一行输入的内容</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;输入的行是: &quot;</span> &lt;&lt; line &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>getline(cin, line)</code>会读取每一行输入数据，直到输入结束（通常通过文件结束符 EOF ： Ctrl + Z 或 Ctrl + D 来结束）。读取的每一行会存储在 line 变量中，之后你可以对该行数据进行处理。  </p>
+<p><br><br></p>
+<h2 id="动态数组容器vector"><a href="#动态数组容器vector" class="headerlink" title="动态数组容器vector"></a>动态数组容器vector</h2><p>相较于一般数组，<code>vector</code>可以定义动态数组向量，参数可以用变量来设置，更为灵活。用法如下：  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;      <span class="comment">//定义一个整型变量</span></span><br><span class="line">    cin &gt;&gt; n;   <span class="comment">//输入给变量赋值</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">arr</span><span class="params">(n)</span></span>; <span class="comment">//定义一个元素种类为int的vector向量</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用<code>vector</code>定义二维数组（矩阵）的用法如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">      </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m ;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt; &gt; <span class="built_in">matrix</span>(n,<span class="built_in">vector</span>(m)); <span class="comment">//vector嵌套vector形成一个二维矩阵</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若上述实现全部使用传统的静态数组，则无法使用变量作为开辟数组的大小，需要定义静态的、超额大小的数组，如：<code>int arr[1010][1010] = &#123;0&#125;</code>，或先在函数外定义<code>const int SIZE = 1010;</code>再定义静态数组<code>int arr[SIZE][SIZE] = &#123;0&#125;</code>。</p>
+<p><strong>也可以不设置开辟大小参数，就要用到<code>.push_back()</code>（入栈_尾部）成员函数，与之相对应的还有<code>.push_front()</code>（入栈_头部）成员函数：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">      </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; arr; <span class="comment">//不设开辟大小参数</span></span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        arr.<span class="built_in">push_back</span>(num); </span><br><span class="line">        <span class="comment">//.push_back() 是 C++ 标准库中序列容器（如 vector、list、deque、string等）的成员函数。它的作用是在容器的末尾添加一个新元素。</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">get</span>() == <span class="string">&#x27;\n&#x27;</span>) <span class="keyword">break</span>;  <span class="comment">//如果是通过换行符结束输入，可以用此判断</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmftw0gu00001ng96ba7a0n8d" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-I-m-back" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/06/27/I-m-back/" class="article-date">
@@ -134,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmftvu8v20001zk967sr8h5b6" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmftw0gtx0000ng969gfacw48" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -182,6 +281,10 @@
       <ul>
         
           <li>
+            <a href="/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">算法笔记(C++) ——动态规划</a>
+          </li>
+        
+          <li>
             <a href="/2025/09/20/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">算法笔记(C++) ——广度优先搜索</a>
           </li>
         
@@ -195,10 +298,6 @@
         
           <li>
             <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/">算法笔记(C++) ——双指针</a>
-          </li>
-        
-          <li>
-            <a href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/">算法笔记(C++) ——递归</a>
           </li>
         
       </ul>
