@@ -254,3 +254,110 @@ int main()
     return 0;
 }
 ```
+
+__队列实现BFS例题 3：__
+```c++
+/*题目内容：
+每天早晨，环卫工人需要处理各个小区的生活垃圾，每个小区的生活垃圾由一队坏卫工人负责运送到最近的垃圾回收站进行处理，求将所有小区垃圾送到垃圾回收站的最小距离和.假设小区和垃圾回收站都在都在一个m行n列的区域矩阵上，相邻点的距离为1，只能上下左右移动;其中0表示垃圾处理站，1表示小区，2表示空白区域，−1表示障碍区域不可通行。
+区域内如果没有小区或者没有垃圾回收站，则最小距离和返回0。
+无法到达垃圾回收站的小区不计入本次距离和中。
+计算所有小区垃圾送到垃圾回收站的最小距离和。
+
+输入描述：
+第一行为两个数字m和n的和，表示区域矩阵的行数和列数，中间使用空格分隔，m和n的范围均为[1,300]。
+接下来的m行表示一个m×n的区域矩阵数组，每行的元素间以空格分隔，其中元素取值仅为−1(障碍)、0(垃圾处理站)、1(小区)、2(空白区域)。
+
+输出描述：
+一个整数，表示所计算的最小距离和。*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int m,n;
+    cin >> m >> n;
+    vector<vector<int>> map(m,vector<int>(n));
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            cin >> map[i][j];
+        }
+    }
+    bool hasXiaoqu = false,hasLajizhan=false;
+    vector<pair<int,int>> xiaoqu;
+
+    for(int i=0;i<m;i++) //判断是否有小区和垃圾站并记录小区
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(map[i][j]==0) hasLajizhan=true;
+            if(map[i][j]==1)
+            {
+                hasXiaoqu=true;
+                xiaoqu.push_back({i,j});
+            }
+        }
+    }
+
+    vector<int> dx={-1,1,0,0};
+    vector<int> dy={0,0,-1,1};
+
+    if(!hasLajizhan||!hasXiaoqu)
+    {
+        cout << 0;
+        return 0;
+    }
+
+    int res=0;
+    queue<pair<pair<int,int>,int>> q; //定义队列，元素为坐标绑定步数
+    
+    for(auto xq : xiaoqu) //每个小区各进行一轮BFS
+    {
+        vector<vector<int>> visited(m,vector<int>(n,0));
+
+        while(!q.empty()) //把上一个小区所遗留的队列清空
+        {
+            q.pop();
+        }
+        q.push({{xq.first,xq.second},0});
+
+        while(!q.empty())
+        {
+            auto cur = q.front();
+            q.pop();
+            int step=cur.second; //步数迭代
+            visited[cur.first.first][cur.first.second]=1;
+            if(map[cur.first.first][cur.first.second]==0)
+            {
+                res+=step;
+                break;
+            }
+            for(int i=0;i<4;i++)
+            {
+                int newX = cur.first.first+dx[i];
+                int newY = cur.first.second+dy[i];
+                if(newX >= 0 && newX < m && newY >= 0 
+                    && newY < n && map[newX][newY]!=-1 
+                    && visited[newX][newY]!=1) //不越界，不调头，不是墙
+                {
+                    q.push({{newX,newY},step+1});
+                }
+            }
+        }
+    }
+
+    cout << res;
+
+    return 0;
+}
+```
+
+
+<br>
+
+
+
+
+
