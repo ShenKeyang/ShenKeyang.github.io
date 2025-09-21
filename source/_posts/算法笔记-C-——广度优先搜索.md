@@ -93,7 +93,7 @@ __特点与注意事项：__
 - queue 默认使用 deque 作为底层容器，因此具有高效的插入和删除操作，尤其是在队列两端。
 - 不能通过下标访问队列中的元素，因为 queue 是一个先进先出（FIFO）结构。
 
-__队列实现BFS的例题：__
+__队列实现BFS例题 1：__
 ```c++
 /*题目描述：
 给定一个二维矩阵，表示一个迷宫，其中 1 表示墙壁，0 表示可以通行的道路。你有两个点，起点和终点，问是否存在一条从起点到终点的路径，使得你可以从起点走到终点。你可以上下左右四个方向移动，但不能穿过墙壁，也不能离开迷宫范围。坐标以行和列表示，均从0开始，左上角坐标是 (0,0) ，右下角坐标是 (n-1,m-1) 。
@@ -182,6 +182,75 @@ int main()
         cout << "NO";
     }
     
+    return 0;
+}
+```
+
+__队列实现BFS例题 2：__
+```c++
+/*题目描述：
+给定一个无向图，该图通过邻接表的方式存储。请你使用广度优先搜索（BFS）算法计算该图的连通块数量。
+在无向图中，一个连通块是指图中所有节点之间有路径相连的最大子图。你需要输出图中连通块的数量。
+
+输入：
+第一行包含两个整数 n 和 m（2≤n≤10^4 ，1≤m≤10^5 ），表示图中有 n 个节点和 m 条边。
+接下来的 m 行，每行包含两个整数 u 和 v（1≤u,v≤n），表示存在一条从节点 u 到节点 v 的无向边。
+
+输出：
+输出一个整数，表示图中连通块的数量。*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    vector<vector<int>> adj(n);
+    while(m--)
+    {
+        int u,v;
+        cin >> u >> v;
+        adj[u-1].push_back(v-1);
+        adj[v-1].push_back(u-1);
+    }
+
+    int res=0;
+    vector<bool> visited(n,false);
+    queue<int> q;
+    q.push(0);
+    bool allvisited = false;
+
+    while(!allvisited)
+    {
+        while(!q.empty())
+        {
+            int cur = q.front();
+            q.pop();
+            visited[cur]=true;
+            for(int i=0;i<adj[cur].size();i++)
+            {
+                if(visited[adj[cur][i]]!=true)
+                {
+                    q.push(adj[cur][i]);
+                }
+            }
+        }
+        res++;
+        for(int i=0;i<n;i++)
+        {
+            if(visited[i]==false)
+            {
+                allvisited=false;
+                q.push(i);
+                break;
+            }
+            allvisited=true;
+        }
+    }
+    
+    cout << res;
+
     return 0;
 }
 ```
