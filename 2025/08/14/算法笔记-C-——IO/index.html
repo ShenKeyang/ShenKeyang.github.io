@@ -14,7 +14,7 @@
 <meta property="og:description" content="C++万能头文件1#include &lt;bits&#x2F;stdc++.h&gt; 它包含（但不限于）： 基础头文件：&lt;iostream：输入输出流，包含cin、cout等 I&#x2F;O 操作&lt;cstdio&gt;：C 风格输入输出，包含printf、scanf等函数&lt;cmath&gt;：数学函数库，包含sin、cos、sqrt等数学运算       容器与数据结构:&lt;ve">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-14T14:18:35.000Z">
-<meta property="article:modified_time" content="2025-08-15T12:14:44.202Z">
+<meta property="article:modified_time" content="2025-09-22T15:30:48.526Z">
 <meta property="article:author" content="ShenKeyang">
 <meta property="article:tag" content="sky">
 <meta property="article:tag" content="shenkeyang">
@@ -162,12 +162,10 @@
 <p>若上述实现全部使用传统的静态数组，则无法使用变量作为开辟数组的大小，需要定义静态的、超额大小的数组，如：<code>int arr[1010][1010] = &#123;0&#125;</code>，或先在函数外定义<code>const int SIZE = 1010;</code>再定义静态数组<code>int arr[SIZE][SIZE] = &#123;0&#125;</code>。</p>
 <p><strong>也可以不设置开辟大小参数，就要用到<code>.push_back()</code>（入栈_尾部）成员函数，与之相对应的还有<code>.push_front()</code>（入栈_头部）成员函数：</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">      </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; arr; <span class="comment">//不设开辟大小参数</span></span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        arr.<span class="built_in">push_back</span>(num); </span><br><span class="line">        <span class="comment">//.push_back() 是 C++ 标准库中序列容器（如 vector、list、deque、string等）的成员函数。它的作用是在容器的末尾添加一个新元素。</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">get</span>() == <span class="string">&#x27;\n&#x27;</span>) <span class="keyword">break</span>;  <span class="comment">//如果是通过换行符结束输入，可以用此判断</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br><br></p>
-
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmfva0ttm0001wo968lscemke" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmfvaahoh00006g961kudbbyc" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
