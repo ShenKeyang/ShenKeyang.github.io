@@ -308,6 +308,3 @@ int main()
     return 0;
 }
 ```
-  
-<br><br>
-

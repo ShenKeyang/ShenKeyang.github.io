@@ -89,9 +89,3 @@ for (int u = 1; u <= n; u++) {
     cout << endl;
 }
 ```
-  
-<br><br>
-
-
-
-
