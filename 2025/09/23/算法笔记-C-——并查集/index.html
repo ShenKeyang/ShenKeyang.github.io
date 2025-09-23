@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>算法笔记(C++) ——并查集 | YOLO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="并查集的概念并查集（Union-Find）是一种树型数据结构，它的作用是管理元素所属集合的数据结构，主要支持两种操作：  合并（Union）：将两个不同的集合合并成一个集合。 查询（Find）：查询某个元素属于哪个集合。  从代码实现来说：    并查集是一个森林，每一棵树是一个集合。 查询是找元素所在树的根节点。 合并是把一个树的根节点成为另一个树的根节点的子节点。      数据结构实现原理：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记(C++) ——并查集">
+<meta property="og:url" content="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/index.html">
+<meta property="og:site_name" content="YOLO">
+<meta property="og:description" content="并查集的概念并查集（Union-Find）是一种树型数据结构，它的作用是管理元素所属集合的数据结构，主要支持两种操作：  合并（Union）：将两个不同的集合合并成一个集合。 查询（Find）：查询某个元素属于哪个集合。  从代码实现来说：    并查集是一个森林，每一棵树是一个集合。 查询是找元素所在树的根节点。 合并是把一个树的根节点成为另一个树的根节点的子节点。      数据结构实现原理：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-23T08:58:49.000Z">
+<meta property="article:modified_time" content="2025-09-23T10:32:26.236Z">
+<meta property="article:author" content="ShenKeyang">
+<meta property="article:tag" content="sky">
+<meta property="article:tag" content="shenkeyang">
+<meta property="article:tag" content="YOLO">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="YOLO" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">YOLO</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">You Only Live Once.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://shenkeyang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-算法笔记-C-——并查集" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="article-date">
+  <time class="dt-published" datetime="2025-09-23T08:58:49.000Z" itemprop="datePublished">2025-09-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      算法笔记(C++) ——并查集
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="并查集的概念"><a href="#并查集的概念" class="headerlink" title="并查集的概念"></a>并查集的概念</h2><p>并查集（Union-Find）是一种树型数据结构，它的作用是管理元素所属集合的数据结构，主要支持两种操作：</p>
+<ul>
+<li>合并（Union）：将两个不同的集合合并成一个集合。</li>
+<li>查询（Find）：查询某个元素属于哪个集合。</li>
+</ul>
+<p>从代码实现来说：  </p>
+<ul>
+<li>并查集是一个森林，每一棵树是一个集合。</li>
+<li>查询是找元素所在树的根节点。</li>
+<li>合并是把一个树的根节点成为另一个树的根节点的子节点。</li>
+</ul>
+<br>
+
+
+
+<h2 id="数据结构实现原理："><a href="#数据结构实现原理：" class="headerlink" title="数据结构实现原理："></a>数据结构实现原理：</h2><p>并查集通常使用数组实现：</p>
+<ul>
+<li>使用一个数组parent来表示每个元素的父节点。每个集合由一个代表（根节点）表示。</li>
+<li>如果某个元素的父节点是自身（即parent[i] &#x3D; i），则该元素是集合的代表（根节点）。</li>
+</ul>
+<p>例如，初始情况：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">元素：1 2 3 4</span><br><span class="line">父亲：1 2 3 4</span><br></pre></td></tr></table></figure>
+
+<br>
+
+
+
+<h2 id="代码结合说明："><a href="#代码结合说明：" class="headerlink" title="代码结合说明："></a>代码结合说明：</h2><ol>
+<li>初始化：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[i] = i;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>初始parent数组为：[0, 1, 2, 3, 4,…] (下标0未用，元素1-4为独立集合)<br>2. 查找操作（路径压缩）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (parent[x] != x)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>路径压缩的作用：</strong><br>当查找某个节点的根节点时，直接将该节点挂在根节点下面，这样能减少后续查询的复杂度。<br>示例说明：<br>x → y 表示 parent[x] &#x3D; y<br>假设集合结构：1→2→3，此时查询1的根，路径压缩前是1→2→3，路径压缩后变为：<br>1 → 3<br>2 → 3<br>查询效率明显提升。<br>3. 合并操作：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">unionSet</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> xRoot = <span class="built_in">find</span>(x);</span><br><span class="line">    <span class="type">int</span> yRoot = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">if</span> (xRoot != yRoot)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[xRoot] = yRoot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例说明：<br>假设集合结构：1→1，2→2，3→1，执行union(2,3)后集合变为：<br>1 → 1<br>2 → 1<br>3 → 1  </p>
+<br>
+
+
+
+<h2 id="并查集的优势和适用场景："><a href="#并查集的优势和适用场景：" class="headerlink" title="并查集的优势和适用场景："></a>并查集的优势和适用场景：</h2><ul>
+<li><p>优势：</p>
+<ul>
+<li>路径压缩优化：在查询(find)过程中，让树的结构更加扁平化，大大提升了查询和合并的效率。</li>
+<li>并查集的平均复杂度为O(log2 N)，性能优秀。</li>
+</ul>
+</li>
+<li><p>适用场景：</p>
+<ul>
+<li>判断两个元素是否属于同一集合或群组（如好友关系、网络连接性等）。</li>
+<li>动态计算图中联通块数量。</li>
+<li>快速实现“分组”操作，如“好友圈”问题。</li>
+</ul>
+</li>
+</ul>
+<p><strong>并查集例题1：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*题目描述：</span></span><br><span class="line"><span class="comment">如题，现在有一个并查集，你需要完成合并和查询操作。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入格式：</span></span><br><span class="line"><span class="comment">第一行包含两个整数n,m表示共有 n 个元素和 m 个操作。接下来 m 行，每行包含三个整数 zi,xi,yi.</span></span><br><span class="line"><span class="comment">当 zi = 1 时，将 xi 与 yi 所在的集合合并。</span></span><br><span class="line"><span class="comment">当 zi = 2 时，输出 xi 与 yi 是否在同一集合内，是的输出Y，否则输出N。</span></span><br><span class="line"><span class="comment">（1&lt;=N,M&lt;=10^5）</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">输出格式：</span></span><br><span class="line"><span class="comment">对于每一个 zi =2 的操作，都有一行输出，每行包含一个大写字母，为 Y 或者 N 。*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找（路径压缩）</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(parent[x] != x)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 合并</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">unionSet</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">find</span>(x)!=<span class="built_in">find</span>(y))</span><br><span class="line">    &#123;</span><br><span class="line">        parent[<span class="built_in">find</span>(x)] = <span class="built_in">find</span>(y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m, z, x, y;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    parent.<span class="built_in">resize</span>(n);</span><br><span class="line">    <span class="built_in">init</span>(n);</span><br><span class="line">    <span class="keyword">while</span>(m--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; z &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        <span class="keyword">if</span> (z == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">unionSet</span>(x, y);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">find</span>(x) == <span class="built_in">find</span>(y))</span><br><span class="line">            &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;Y\n&quot;</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;N\n&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<p><strong>并查集例题2：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*题目描述</span></span><br><span class="line"><span class="comment">小红想要处理一批图片，将相似的图片分类。他首先对图片的特征采样，得到图片之间的相似度，然后按照以下规则判断</span></span><br><span class="line"><span class="comment">图片是否可以归为一类:</span></span><br><span class="line"><span class="comment">1.相似度&gt;0表示两张图片相似；</span></span><br><span class="line"><span class="comment">2.如果A和B相似，B和C相似，但A和C不相似。那么认为A和C间接相似，可以把ABC归为一类，但不计算AC的相似度；</span></span><br><span class="line"><span class="comment">3.如果A和所有其他图片都不相似，则A自己归为一类，相似度为0。给定一个大小为N×N的矩阵 M 存储任意两张图片的相</span></span><br><span class="line"><span class="comment">  似度，M[i][j]即为第i个图片和第j个图片的相似度，请按照&quot;从大到小&quot;的顺序返回每个相似类中所有图片的相似度之和。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入描述：</span></span><br><span class="line"><span class="comment">第一行一个数N(1≤N≤900)，代表矩阵M中有N个图片。下面跟着N行，每行有N列数据，空格分隔，代表N个图片之间的相似度。</span></span><br><span class="line"><span class="comment">其中 0≤M[i][j]≤100，输入保证 M[i][j] = M[j][i]；</span></span><br><span class="line"><span class="comment">输入的矩阵分隔符为1个或多个连续空格。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输出描述：</span></span><br><span class="line"><span class="comment">每个相似类的相似度之和。格式为:一行数字，分隔符为1个空格。*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x != parent[x])</span><br><span class="line">    &#123;</span><br><span class="line">        parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">unionSet</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">find</span>(x)!=<span class="built_in">find</span>(y))</span><br><span class="line">    &#123;</span><br><span class="line">        parent[<span class="built_in">find</span>(x)] = <span class="built_in">find</span>(y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    parent.<span class="built_in">resize</span>(n);</span><br><span class="line">    <span class="built_in">init</span>(n);</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">map</span>(n,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; map[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i;j&lt;n;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(map[i][j]&gt;<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">unionSet</span>(i,j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> res[<span class="number">905</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="comment">// 计算每个相似类的相似度之和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j= i ;j&lt;n;j++) <span class="comment">// 矩阵是对称的，只用得到半个矩阵</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(map[i][j] &amp;&amp; <span class="built_in">find</span>(i)==<span class="built_in">find</span>(j))</span><br><span class="line">            &#123;</span><br><span class="line">                res[<span class="built_in">find</span>(i)]+=map[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(res<span class="number">+1</span>,res+n<span class="number">+1</span>);</span><br><span class="line">    <span class="comment">// 先排序，再倒序输出，遇到0则说明输出结束</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=n;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(res[i]==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        cout &lt;&lt; res[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/" data-id="cmfwf2bm70006uc963ba0e3yw" data-title="算法笔记(C++) ——并查集" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">算法笔记(C++) ——贪心</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">算法笔记(C++) ——并查集</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/">算法笔记(C++) ——贪心</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">算法笔记(C++) ——动态规划</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/20/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">算法笔记(C++) ——广度优先搜索</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">算法笔记(C++) ——深度优先搜索</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 ShenKeyang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

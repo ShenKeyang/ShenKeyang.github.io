@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>算法笔记(C++) ——贪心 | YOLO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在解决一些优化问题时，我们通常需要找出最优解（例如：最大化、最小化）。而贪心算法（Greedy Algorithm）是一种常用的求解方法，它的基本思想是：在每一步选择中都采取当前最优的选择，以期得到全局的最优解。   具体来说，贪心算法有以下特点：  局部最优选择：在每个阶段或步骤中，选择当前最优的解决方案，通常是选择那个“最好”的选项。 不考虑全局情况：在每一步的决策中，贪心算法并不考虑未来的步">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记(C++) ——贪心">
+<meta property="og:url" content="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/index.html">
+<meta property="og:site_name" content="YOLO">
+<meta property="og:description" content="在解决一些优化问题时，我们通常需要找出最优解（例如：最大化、最小化）。而贪心算法（Greedy Algorithm）是一种常用的求解方法，它的基本思想是：在每一步选择中都采取当前最优的选择，以期得到全局的最优解。   具体来说，贪心算法有以下特点：  局部最优选择：在每个阶段或步骤中，选择当前最优的解决方案，通常是选择那个“最好”的选项。 不考虑全局情况：在每一步的决策中，贪心算法并不考虑未来的步">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-23T07:44:25.000Z">
+<meta property="article:modified_time" content="2025-09-23T08:56:52.364Z">
+<meta property="article:author" content="ShenKeyang">
+<meta property="article:tag" content="sky">
+<meta property="article:tag" content="shenkeyang">
+<meta property="article:tag" content="YOLO">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="YOLO" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">YOLO</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">You Only Live Once.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://shenkeyang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-算法笔记-C-——贪心" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/" class="article-date">
+  <time class="dt-published" datetime="2025-09-23T07:44:25.000Z" itemprop="datePublished">2025-09-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      算法笔记(C++) ——贪心
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在解决一些优化问题时，我们通常需要找出最优解（例如：最大化、最小化）。而<code>贪心算法（Greedy Algorithm）</code>是一种常用的求解方法，它的基本思想是：在每一步选择中都采取<code>当前最优的选择</code>，以期得到全局的最优解。  </p>
+<p><strong>具体来说，贪心算法有以下特点：</strong></p>
+<ol>
+<li>局部最优选择：在每个阶段或步骤中，选择当前最优的解决方案，通常是选择那个“最好”的选项。</li>
+<li>不考虑全局情况：在每一步的决策中，贪心算法并不考虑未来的步骤，也不关心当前选择对后续的影响。它只专注于当前问题的最优解，而不是全局最优解。</li>
+<li>贪心策略的正确性：有时候，贪心算法能给出最优解，但<code>并不是所有的优化问题都能通过贪心算法找到全局最优解</code>。在能通过贪心算法找到最优解的情况下，这种算法非常高效。</li>
+</ol>
+<p><strong>贪心正确性的证明：</strong></p>
+<ol>
+<li>交换法（Exchange Argument）：假设在某个最优解中，某些选择的顺序与贪心算法的选择顺序不一致。通过交换这些选择，证明交换后的解并不比原解差，或者至少能得到相同的最优解，从而证明贪心算法能得到全局最优解。</li>
+<li>归纳法（Inductive Proof）：在贪心算法中，归纳法常用于证明每一步选择的局部最优性能够导致全局最优解。在归纳步骤中，我们假设贪心算法对于较小规模问题的正确性，然后证明它对较大规模问题也能成立。</li>
+</ol>
+<p><strong>贪心算法的实现步骤：</strong></p>
+<ol>
+<li>选择标准：确定每一步选择的标准，即选择当前最优的选项。</li>
+<li>选择过程：通过选择当前的最优解，逐步逼近问题的全局最优解。</li>
+<li>可行性检查：在选择过程中，要随时检查当前选择是否符合问题的约束条件。</li>
+<li>问题的最终解：在所有步骤完成后，得出最终的解。</li>
+</ol>
+<p><strong>贪心算法例题1：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*题目描述：有一堆商品，每个商品有一个重量和价值。你有一个背包，背包的最大承重为 C，你需要从商品中选择</span></span><br><span class="line"><span class="comment">一部分商品放入背包，使得总价值最大化。商品可以被分割，即你可以选择一部分商品放入背包。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入格式：</span></span><br><span class="line"><span class="comment">第一行包含两个整数 </span></span><br><span class="line"><span class="comment">n 和 C，分别表示商品的数量和背包的最大承重。(2&lt;=n&lt;=10^5),(1&lt;=C&lt;=10^5)接下来的n行，每行包含 2 个整数，</span></span><br><span class="line"><span class="comment">格式为 (w1,v1),(w2,v2),...,(wn,vn),其中 wi表示商品的重量，vi表示商品的价值。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输出格式：</span></span><br><span class="line"><span class="comment">输出一个浮点值，表示背包中放入商品后能得到的最大价值。结果保留 2 位小数。*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Item</span>&#123; <span class="comment">// 定义结构体存储每件商品的重量、价值、价重比</span></span><br><span class="line">    <span class="type">int</span> weight;</span><br><span class="line">    <span class="type">int</span> value;</span><br><span class="line">    <span class="type">double</span> ratio;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">compare</span><span class="params">(<span class="type">const</span> Item &amp;a, <span class="type">const</span> Item &amp;b)</span></span></span><br><span class="line"><span class="function"></span>&#123;   <span class="comment">// 为后续的依照价重比降序排序作准备</span></span><br><span class="line">    <span class="keyword">return</span> a.ratio &gt; b.ratio;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">func</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> c, vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;&gt; &amp;items)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;Item&gt; itemsWithRatio;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> weight = items[i].first;</span><br><span class="line">        <span class="type">int</span> value = items[i].second;</span><br><span class="line">        <span class="type">double</span> ratio = (<span class="type">double</span>)value / weight;</span><br><span class="line">        itemsWithRatio.<span class="built_in">push_back</span>(&#123;weight, value, ratio&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 按照价重比降序排序（用到第三个参数，自定义排序办法）</span></span><br><span class="line">    <span class="built_in">sort</span>(itemsWithRatio.<span class="built_in">begin</span>(),itemsWithRatio.<span class="built_in">end</span>(),compare);</span><br><span class="line">    </span><br><span class="line">    <span class="type">double</span> totalValue = <span class="number">0.0</span>;</span><br><span class="line">    <span class="type">int</span> remainingCapacity = c;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">const</span> <span class="keyword">auto</span> &amp;item : itemsWithRatio)</span><br><span class="line">    &#123;   <span class="comment">// 贪心：每次选取当前未装入背包的商品中价重比最高的</span></span><br><span class="line">        <span class="keyword">if</span>(remainingCapacity == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (item.weight &lt;= remainingCapacity)</span><br><span class="line">        &#123;   <span class="comment">// 商品能完全放入背包</span></span><br><span class="line">            totalValue += item.value;</span><br><span class="line">            remainingCapacity -= item.weight;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">            <span class="comment">// 注意本题中提到“商品可分割”，可以部分放入，到最后背包肯定是满的</span></span><br><span class="line">            totalValue += item.value * ((<span class="type">double</span>)remainingCapacity / item.weight);</span><br><span class="line">            remainingCapacity = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> totalValue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,c;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; c;</span><br><span class="line">    vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;&gt; <span class="built_in">items</span>(n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; items[i].first &gt;&gt; items[i].second;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">double</span> res = <span class="built_in">func</span>(n,c,items);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 依照题目要求格式化输出</span></span><br><span class="line">    cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">2</span>) &lt;&lt; res &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<p><strong>贪心算法例题2：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*题目内容：</span></span><br><span class="line"><span class="comment">小塔正在给自己的物品贴标签。她一共有m种不同的标签，每种标签只有一个。 对于第i个物品，如果贴上ai号标签，</span></span><br><span class="line"><span class="comment">那么它的美观值为bi;如果没有贴上ai号标签，则其美观值为ci。小美想知道在合理的分配下，所有物品的美观值之</span></span><br><span class="line"><span class="comment">和最大为多少。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入描述：</span></span><br><span class="line"><span class="comment">第一行输入两个整数n和m代表小美的物品个数和标签种类。第二行输入n个整数ai代表每个物品适合的标签种类. 第</span></span><br><span class="line"><span class="comment">三行输入n个整数bi代表每个物品贴上适合的标签后的美观值。第四行输入n个整数ci代表每个物品未贴上适合标签时</span></span><br><span class="line"><span class="comment">的美观值。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输出描述：</span></span><br><span class="line"><span class="comment">在一行上输出一个整数，代表所有物品美观值之和的最大值。*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*思路：</span></span><br><span class="line"><span class="comment">1.标签分配：我们首先将物品根据它们适合的标签进行分组，记录每个标签所对应的物品索引。</span></span><br><span class="line"><span class="comment">2.优先选择贴标签：对于每个标签所对应的物品，优先选择能够带来更高美观值的物品贴标签。如果物品不能贴标签，</span></span><br><span class="line"><span class="comment">  就选择不贴标签的美观值。</span></span><br><span class="line"><span class="comment">3.排序策略：每个标签所对应的物品排序时，应该根据 bi - ci（即贴上标签和不贴标签的美观值差）来排序。这样</span></span><br><span class="line"><span class="comment">  可以优先选择那些能够通过贴标签获得更大美观值的物品。*/</span></span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">greedy</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> m, <span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; a, <span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; b, <span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">idx</span>(m<span class="number">+1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        idx[a[i]].<span class="built_in">push_back</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ll total_value = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; lst : idx)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (lst.<span class="built_in">empty</span>()) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; sorted_lst = lst;</span><br><span class="line">        <span class="built_in">sort</span>(sorted_lst.<span class="built_in">begin</span>(), sorted_lst.<span class="built_in">end</span>(), [&amp;c, &amp;b](<span class="type">int</span> x, <span class="type">int</span> y) &#123;</span><br><span class="line">                <span class="keyword">return</span> b[x] - c[x] &gt; b[y] - c[y];</span><br><span class="line">            &#125;</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        total_value += <span class="built_in">max</span>(b[sorted_lst[<span class="number">0</span>]], c[sorted_lst[<span class="number">0</span>]]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">1</span>; i &lt; sorted_lst.<span class="built_in">size</span>(); ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            total_value += c[sorted_lst[i]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total_value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">b</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">c</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        cin &gt;&gt; b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        cin &gt;&gt; c[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ll res = <span class="built_in">greedy</span>(n, m, a, b, c);</span><br><span class="line">    cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/" data-id="cmfwf2bm9000auc969e8zhq3v" data-title="算法笔记(C++) ——贪心" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          算法笔记(C++) ——并查集
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">算法笔记(C++) ——动态规划</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">算法笔记(C++) ——并查集</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/">算法笔记(C++) ——贪心</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">算法笔记(C++) ——动态规划</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/20/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">算法笔记(C++) ——广度优先搜索</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">算法笔记(C++) ——深度优先搜索</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 ShenKeyang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

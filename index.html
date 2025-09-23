@@ -80,6 +80,166 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-算法笔记-C-——并查集" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="article-date">
+  <time class="dt-published" datetime="2025-09-23T08:58:49.000Z" itemprop="datePublished">2025-09-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">算法笔记(C++) ——并查集</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="并查集的概念"><a href="#并查集的概念" class="headerlink" title="并查集的概念"></a>并查集的概念</h2><p>并查集（Union-Find）是一种树型数据结构，它的作用是管理元素所属集合的数据结构，主要支持两种操作：</p>
+<ul>
+<li>合并（Union）：将两个不同的集合合并成一个集合。</li>
+<li>查询（Find）：查询某个元素属于哪个集合。</li>
+</ul>
+<p>从代码实现来说：  </p>
+<ul>
+<li>并查集是一个森林，每一棵树是一个集合。</li>
+<li>查询是找元素所在树的根节点。</li>
+<li>合并是把一个树的根节点成为另一个树的根节点的子节点。</li>
+</ul>
+<br>
+
+
+
+<h2 id="数据结构实现原理："><a href="#数据结构实现原理：" class="headerlink" title="数据结构实现原理："></a>数据结构实现原理：</h2><p>并查集通常使用数组实现：</p>
+<ul>
+<li>使用一个数组parent来表示每个元素的父节点。每个集合由一个代表（根节点）表示。</li>
+<li>如果某个元素的父节点是自身（即parent[i] &#x3D; i），则该元素是集合的代表（根节点）。</li>
+</ul>
+<p>例如，初始情况：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">元素：1 2 3 4</span><br><span class="line">父亲：1 2 3 4</span><br></pre></td></tr></table></figure>
+
+<br>
+
+
+
+<h2 id="代码结合说明："><a href="#代码结合说明：" class="headerlink" title="代码结合说明："></a>代码结合说明：</h2><ol>
+<li>初始化：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[i] = i;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>初始parent数组为：[0, 1, 2, 3, 4,…] (下标0未用，元素1-4为独立集合)<br>2. 查找操作（路径压缩）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (parent[x] != x)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>路径压缩的作用：</strong><br>当查找某个节点的根节点时，直接将该节点挂在根节点下面，这样能减少后续查询的复杂度。<br>示例说明：<br>x → y 表示 parent[x] &#x3D; y<br>假设集合结构：1→2→3，此时查询1的根，路径压缩前是1→2→3，路径压缩后变为：<br>1 → 3<br>2 → 3<br>查询效率明显提升。<br>3. 合并操作：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">unionSet</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> xRoot = <span class="built_in">find</span>(x);</span><br><span class="line">    <span class="type">int</span> yRoot = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">if</span> (xRoot != yRoot)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[xRoot] = yRoot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例说明：<br>假设集合结构：1→1，2→2，3→1，执行union(2,3)后集合变为：<br>1 → 1<br>2 → 1<br>3 → 1  </p>
+<br>
+
+
+
+<h2 id="并查集的优势和适用场景："><a href="#并查集的优势和适用场景：" class="headerlink" title="并查集的优势和适用场景："></a>并查集的优势和适用场景：</h2><ul>
+<li><p>优势：</p>
+<ul>
+<li>路径压缩优化：在查询(find)过程中，让树的结构更加扁平化，大大提升了查询和合并的效率。</li>
+<li>并查集的平均复杂度为O(log2 N)，性能优秀。</li>
+</ul>
+</li>
+<li><p>适用场景：</p>
+<ul>
+<li>判断两个元素是否属于同一集合或群组（如好友关系、网络连接性等）。</li>
+<li>动态计算图中联通块数量。</li>
+<li>快速实现“分组”操作，如“好友圈”问题。</li>
+</ul>
+</li>
+</ul>
+<p><strong>并查集例题1：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*题目描述：</span></span><br><span class="line"><span class="comment">如题，现在有一个并查集，你需要完成合并和查询操作。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入格式：</span></span><br><span class="line"><span class="comment">第一行包含两个整数n,m表示共有 n 个元素和 m 个操作。接下来 m 行，每行包含三个整数 zi,xi,yi.</span></span><br><span class="line"><span class="comment">当 zi = 1 时，将 xi 与 yi 所在的集合合并。</span></span><br><span class="line"><span class="comment">当 zi = 2 时，输出 xi 与 yi 是否在同一集合内，是的输出Y，否则输出N。</span></span><br><span class="line"><span class="comment">（1&lt;=N,M&lt;=10^5）</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">输出格式：</span></span><br><span class="line"><span class="comment">对于每一个 zi =2 的操作，都有一行输出，每行包含一个大写字母，为 Y 或者 N 。*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找（路径压缩）</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(parent[x] != x)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 合并</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">unionSet</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">find</span>(x)!=<span class="built_in">find</span>(y))</span><br><span class="line">    &#123;</span><br><span class="line">        parent[<span class="built_in">find</span>(x)] = <span class="built_in">find</span>(y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m, z, x, y;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    parent.<span class="built_in">resize</span>(n);</span><br><span class="line">    <span class="built_in">init</span>(n);</span><br><span class="line">    <span class="keyword">while</span>(m--)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; z &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        <span class="keyword">if</span> (z == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">unionSet</span>(x, y);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">find</span>(x) == <span class="built_in">find</span>(y))</span><br><span class="line">            &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;Y\n&quot;</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;N\n&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<p><strong>并查集例题2：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*题目描述</span></span><br><span class="line"><span class="comment">小红想要处理一批图片，将相似的图片分类。他首先对图片的特征采样，得到图片之间的相似度，然后按照以下规则判断</span></span><br><span class="line"><span class="comment">图片是否可以归为一类:</span></span><br><span class="line"><span class="comment">1.相似度&gt;0表示两张图片相似；</span></span><br><span class="line"><span class="comment">2.如果A和B相似，B和C相似，但A和C不相似。那么认为A和C间接相似，可以把ABC归为一类，但不计算AC的相似度；</span></span><br><span class="line"><span class="comment">3.如果A和所有其他图片都不相似，则A自己归为一类，相似度为0。给定一个大小为N×N的矩阵 M 存储任意两张图片的相</span></span><br><span class="line"><span class="comment">  似度，M[i][j]即为第i个图片和第j个图片的相似度，请按照&quot;从大到小&quot;的顺序返回每个相似类中所有图片的相似度之和。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入描述：</span></span><br><span class="line"><span class="comment">第一行一个数N(1≤N≤900)，代表矩阵M中有N个图片。下面跟着N行，每行有N列数据，空格分隔，代表N个图片之间的相似度。</span></span><br><span class="line"><span class="comment">其中 0≤M[i][j]≤100，输入保证 M[i][j] = M[j][i]；</span></span><br><span class="line"><span class="comment">输入的矩阵分隔符为1个或多个连续空格。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输出描述：</span></span><br><span class="line"><span class="comment">每个相似类的相似度之和。格式为:一行数字，分隔符为1个空格。*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x != parent[x])</span><br><span class="line">    &#123;</span><br><span class="line">        parent[x] = <span class="built_in">find</span>(parent[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">unionSet</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">find</span>(x)!=<span class="built_in">find</span>(y))</span><br><span class="line">    &#123;</span><br><span class="line">        parent[<span class="built_in">find</span>(x)] = <span class="built_in">find</span>(y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    parent.<span class="built_in">resize</span>(n);</span><br><span class="line">    <span class="built_in">init</span>(n);</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">map</span>(n,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n));</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            cin &gt;&gt; map[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i;j&lt;n;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(map[i][j]&gt;<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">unionSet</span>(i,j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> res[<span class="number">905</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="comment">// 计算每个相似类的相似度之和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j= i ;j&lt;n;j++) <span class="comment">// 矩阵是对称的，只用得到半个矩阵</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(map[i][j] &amp;&amp; <span class="built_in">find</span>(i)==<span class="built_in">find</span>(j))</span><br><span class="line">            &#123;</span><br><span class="line">                res[<span class="built_in">find</span>(i)]+=map[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(res<span class="number">+1</span>,res+n<span class="number">+1</span>);</span><br><span class="line">    <span class="comment">// 先排序，再倒序输出，遇到0则说明输出结束</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=n;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(res[i]==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        cout &lt;&lt; res[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/" data-id="cmfwf2bm70006uc963ba0e3yw" data-title="算法笔记(C++) ——并查集" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-算法笔记-C-——贪心" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/" class="article-date">
+  <time class="dt-published" datetime="2025-09-23T07:44:25.000Z" itemprop="datePublished">2025-09-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/">算法笔记(C++) ——贪心</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在解决一些优化问题时，我们通常需要找出最优解（例如：最大化、最小化）。而<code>贪心算法（Greedy Algorithm）</code>是一种常用的求解方法，它的基本思想是：在每一步选择中都采取<code>当前最优的选择</code>，以期得到全局的最优解。  </p>
+<p><strong>具体来说，贪心算法有以下特点：</strong></p>
+<ol>
+<li>局部最优选择：在每个阶段或步骤中，选择当前最优的解决方案，通常是选择那个“最好”的选项。</li>
+<li>不考虑全局情况：在每一步的决策中，贪心算法并不考虑未来的步骤，也不关心当前选择对后续的影响。它只专注于当前问题的最优解，而不是全局最优解。</li>
+<li>贪心策略的正确性：有时候，贪心算法能给出最优解，但<code>并不是所有的优化问题都能通过贪心算法找到全局最优解</code>。在能通过贪心算法找到最优解的情况下，这种算法非常高效。</li>
+</ol>
+<p><strong>贪心正确性的证明：</strong></p>
+<ol>
+<li>交换法（Exchange Argument）：假设在某个最优解中，某些选择的顺序与贪心算法的选择顺序不一致。通过交换这些选择，证明交换后的解并不比原解差，或者至少能得到相同的最优解，从而证明贪心算法能得到全局最优解。</li>
+<li>归纳法（Inductive Proof）：在贪心算法中，归纳法常用于证明每一步选择的局部最优性能够导致全局最优解。在归纳步骤中，我们假设贪心算法对于较小规模问题的正确性，然后证明它对较大规模问题也能成立。</li>
+</ol>
+<p><strong>贪心算法的实现步骤：</strong></p>
+<ol>
+<li>选择标准：确定每一步选择的标准，即选择当前最优的选项。</li>
+<li>选择过程：通过选择当前的最优解，逐步逼近问题的全局最优解。</li>
+<li>可行性检查：在选择过程中，要随时检查当前选择是否符合问题的约束条件。</li>
+<li>问题的最终解：在所有步骤完成后，得出最终的解。</li>
+</ol>
+<p><strong>贪心算法例题1：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*题目描述：有一堆商品，每个商品有一个重量和价值。你有一个背包，背包的最大承重为 C，你需要从商品中选择</span></span><br><span class="line"><span class="comment">一部分商品放入背包，使得总价值最大化。商品可以被分割，即你可以选择一部分商品放入背包。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入格式：</span></span><br><span class="line"><span class="comment">第一行包含两个整数 </span></span><br><span class="line"><span class="comment">n 和 C，分别表示商品的数量和背包的最大承重。(2&lt;=n&lt;=10^5),(1&lt;=C&lt;=10^5)接下来的n行，每行包含 2 个整数，</span></span><br><span class="line"><span class="comment">格式为 (w1,v1),(w2,v2),...,(wn,vn),其中 wi表示商品的重量，vi表示商品的价值。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输出格式：</span></span><br><span class="line"><span class="comment">输出一个浮点值，表示背包中放入商品后能得到的最大价值。结果保留 2 位小数。*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Item</span>&#123; <span class="comment">// 定义结构体存储每件商品的重量、价值、价重比</span></span><br><span class="line">    <span class="type">int</span> weight;</span><br><span class="line">    <span class="type">int</span> value;</span><br><span class="line">    <span class="type">double</span> ratio;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">compare</span><span class="params">(<span class="type">const</span> Item &amp;a, <span class="type">const</span> Item &amp;b)</span></span></span><br><span class="line"><span class="function"></span>&#123;   <span class="comment">// 为后续的依照价重比降序排序作准备</span></span><br><span class="line">    <span class="keyword">return</span> a.ratio &gt; b.ratio;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">func</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> c, vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;&gt; &amp;items)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;Item&gt; itemsWithRatio;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> weight = items[i].first;</span><br><span class="line">        <span class="type">int</span> value = items[i].second;</span><br><span class="line">        <span class="type">double</span> ratio = (<span class="type">double</span>)value / weight;</span><br><span class="line">        itemsWithRatio.<span class="built_in">push_back</span>(&#123;weight, value, ratio&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 按照价重比降序排序（用到第三个参数，自定义排序办法）</span></span><br><span class="line">    <span class="built_in">sort</span>(itemsWithRatio.<span class="built_in">begin</span>(),itemsWithRatio.<span class="built_in">end</span>(),compare);</span><br><span class="line">    </span><br><span class="line">    <span class="type">double</span> totalValue = <span class="number">0.0</span>;</span><br><span class="line">    <span class="type">int</span> remainingCapacity = c;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">const</span> <span class="keyword">auto</span> &amp;item : itemsWithRatio)</span><br><span class="line">    &#123;   <span class="comment">// 贪心：每次选取当前未装入背包的商品中价重比最高的</span></span><br><span class="line">        <span class="keyword">if</span>(remainingCapacity == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (item.weight &lt;= remainingCapacity)</span><br><span class="line">        &#123;   <span class="comment">// 商品能完全放入背包</span></span><br><span class="line">            totalValue += item.value;</span><br><span class="line">            remainingCapacity -= item.weight;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">            <span class="comment">// 注意本题中提到“商品可分割”，可以部分放入，到最后背包肯定是满的</span></span><br><span class="line">            totalValue += item.value * ((<span class="type">double</span>)remainingCapacity / item.weight);</span><br><span class="line">            remainingCapacity = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> totalValue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,c;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; c;</span><br><span class="line">    vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;&gt; <span class="built_in">items</span>(n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; items[i].first &gt;&gt; items[i].second;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">double</span> res = <span class="built_in">func</span>(n,c,items);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 依照题目要求格式化输出</span></span><br><span class="line">    cout &lt;&lt; fixed &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">2</span>) &lt;&lt; res &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<p><strong>贪心算法例题2：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*题目内容：</span></span><br><span class="line"><span class="comment">小塔正在给自己的物品贴标签。她一共有m种不同的标签，每种标签只有一个。 对于第i个物品，如果贴上ai号标签，</span></span><br><span class="line"><span class="comment">那么它的美观值为bi;如果没有贴上ai号标签，则其美观值为ci。小美想知道在合理的分配下，所有物品的美观值之</span></span><br><span class="line"><span class="comment">和最大为多少。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入描述：</span></span><br><span class="line"><span class="comment">第一行输入两个整数n和m代表小美的物品个数和标签种类。第二行输入n个整数ai代表每个物品适合的标签种类. 第</span></span><br><span class="line"><span class="comment">三行输入n个整数bi代表每个物品贴上适合的标签后的美观值。第四行输入n个整数ci代表每个物品未贴上适合标签时</span></span><br><span class="line"><span class="comment">的美观值。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输出描述：</span></span><br><span class="line"><span class="comment">在一行上输出一个整数，代表所有物品美观值之和的最大值。*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*思路：</span></span><br><span class="line"><span class="comment">1.标签分配：我们首先将物品根据它们适合的标签进行分组，记录每个标签所对应的物品索引。</span></span><br><span class="line"><span class="comment">2.优先选择贴标签：对于每个标签所对应的物品，优先选择能够带来更高美观值的物品贴标签。如果物品不能贴标签，</span></span><br><span class="line"><span class="comment">  就选择不贴标签的美观值。</span></span><br><span class="line"><span class="comment">3.排序策略：每个标签所对应的物品排序时，应该根据 bi - ci（即贴上标签和不贴标签的美观值差）来排序。这样</span></span><br><span class="line"><span class="comment">  可以优先选择那些能够通过贴标签获得更大美观值的物品。*/</span></span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">greedy</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> m, <span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; a, <span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; b, <span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">idx</span>(m<span class="number">+1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        idx[a[i]].<span class="built_in">push_back</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ll total_value = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; lst : idx)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (lst.<span class="built_in">empty</span>()) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; sorted_lst = lst;</span><br><span class="line">        <span class="built_in">sort</span>(sorted_lst.<span class="built_in">begin</span>(), sorted_lst.<span class="built_in">end</span>(), [&amp;c, &amp;b](<span class="type">int</span> x, <span class="type">int</span> y) &#123;</span><br><span class="line">                <span class="keyword">return</span> b[x] - c[x] &gt; b[y] - c[y];</span><br><span class="line">            &#125;</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        total_value += <span class="built_in">max</span>(b[sorted_lst[<span class="number">0</span>]], c[sorted_lst[<span class="number">0</span>]]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">1</span>; i &lt; sorted_lst.<span class="built_in">size</span>(); ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            total_value += c[sorted_lst[i]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total_value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">b</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">c</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        cin &gt;&gt; b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        cin &gt;&gt; c[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ll res = <span class="built_in">greedy</span>(n, m, a, b, c);</span><br><span class="line">    cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/" data-id="cmfwf2bm9000auc969e8zhq3v" data-title="算法笔记(C++) ——贪心" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-算法笔记-C-——动态规划" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="article-date">
@@ -168,7 +328,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-id="cmfvacbvr0002e0960uw657ya" data-title="算法笔记(C++) ——动态规划" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-id="cmfwf2bly0001uc9628n7f505" data-title="算法笔记(C++) ——动态规划" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -266,7 +426,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/20/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmfvacbvv0008e096ha28ats9" data-title="算法笔记(C++) ——广度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/20/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmfwf2bm80008uc96f6wa3st1" data-title="算法笔记(C++) ——广度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -346,7 +506,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmfvacbvx000ae0961nx7h9ri" data-title="算法笔记(C++) ——深度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmfwf2bmc000duc96amj8f7g3" data-title="算法笔记(C++) ——深度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -420,7 +580,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" data-id="cmfvacbvu0006e0962u8l8c2y" data-title="算法笔记(C++) ——图的存储" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" data-id="cmfwf2bm50004uc96ge7pfp3a" data-title="算法笔记(C++) ——图的存储" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -501,7 +661,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmfvacbvs0004e0969zh8757e" data-title="算法笔记(C++) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmfwf2bm60005uc96c58u59wo" data-title="算法笔记(C++) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -617,7 +777,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmfvacbvx000be096egpeb71e" data-title="算法笔记(C++) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmfwf2bma000buc965cpwbpyx" data-title="算法笔记(C++) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -704,7 +864,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmfvacbvs0003e0969dg15f5v" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmfwf2bm50003uc960fb371jq" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -837,140 +997,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmfvacbvt0005e096amwj5wsb" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-算法笔记-C-——栈" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" class="article-date">
-  <time class="dt-published" datetime="2025-08-15T09:36:38.000Z" itemprop="datePublished">2025-08-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/">算法笔记(C++) ——栈</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="栈的特性："><a href="#栈的特性：" class="headerlink" title="栈的特性："></a>栈的特性：</h2><p><code>LIFO（后进先出）原则</code>：栈中的元素是从栈顶添加和移除的，栈顶的元素是最先被访问的。<br><code>只能在一端操作</code>：栈的操作只能在栈顶进行。  </p>
-<p><br><br></p>
-<h2 id="栈的应用："><a href="#栈的应用：" class="headerlink" title="栈的应用："></a>栈的应用：</h2><p><code>函数调用管理</code>：在程序运行过程中，函数调用的顺序和返回都由栈来管理。每次函数调用时，程序会把当前函数的信息压入栈中，函数执行完成后会从栈中弹出，返回到调用函数的位置。<br><code>表达式求值</code>：栈常用于数学表达式的求值，尤其是处理括号匹配和运算符优先级时。<br><code>浏览器的历史记录</code>：浏览器在你浏览网页时会将每个页面的链接压入栈中，这样你按回退按钮时就可以弹出最近访问的页面。  </p>
-<p><br><br></p>
-<h2 id="栈的实现："><a href="#栈的实现：" class="headerlink" title="栈的实现："></a>栈的实现：</h2><p>栈可以通过数组或链表来实现。常见的实现方式有：<br><code>数组实现</code>：使用数组来存储栈的元素，栈顶指针记录栈顶元素的位置。<br><code>链表实现</code>：通过链表的头结点来表示栈顶，头结点指向栈顶元素。<br>栈的操作时间复杂度通常是<code>O(1)</code>，即每次操作的时间是常数级别的，因为它只涉及栈顶元素.  </p>
-<p><br><br></p>
-<h2 id="栈的C-实现和操作"><a href="#栈的C-实现和操作" class="headerlink" title="栈的C++实现和操作"></a>栈的C++实现和操作</h2><p><strong>C++自带的<code>stack</code>容器：</strong><br>C++中的<code>stack</code>是一个标准库容器，用来实现栈（Stack）数据结构。栈是一种后进先出（LIFO，Last In, First Out）的数据结构，意味着最后加入的元素会最先被移除。C++的stack容器是基于其他容器（例如deque或vector）实现的，但提供了一个简化的接口，专注于栈的基本操作。</p>
-<p><strong>stack的主要操作:</strong>  </p>
-<ol>
-<li><code>push()</code>： 向栈顶添加一个元素。</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line">s.<span class="built_in">push</span>(<span class="number">10</span>);  <span class="comment">// 栈顶添加元素10</span></span><br><span class="line">s.<span class="built_in">push</span>(<span class="number">20</span>);  <span class="comment">// 栈顶添加元素20</span></span><br><span class="line">s.<span class="built_in">push</span>(<span class="number">30</span>);  <span class="comment">// 栈顶添加元素30</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li><code>pop()</code>： 移除栈顶的元素，但并不返回该元素。</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.<span class="built_in">pop</span>();  <span class="comment">// 移除栈顶元素30</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li><code>top()</code>： 返回栈顶的元素，但不移除它。</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; s.<span class="built_in">top</span>();  <span class="comment">// 输出栈顶元素20</span></span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li><code>empty()</code>： 检查栈是否为空。如果栈为空，返回true，否则返回false。</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (s.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;栈是空的&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;栈不为空&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li><code>size()</code>： 返回栈中元素的数量。</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; <span class="string">&quot;栈的大小：&quot;</span> &lt;&lt; s.<span class="built_in">size</span>() &lt;&lt; endl;  <span class="comment">// 输出栈中的元素数量</span></span><br></pre></td></tr></table></figure>
-<p><strong>示例代码（合法括号判断）：</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    cin &gt;&gt; s;  <span class="comment">// 输入括号字符串</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; stk;  <span class="comment">// 创建一个栈</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">char</span> ch : s) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ch == <span class="string">&#x27;(&#x27;</span>) &#123;</span><br><span class="line">            stk.<span class="built_in">push</span>(ch);  <span class="comment">// 遇到左括号，压入栈中</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (stk.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;No&quot;</span> &lt;&lt; endl;  <span class="comment">// 栈为空，说明没有匹配的左括号</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            stk.<span class="built_in">pop</span>();  <span class="comment">// 弹出栈顶元素，匹配对应的左括号</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果栈为空，说明所有左括号都有匹配</span></span><br><span class="line">    cout &lt;&lt; (stk.<span class="built_in">empty</span>() ? <span class="string">&quot;Yes&quot;</span> : <span class="string">&quot;No&quot;</span>) &lt;&lt; endl;  <span class="comment">// 输出结果</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>总的来说，C++中的stack是一个非常简单且高效的数据结构，适合处理“先进后出”类型的需求。  </p>
-<p><br><br></p>
-<h2 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h2><p>auto 是 C++11 引入的一个关键字，主要用于自动推导变量的类型。它使得编程变得更加简洁，减少了显式指定类型的需求，特别是当类型复杂或不容易记住时。  </p>
-<p><strong>使用场景：</strong></p>
-<ol>
-<li>变量声明：在声明变量时，可以使用 auto 来代替显式的类型声明，编译器会根据右边的表达式自动推导出变量的类型。</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> x = <span class="number">10</span>;  <span class="comment">// x的类型是int</span></span><br><span class="line"><span class="keyword">auto</span> y = <span class="number">3.14</span>;  <span class="comment">// y的类型是double</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>容器迭代器：在使用 STL 容器（如 vector）时，容器的迭代器类型通常比较复杂。使用 auto 可以让代码更加简洁和易读。</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; vec = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = vec.<span class="built_in">begin</span>(); it != vec.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>函数返回类型：如果函数返回一个复杂的类型或是模板类型，使用 auto 可以减少繁琐的类型声明。</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;  <span class="comment">// 返回值类型为int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>范围 for 循环：在范围 for 循环中，auto 用来推导容器中元素的类型。</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; nums = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> num : nums) &#123;</span><br><span class="line">    cout &lt;&lt; num &lt;&lt; endl;  <span class="comment">// num 的类型是int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmfvacbvw0009e0962yd11wz5" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-算法笔记-C-——字符串" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="article-date">
-  <time class="dt-published" datetime="2025-08-15T08:51:38.000Z" itemprop="datePublished">2025-08-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/">算法笔记(C++) ——字符串</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="常用的string成员函数"><a href="#常用的string成员函数" class="headerlink" title="常用的string成员函数"></a>常用的string成员函数</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造函数</span></span><br><span class="line">string s1;                <span class="comment">// 默认构造，创建一个空字符串</span></span><br><span class="line"><span class="function">string <span class="title">s2</span><span class="params">(<span class="string">&quot;Hello, C++!&quot;</span>)</span></span>; <span class="comment">// 用常量字符串构造</span></span><br><span class="line"><span class="function">string <span class="title">s3</span><span class="params">(s2)</span></span>;            <span class="comment">// 用另一个字符串构造（拷贝构造）</span></span><br><span class="line"><span class="function">string <span class="title">s4</span><span class="params">(<span class="number">10</span>, <span class="string">&#x27;a&#x27;</span>)</span></span>;       <span class="comment">// 创建一个长度为 10 的字符串，每个字符为 &#x27;a&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//赋值操作</span></span><br><span class="line">string s1 = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">s1 = <span class="string">&quot;World&quot;</span>;  <span class="comment">// 赋新值，原有的内容会被释放并替换</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//字符串拼接（连接）</span></span><br><span class="line">string s1 = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">string s2 = <span class="string">&quot;World&quot;</span>;</span><br><span class="line">string s3 = s1 + <span class="string">&quot; &quot;</span> + s2;  <span class="comment">// 拼接两个字符串</span></span><br><span class="line">s<span class="number">1.</span><span class="built_in">append</span>(<span class="string">&quot; C++&quot;</span>);               <span class="comment">// 使用 append() 进行拼接</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取长度</span></span><br><span class="line">string s = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"><span class="type">size_t</span> length = s.<span class="built_in">length</span>();   <span class="comment">// 获取字符串的长度</span></span><br><span class="line"><span class="type">size_t</span> size = s.<span class="built_in">size</span>();       <span class="comment">// 等价于 length()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//字符访问</span></span><br><span class="line">string s = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"><span class="type">char</span> c = s[<span class="number">1</span>];    <span class="comment">// 访问字符串中索引为 1 的字符，结果是 &#x27;e&#x27;</span></span><br><span class="line"><span class="type">char</span> c2 = s.<span class="built_in">at</span>(<span class="number">1</span>); <span class="comment">// 等价于 s[1]，但如果索引越界，会抛出异常</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//查找字符或子字符串</span></span><br><span class="line">string s = <span class="string">&quot;Hello, C++!&quot;</span>;</span><br><span class="line"><span class="type">size_t</span> pos = s.<span class="built_in">find</span>(<span class="string">&quot;C++&quot;</span>);  <span class="comment">// 返回第一次出现 &quot;C++&quot; 的位置，如果没找到返回string::npos</span></span><br><span class="line"><span class="keyword">if</span> (pos != string::npos) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Found at position &quot;</span> &lt;&lt; pos &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//替换字符或子字符串</span></span><br><span class="line">string s = <span class="string">&quot;Hello, World!&quot;</span>;</span><br><span class="line">s.<span class="built_in">replace</span>(<span class="number">7</span>, <span class="number">5</span>, <span class="string">&quot;C++&quot;</span>);  <span class="comment">// 从位置 7 开始替换 5 个字符，替换为 &quot;C++&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//删除字符</span></span><br><span class="line">string s = <span class="string">&quot;Hello, World!&quot;</span>;</span><br><span class="line">s.<span class="built_in">erase</span>(<span class="number">5</span>, <span class="number">7</span>);  <span class="comment">// 从位置 5 开始，删除 7 个字符</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//子字符串</span></span><br><span class="line">string s = <span class="string">&quot;Hello, C++!&quot;</span>;</span><br><span class="line">string x = <span class="string">&quot;my &quot;</span>;</span><br><span class="line">string sub1 = s.<span class="built_in">substr</span>(<span class="number">7</span>, <span class="number">3</span>);  <span class="comment">// 获取从位置 7 开始，长度为 3 的子字符串 &quot;C++&quot;</span></span><br><span class="line">string sub2 = s.<span class="built_in">substr</span>(<span class="number">7</span>, <span class="number">3</span>);  <span class="comment">// 获取从位置 7 开始往后的整个子字符串 &quot;C++!&quot;</span></span><br><span class="line">string newString = s.<span class="built_in">substr</span>(<span class="number">0</span>, <span class="number">7</span>) + x + s.<span class="built_in">substr</span>(<span class="number">7</span>);  <span class="comment">// 将字符串x插入到位置7，形成一个新的字符串&quot;Hello, my C++!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//比较字符串</span></span><br><span class="line">string s1 = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">string s2 = <span class="string">&quot;World&quot;</span>;</span><br><span class="line"><span class="keyword">if</span> (s1 == s2) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Strings are equal.&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Strings are not equal.&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br><br>  </p>
-<h2 id="回文串"><a href="#回文串" class="headerlink" title="回文串"></a>回文串</h2><p>回文字符串是指正着读和反着读都一样的字符串。换句话说，回文字符串从左到右和从右到左的字符顺序完全相同。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 检查字符串是否是回文示例（非函数形式）</span></span><br><span class="line"><span class="type">bool</span> is_palindrome = <span class="literal">true</span>; <span class="comment">//先假定其是回文串</span></span><br><span class="line">        </span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; c.<span class="built_in">length</span>() / <span class="number">2</span>; j++) &#123;</span><br><span class="line">    <span class="comment">// 对称位置字符不相等，不是回文</span></span><br><span class="line">    <span class="keyword">if</span> (c[j] != c[c.<span class="built_in">length</span>() - <span class="number">1</span> - j]) &#123;</span><br><span class="line">        is_palindrome = <span class="literal">false</span>; </span><br><span class="line">        <span class="keyword">break</span>;  <span class="comment">//不执行则is_palindrome 仍为 true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 检查字符串是否是回文示例（函数形式）</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="type">const</span> string&amp; str)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> left = <span class="number">0</span>, right = str.<span class="built_in">length</span>() - <span class="number">1</span>; <span class="comment">//双指针</span></span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">if</span> (str[left] != str[right]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 如果不相等，返回 false</span></span><br><span class="line">        &#125;</span><br><span class="line">        left++;</span><br><span class="line">        right--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">// 全部字符都匹配，返回 true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>  <br><br>  </p>
-<h2 id="for循环的另一种用法"><a href="#for循环的另一种用法" class="headerlink" title="for循环的另一种用法"></a>for循环的另一种用法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">char</span> ch : s) </span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这是一个基于范围的 for 循环（C++11 及以上支持），用于遍历字符串s中的每个字符，<code>char ch</code>表示每次循环中获取的字符串元素（单个字符）</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmfvacbvv0007e096akdoh88v" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmfwf2bm80009uc96cv0khht1" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1018,6 +1045,14 @@
       <ul>
         
           <li>
+            <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">算法笔记(C++) ——并查集</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/">算法笔记(C++) ——贪心</a>
+          </li>
+        
+          <li>
             <a href="/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">算法笔记(C++) ——动态规划</a>
           </li>
         
@@ -1027,14 +1062,6 @@
         
           <li>
             <a href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">算法笔记(C++) ——深度优先搜索</a>
-          </li>
-        
-          <li>
-            <a href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/">算法笔记(C++) ——图的存储</a>
-          </li>
-        
-          <li>
-            <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/">算法笔记(C++) ——双指针</a>
           </li>
         
       </ul>
