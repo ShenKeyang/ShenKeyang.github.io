@@ -80,6 +80,139 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-算法笔记-C-——哈希表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" class="article-date">
+  <time class="dt-published" datetime="2025-08-22T14:13:28.000Z" itemprop="datePublished">2025-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/">算法笔记(C++) ——哈希表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="哈希表的概念"><a href="#哈希表的概念" class="headerlink" title="哈希表的概念"></a>哈希表的概念</h2><p>哈希表是一种基于哈希函数（Hash Function）的数据结构，用于实现键值对的快速存储和查找。它的主要特点是：</p>
+<ol>
+<li><p>快速查找：平均情况下，<strong>哈希表的查找、插入和删除操作的时间复杂度都是<code>O(1)</code></strong>。</p>
+</li>
+<li><p>键值对存储：哈希表存储的是键值对，每个键（Key）唯一对应一个值（Value）。</p>
+</li>
+<li><p>哈希函数：通过哈希函数将键映射到哈希表中的位置，从而实现快速存取。</p>
+</li>
+</ol>
+<p><strong>C++ 中的哈希表 ——<code>unordered_map</code>：</strong>   </p>
+<p>在 C++ 中，<code>unordered_map</code>是标准库提供的哈希表实现。它具有以下特点：</p>
+<ol>
+<li><p>键值对存储：unordered_map&lt;Key, T&gt; 存储的是键为 Key，值为 T 的键值对。</p>
+</li>
+<li><p>快速访问：提供了常数时间复杂度的查找、插入和删除操作。</p>
+</li>
+</ol>
+<p><strong>主要操作：</strong>   </p>
+<ol>
+<li>插入元素：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; hash_map;  <span class="comment">//定义哈希表</span></span><br><span class="line">hash_map[key] = value;  <span class="comment">// 插入或更新键为 key 的值为 value</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>查找元素： 在C++的<code>unordered_map</code>（或<code>map</code>）中，<code>find(key)</code>方法用于查找关键字<code>key</code>是否存在。<code>find(key)</code>返回一个迭代器，如果<code>key</code>存在，迭代器指向元素，否则指向<code>end()</code>。使用<code>find(key)</code>可以高效检查<code>key</code>的存在。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (hash_map.<span class="built_in">find</span>(key) != hash_map.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    <span class="comment">// 找到了 key</span></span><br><span class="line">    <span class="type">int</span> value = hash_map[key];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 没找到 key</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>获取某键key的键值：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> count = hash_map[key];  <span class="comment">// 如果key不存在，会自动插入key并初始化值为0</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例代码（有一个包含n个整数的口袋，同时提出q个问题，每个问题询问特定的数字在口袋中出现了多少次。）：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,q,num;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; q;</span><br><span class="line"></span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; map;  <span class="comment">//定义哈希表</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; num;</span><br><span class="line">        map[num]++;   </span><br><span class="line">        <span class="comment">//如果key不存在，会自动插入key并初始化值为0，遇到相应key键时对应的键值自增</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>; i&lt;q; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; num;</span><br><span class="line">        <span class="keyword">if</span>(map.<span class="built_in">find</span>(num)!=map.<span class="built_in">end</span>())  <span class="comment">//如果能找到对应键值的话</span></span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; map[num] &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl;   <span class="comment">//如果找不到对应键值，则输出0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br></p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>在编写程序时，时间复杂度（Time Complexity）是一个重要指标。时间复杂度描述了程序运行时间与输入规模之间的关系。<br>OJ 一般 C++ 1秒大概能跑1e8量级。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">	cin&gt;&gt;x;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= x; i++) &#123;</span><br><span class="line">		ans++;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//对于这个简单的代码，x &lt; 1e8，运行不会超时；x &gt; 1e8，运行超时。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>常见的时间复杂度包括（从小到大）：</strong></p>
+<p><code>O(1)</code>：常数时间，无论输入规模多大，执行时间保持不变。</p>
+<p><code>O(log n)</code>：对数时间，随着输入规模增加，执行时间按对数增长。例如二分操作。</p>
+<p><code>O(n)</code>：线性时间，执行时间与输入规模成正比。</p>
+<p><code>O(n log n)</code>：线性对数时间，常见于高效排序算法如快速排序、归并排序。</p>
+<p><code>O(n^2)</code>：平方时间，常见于简单的嵌套循环，如冒泡排序。</p>
+<p><code>O(n^3)</code>：立方时间。</p>
+<p><code>O(2^n)</code>：指数时间。</p>
+<p><code>O(n!)</code>：阶乘时间。</p>
+<p><code>O(n^n)</code>：幂指时间。</p>
+<p><strong>如何计算时间复杂度：</strong></p>
+<ol>
+<li><p>识别基本操作：确定算法中最频繁执行的操作，如循环中的语句、递归调用等。</p>
+</li>
+<li><p>计算基本操作的执行次数：根据输入规模，计算这些操作随着输入增长的次数。</p>
+</li>
+<li><p>忽略低阶项和常数系数：在大O表示法中，只保留增长最快的项，忽略常数和低阶项。</p>
+</li>
+</ol>
+<br>  
+
+<p>对于上述口袋问题题目而言，<code>q=n=10^5</code>，如果考虑对于每次查询去遍历一遍所有数，复杂度为<code>O(n*Q)=10^10</code>，根据上面的<code>1e8定理</code>，显然1秒钟是跑不完的，可能会被反馈超时（Time Exceeded），因此可以选用哈希表（Hash Table）的方式来统计每个数字出现的次数，使用C++提供的<code>unordered_map</code>来实现哈希表，因其具有平均<code>O(1)</code>的查找和插入时间复杂度，故能够高效地回答每个查询。    </p>
+<p><br><br></p>
+<h2 id="STL容器的嵌套使用"><a href="#STL容器的嵌套使用" class="headerlink" title="STL容器的嵌套使用"></a>STL容器的嵌套使用</h2><p>STL（Standard Template Library）容器的嵌套是指在一个容器中存储另一个容器作为其元素。例如，可以用<code>vector&lt;vector&gt;</code>表示一个二维数组，或用<code>map&lt;int, vector&gt;</code>表示一种键值对的映射。通过容器的嵌套，可以灵活地表示复杂的数据结构，如树、图、矩阵等。<br>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*题目描述：</span></span><br><span class="line"><span class="comment">给定一个长度为 n 的数组 a 和 q 个询问。每个询问包含一个数 x 和一个整数 k 。</span></span><br><span class="line"><span class="comment">对于每个询问，求数 x 在数组中第 k 次出现的位置（位置从 1 开始）。</span></span><br><span class="line"><span class="comment">如果 x 在数组中出现次数不足 k 次，则输出 −1。*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,q;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; q;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">arr</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">res</span><span class="params">(q)</span></span>;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>,vector&lt;<span class="type">int</span>&gt;&gt; pos; </span><br><span class="line">    <span class="comment">//嵌套定义：键为整数，键值为一维数组的哈希表</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; arr[i];</span><br><span class="line">        pos[arr[i]].<span class="built_in">push_back</span>(i<span class="number">+1</span>); <span class="comment">//向键为arr[i]的对应键值（数组）压入元素 i+1</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>;i&lt;q;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> x,k;</span><br><span class="line">        cin &gt;&gt; x &gt;&gt; k;</span><br><span class="line">        <span class="keyword">if</span> (pos[x].<span class="built_in">size</span>() &lt; k) &#123;</span><br><span class="line">            res[i]=<span class="number">-1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res[i]=pos[x][k - <span class="number">1</span>];<span class="comment">//pos[x]是键为x所对应的键值（数组），相当于arr[k-1]</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span> ; i&lt;q ; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; res[i] &lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+
+
+
+
+
+<h2 id="哈希表例题-——严格递增三元组"><a href="#哈希表例题-——严格递增三元组" class="headerlink" title="哈希表例题 ——严格递增三元组"></a>哈希表例题 ——严格递增三元组</h2><p><strong>题目描述：</strong><br>给定一个大小为n的数组，找出所有的严格递增三元组(0 ≤ i &lt; j &lt; k &lt; n) , 使得 a[i] &#x3D; a[k] &#x3D; a[j]+1 , 输出其数量<code>（有算法运行时间限制TL）</code>。</p>
+<p><strong>输入描述：</strong><br>第一行输入一个正整数 n（3 ≤ n ≤ 10^5）。<br>第二行输入数组元素（1 ≤ a[i] ≤ 10^9）。  </p>
+<p><strong>输出描述：</strong><br>一个正整数，代表符合条件的三元组数量。  </p>
+<p><strong>题目分析：</strong><br>我们需要找出所有符合条件的严格递增三元组 (i, j, k)，使得：<br><code>1 &lt;= i &lt; j &lt; k &lt;= n</code><br><code>a[i] = a[k] = a[j] + 1</code><br>换句话说，给定一个数 a[j] ，我们希望找到两个 i 和 k，使得 a[i] &#x3D; a[k] &#x3D; a[j] + 1 且 i &lt; j &lt; k。这可以形象地看作寻找形如 (x+1 , x , x+1) 的三元组。将求和过程先聚焦于中间的这个 x ，那么最终的答案等价于：</p>
+<ol>
+<li>对于位置 i 的数 a[i] , 寻找它前缀中 a[i]+1 的个数和后缀中 a[i]+1 的个数 , 根据乘法原理，答案是个数相乘</li>
+<li>对每个位置的个数进行求和。</li>
+</ol>
+<p><strong>示例代码：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用哈希表存储频率</span></span><br><span class="line">    unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; countLeft;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; countRight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取数组</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化 countRight</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        countRight[a[i]]++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历每个元素，计算符合条件的三元组数量</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> t = a[i] + <span class="number">1</span>;  <span class="comment">// 计算 t = a[j] + 1</span></span><br><span class="line">        res += countLeft[t] * countRight[t];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新 countLeft 和 countRight</span></span><br><span class="line">        countLeft[a[i]]++;</span><br><span class="line">        countRight[a[i]]--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br></p>
+<h2 id="哈希集合"><a href="#哈希集合" class="headerlink" title="哈希集合"></a>哈希集合</h2><p>哈希表（Hash Table）和哈希集合（Hash Set）都是基于哈希表数据结构实现的，但它们在存储内容和用途上有明显区别：  </p>
+<ul>
+<li>核心区别：<ul>
+<li>存储内容不同<br>  哈希表：存储键值对（Key-Value），例如 {key1: value1, key2: value2}；<br>  哈希集合：仅存储单一元素（Value），相当于只存储键值对中的键（Key），例如 {value1, value2, value3}；  </li>
+<li>主要用途不同<br>  哈希表：用于通过键快速查找对应的值，适合需要键值映射关系的场景（如字典、缓存）；<br>  哈希集合：用于快速判断某个元素是否存在，适合去重、 membership 检查等场景；  </li>
+<li>元素特性<br>  两者都不允许重复的 “键”（哈希集合中元素本身就是键）；<br>  哈希表可以通过键关联额外数据，哈希集合仅关注元素本身是否存在。</li>
+</ul>
+</li>
+<li>举例：  <ul>
+<li>哈希表：<code>unordered_map&lt;int, string&gt;</code>存储 {1: “a”, 2: “b”}；</li>
+<li>哈希集合：<code>unordered_set&lt;int&gt;</code>存储 {1, 2, 3}。</li>
+</ul>
+</li>
+</ul>
+<p>简单来说，哈希集合可以看作是哈希表的一种特殊形式（只存键不存值），两者都提供 O (1) 平均时间复杂度的插入、删除和查找操作。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmg3ip18h0006f8964six64o9" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-算法笔记-C-——栈" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" class="article-date">
@@ -155,7 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmfwf2bma000cuc96cep77sb8" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmg3ip18j000bf89686z4h67j" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -201,7 +334,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmfwf2bm70007uc9673swh8qe" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmg3ip18h0008f896her38zlv" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -298,7 +431,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmfwf2bm10002uc9637v8fxiy" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmg3ip18d0001f8965ie34qwc" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -364,7 +497,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmfwf2blu0000uc968eigb7ku" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmg3ip18e0002f8967jz6cvn6" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -412,6 +545,10 @@
       <ul>
         
           <li>
+            <a href="/2025/09/28/Python%E8%AF%AD%E6%B3%95/">Python ——基础语法</a>
+          </li>
+        
+          <li>
             <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">算法笔记(C++) ——并查集</a>
           </li>
         
@@ -425,10 +562,6 @@
         
           <li>
             <a href="/2025/09/20/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">算法笔记(C++) ——广度优先搜索</a>
-          </li>
-        
-          <li>
-            <a href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">算法笔记(C++) ——深度优先搜索</a>
           </li>
         
       </ul>
