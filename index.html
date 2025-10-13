@@ -80,9 +80,51 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-MySQL基础篇-1-——DDL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-MySQL基础篇-2-——DDL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94DDL/" class="article-date">
+    <a href="/2025/10/14/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-2-%E2%80%94%E2%80%94DDL/" class="article-date">
+  <time class="dt-published" datetime="2025-10-13T20:21:51.000Z" itemprop="datePublished">2025-10-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/10/14/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-2-%E2%80%94%E2%80%94DDL/">MySQL基础篇(2)——DDL</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>DDL（Data Definition Language，数据定义语言）主要用于定义和管理数据库、表、视图、索引等数据库对象的结构。常用的 DDL 语句包括 CREATE（创建）、ALTER（修改）、DROP（删除）、RENAME（重命名）等。</p>
+<h2 id="DDL-数据库操作"><a href="#DDL-数据库操作" class="headerlink" title="DDL-数据库操作"></a>DDL-数据库操作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#查询所有数据库</span><br><span class="line">SHOW DATABASES;</span><br><span class="line"></span><br><span class="line">#查询当前数据库</span><br><span class="line">SELECT DATABASE();</span><br><span class="line"></span><br><span class="line">#创建数据库</span><br><span class="line">CREATE DATABASE 数据库名;</span><br><span class="line">或</span><br><span class="line">CREATE DATABASE [IF NOT EXITS] 数据库名 [DEFAULT CHARSET 字符集][COLLATE排序规则];</span><br><span class="line"></span><br><span class="line">#删除数据库</span><br><span class="line">DROP DATABASE 数据库名;</span><br><span class="line">或</span><br><span class="line">DROP DATABASE [IF EXITS] 数据库名;</span><br><span class="line"></span><br><span class="line">#使用/进入数据库</span><br><span class="line">USE 数据库名;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DDL-表操作"><a href="#DDL-表操作" class="headerlink" title="DDL-表操作"></a>DDL-表操作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/10/14/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-2-%E2%80%94%E2%80%94DDL/" data-id="cmgplc8nm0001lo966inxasmg" data-title="MySQL基础篇(2)——DDL" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL基础篇-1-——SQL通用语法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95/" class="article-date">
   <time class="dt-published" datetime="2025-10-13T15:55:46.000Z" itemprop="datePublished">2025-10-13</time>
 </a>
     
@@ -94,7 +136,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94DDL/">MySQL基础篇(1)——DDL</a>
+      <a class="p-name article-title" href="/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95/">MySQL基础篇(1)——SQL通用语法</a>
     </h1>
   
 
@@ -102,11 +144,27 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <h2 id="SQL的通用语法"><a href="#SQL的通用语法" class="headerlink" title="SQL的通用语法"></a>SQL的通用语法</h2><ol>
+<li>SQL语句可以单行或多行书写，以分号结尾；</li>
+<li>SQL语句可以使用空格&#x2F;缩进来增强语句的可读性；</li>
+<li>MySQL数据库的SQL语句不区分大小写，关键字建议使用大写；</li>
+<li>注释：<ul>
+<li>单行注释：–注释内容 或 #注释内容</li>
+<li>多行注释：&#x2F;*注释内容*&#x2F;</li>
+</ul>
+</li>
+</ol>
+<h2 id="SQL语句的分类"><a href="#SQL语句的分类" class="headerlink" title="SQL语句的分类"></a>SQL语句的分类</h2><ol>
+<li>DDL：Data Definition Language，数据定义语言，用来定义数据库对象；</li>
+<li>DML：Data Manipulation Language，数据操作语言，用来对数据库表的数据进行增删改；</li>
+<li>DQL：Data Definition Language，数据查询语言，用来查询数据库中表的记录；</li>
+<li>DCL：Data Definition Language，数据控制语言，用来创建数据库用户、控制数据库的访问权限；</li>
+</ol>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94DDL/" data-id="cmgpbt79c0000mk967gsd20dh" data-title="MySQL基础篇(1)——DDL" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95/" data-id="cmgplc8no0002lo96cu2ufkd4" data-title="MySQL基础篇(1)——SQL通用语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -490,7 +548,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/28/%E9%9D%A2%E7%BB%8F%E7%AC%94%E8%AE%B0/" data-id="cmgpbt79z000hmk966xu59dat" data-title="面经笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/28/%E9%9D%A2%E7%BB%8F%E7%AC%94%E8%AE%B0/" data-id="cmgplc8nv000ilo96158c00cj" data-title="面经笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -684,7 +742,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(2)%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="cmgpbt79p0004mk961maz2bee" data-title="Python(2) ——基本数据类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(2)%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="cmgplc8np0004lo967tft1aw1" data-title="Python(2) ——基本数据类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -813,7 +871,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(1)%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-id="cmgpbt79k0002mk960ot06gep" data-title="Python(1) ——基础语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(1)%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-id="cmgplc8no0003lo96f0lla4bm" data-title="Python(1) ——基础语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -911,7 +969,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(13)%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/" data-id="cmgpbt79r0008mk966jfibt4m" data-title="算法笔记C++(13) ——并查集" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(13)%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/" data-id="cmgplc8nr0008lo96d13c5vht" data-title="算法笔记C++(13) ——并查集" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -973,7 +1031,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(12)%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/" data-id="cmgpbt79r0007mk9637ij03jn" data-title="算法笔记C++(12) ——贪心" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(12)%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/" data-id="cmgplc8nq0006lo961raohkkz" data-title="算法笔记C++(12) ——贪心" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1073,7 +1131,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(11)%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-id="cmgpbt79q0006mk961h54b1er" data-title="算法笔记C++(11) ——动态规划" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(11)%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-id="cmgplc8nq0007lo960mxmcdl8" data-title="算法笔记C++(11) ——动态规划" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1171,7 +1229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/20/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(10)%E2%80%94%E2%80%94%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmgpbt79p0005mk96hptscj1w" data-title="算法笔记C++(10) ——广度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/20/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(10)%E2%80%94%E2%80%94%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmgplc8np0005lo969m14d8he" data-title="算法笔记C++(10) ——广度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1251,81 +1309,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(9)%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmgpbt79z000gmk96bmwu4tyc" data-title="算法笔记C++(9) ——深度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-算法笔记C++(8)——图的存储" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(8)%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" class="article-date">
-  <time class="dt-published" datetime="2025-09-10T10:11:36.000Z" itemprop="datePublished">2025-09-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(8)%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/">算法笔记C++(8) ——图的存储</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ul>
-<li>稀疏图：边的数量远小于顶点数的平方。  </li>
-<li>稠密图：边的数量接近顶点数的平方。  </li>
-<li>有向图：边具有方向性。  </li>
-<li>无向图：边没有方向，可以视作双向边。  </li>
-<li>有权图与无权图：有权图的边具有权值，无权图的边没有权值。</li>
-</ul>
-<p><br><br></p>
-<h2 id="邻接矩阵（Adjacency-Matrix）"><a href="#邻接矩阵（Adjacency-Matrix）" class="headerlink" title="邻接矩阵（Adjacency Matrix）"></a>邻接矩阵（Adjacency Matrix）</h2><p>邻接矩阵用一个二维数组表示图，matrix[i][j] 表示从顶点 i 到 j 的边的信息（例如 1 代表有边，0 代表无边），适用于稠密图。<br><img src="/images/cpp_8_1.png" alt=" ">  </p>
-<p><strong>实现：</strong>  </p>
-<ol>
-<li>建表操作</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 建立一张具有n个节点的图，此时这张图没有任何一条边</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">adjMatrix</span>(n + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n + <span class="number">1</span>));</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>加边操作<br>有时，一张图的读入通常以给定若干条边u v w 的形式给出，其中u代表这条边的起点,v代表这条边的终点,w代表这条边的权值。如果不含w，则读入的是无权图。<br>对于邻接矩阵而言，需要了解如何对一张图进行加边操作</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">    adjMatrix[u][v] = <span class="number">1</span>;</span><br><span class="line">    adjMatrix[v][u] = <span class="number">1</span>; <span class="comment">// 无向图</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>输出邻接矩阵</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">        cout &lt;&lt; (adjMatrix[i][j] ? <span class="string">&quot;有边&quot;</span> : <span class="string">&quot;无边&quot;</span>) &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br><br></p>
-<h2 id="邻接表（Adjacency-List）"><a href="#邻接表（Adjacency-List）" class="headerlink" title="邻接表（Adjacency List）"></a>邻接表（Adjacency List）</h2><p>对于稀疏图，邻接表是一种更高效的存储方式，只存储实际存在的边，使用数组或 vector 存储每个顶点的邻居列表。<br><img src="/images/cpp_8_1.png" alt=" "> </p>
-<p><strong>实现：</strong>  </p>
-<ol>
-<li>建表操作<br>使用结构体表示边信息，如果是无权图，可以直接使用 vector<int> adjList[n + 1]：</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">adjList</span>(n + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或定义边的结构体</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> to, weight;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;vector&lt;Edge&gt;&gt; <span class="built_in">adjList</span>(n + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>加边操作<br>无向图的加边操作：</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v, <span class="type">int</span> w)</span> </span>&#123;</span><br><span class="line">    adjList[u].<span class="built_in">push_back</span>(&#123;v, w&#125;);</span><br><span class="line">    adjList[v].<span class="built_in">push_back</span>(&#123;u, w&#125;); <span class="comment">// 无向图</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>遍历操作<br>遍历邻接表的示例：</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> u = <span class="number">1</span>; u &lt;= n; u++) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Vertex &quot;</span> &lt;&lt; u &lt;&lt; <span class="string">&quot; connects to &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> edge : adjList[u]) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;(&quot;</span> &lt;&lt; edge.to &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; edge.weight &lt;&lt; <span class="string">&quot;) &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(8)%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" data-id="cmgpbt79y000fmk960v7c9iup" data-title="算法笔记C++(8) ——图的存储" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(9)%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmgplc8nv000hlo96869t3uwn" data-title="算法笔记C++(9) ——深度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1373,7 +1357,11 @@
       <ul>
         
           <li>
-            <a href="/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94DDL/">MySQL基础篇(1)——DDL</a>
+            <a href="/2025/10/14/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-2-%E2%80%94%E2%80%94DDL/">MySQL基础篇(2)——DDL</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95/">MySQL基础篇(1)——SQL通用语法</a>
           </li>
         
           <li>
@@ -1386,10 +1374,6 @@
         
           <li>
             <a href="/2025/09/28/Python(1)%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">Python(1) ——基础语法</a>
-          </li>
-        
-          <li>
-            <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(13)%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">算法笔记C++(13) ——并查集</a>
           </li>
         
       </ul>

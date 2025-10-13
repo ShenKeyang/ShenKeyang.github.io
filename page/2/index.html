@@ -80,6 +80,80 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-算法笔记C++(8)——图的存储" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(8)%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" class="article-date">
+  <time class="dt-published" datetime="2025-09-10T10:11:36.000Z" itemprop="datePublished">2025-09-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(8)%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/">算法笔记C++(8) ——图的存储</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ul>
+<li>稀疏图：边的数量远小于顶点数的平方。  </li>
+<li>稠密图：边的数量接近顶点数的平方。  </li>
+<li>有向图：边具有方向性。  </li>
+<li>无向图：边没有方向，可以视作双向边。  </li>
+<li>有权图与无权图：有权图的边具有权值，无权图的边没有权值。</li>
+</ul>
+<p><br><br></p>
+<h2 id="邻接矩阵（Adjacency-Matrix）"><a href="#邻接矩阵（Adjacency-Matrix）" class="headerlink" title="邻接矩阵（Adjacency Matrix）"></a>邻接矩阵（Adjacency Matrix）</h2><p>邻接矩阵用一个二维数组表示图，matrix[i][j] 表示从顶点 i 到 j 的边的信息（例如 1 代表有边，0 代表无边），适用于稠密图。<br><img src="/images/cpp_8_1.png" alt=" ">  </p>
+<p><strong>实现：</strong>  </p>
+<ol>
+<li>建表操作</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 建立一张具有n个节点的图，此时这张图没有任何一条边</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">adjMatrix</span>(n + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n + <span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>加边操作<br>有时，一张图的读入通常以给定若干条边u v w 的形式给出，其中u代表这条边的起点,v代表这条边的终点,w代表这条边的权值。如果不含w，则读入的是无权图。<br>对于邻接矩阵而言，需要了解如何对一张图进行加边操作</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">    adjMatrix[u][v] = <span class="number">1</span>;</span><br><span class="line">    adjMatrix[v][u] = <span class="number">1</span>; <span class="comment">// 无向图</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>输出邻接矩阵</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">        cout &lt;&lt; (adjMatrix[i][j] ? <span class="string">&quot;有边&quot;</span> : <span class="string">&quot;无边&quot;</span>) &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br></p>
+<h2 id="邻接表（Adjacency-List）"><a href="#邻接表（Adjacency-List）" class="headerlink" title="邻接表（Adjacency List）"></a>邻接表（Adjacency List）</h2><p>对于稀疏图，邻接表是一种更高效的存储方式，只存储实际存在的边，使用数组或 vector 存储每个顶点的邻居列表。<br><img src="/images/cpp_8_1.png" alt=" "> </p>
+<p><strong>实现：</strong>  </p>
+<ol>
+<li>建表操作<br>使用结构体表示边信息，如果是无权图，可以直接使用 vector<int> adjList[n + 1]：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">adjList</span>(n + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或定义边的结构体</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> to, weight;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;vector&lt;Edge&gt;&gt; <span class="built_in">adjList</span>(n + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>加边操作<br>无向图的加边操作：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v, <span class="type">int</span> w)</span> </span>&#123;</span><br><span class="line">    adjList[u].<span class="built_in">push_back</span>(&#123;v, w&#125;);</span><br><span class="line">    adjList[v].<span class="built_in">push_back</span>(&#123;u, w&#125;); <span class="comment">// 无向图</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>遍历操作<br>遍历邻接表的示例：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> u = <span class="number">1</span>; u &lt;= n; u++) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Vertex &quot;</span> &lt;&lt; u &lt;&lt; <span class="string">&quot; connects to &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> edge : adjList[u]) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;(&quot;</span> &lt;&lt; edge.to &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; edge.weight &lt;&lt; <span class="string">&quot;) &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(8)%E2%80%94%E2%80%94%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" data-id="cmgplc8nu000glo96d2z2ctlv" data-title="算法笔记C++(8) ——图的存储" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-算法笔记C++(7)——双指针" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(7)%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" class="article-date">
@@ -149,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(7)%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmgpbt79y000emk96hqn6e21d" data-title="算法笔记C++(7) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(7)%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmgplc8nt000dlo965zk7aml1" data-title="算法笔记C++(7) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -265,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(6)%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmgpbt79u000dmk960iwnhyl9" data-title="算法笔记C++(6) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(6)%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmgplc8nu000elo96avvw1jl4" data-title="算法笔记C++(6) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -352,7 +426,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(5)%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmgpbt79t000cmk963pmj8e8x" data-title="算法笔记C++(5) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(5)%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmgplc8ns000blo964v76bc50" data-title="算法笔记C++(5) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -485,7 +559,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(4)%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmgpbt79t000bmk964k5xd63m" data-title="算法笔记C++(4) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(4)%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmgplc8ns000alo967aj68rb4" data-title="算法笔记C++(4) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -572,7 +646,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(3)%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmgpbt79s000amk96ax39ahz2" data-title="算法笔记C++(3) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(3)%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmgplc8nu000flo96439yamlk" data-title="算法笔记C++(3) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -618,7 +692,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(2)%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmgpbt79s0009mk960tp52i1k" data-title="算法笔记C++(2) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(2)%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmgplc8nr0009lo9614sg85u1" data-title="算法笔记C++(2) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -715,7 +789,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(1)%E2%80%94%E2%80%94IO/" data-id="cmgpbt79o0003mk96eiqc3uaf" data-title="算法笔记C++(1) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(1)%E2%80%94%E2%80%94IO/" data-id="cmgplc8nt000clo96dq1w6cw2" data-title="算法笔记C++(1) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -781,7 +855,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmgpbt79h0001mk96e8spakox" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmgplc8ni0000lo964ej33f5p" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -829,7 +903,11 @@
       <ul>
         
           <li>
-            <a href="/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94DDL/">MySQL基础篇(1)——DDL</a>
+            <a href="/2025/10/14/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-2-%E2%80%94%E2%80%94DDL/">MySQL基础篇(2)——DDL</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95/">MySQL基础篇(1)——SQL通用语法</a>
           </li>
         
           <li>
@@ -842,10 +920,6 @@
         
           <li>
             <a href="/2025/09/28/Python(1)%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">Python(1) ——基础语法</a>
-          </li>
-        
-          <li>
-            <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(13)%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">算法笔记C++(13) ——并查集</a>
           </li>
         
       </ul>
