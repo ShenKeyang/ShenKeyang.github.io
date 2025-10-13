@@ -80,9 +80,90 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-算法笔记-C-——递归" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-算法笔记C++(7)——双指针" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" class="article-date">
+    <a href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(7)%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" class="article-date">
+  <time class="dt-published" datetime="2025-08-31T13:37:05.000Z" itemprop="datePublished">2025-08-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(7)%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/">算法笔记C++(7) ——双指针</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="双指针算法概述"><a href="#双指针算法概述" class="headerlink" title="双指针算法概述:"></a>双指针算法概述:</h2><p>双指针算法（双指针技术）是一种在处理线性数据结构（如数组、链表）时常用的算法策略。它通过同时使用两个指针，以不同的方式遍历数据结构，从而优化时间复杂度或简化问题的解决过程。双指针算法广泛应用于各种经典问题，如数组排序、链表操作、字符串处理等。  </p>
+<ul>
+<li>双指针的常见类型</li>
+</ul>
+<ol>
+<li><p>快慢指针（快指针与慢指针）:  </p>
+<ul>
+<li>用途：常用于检测链表中的环、找到链表的中间节点等。</li>
+<li>原理：设定两个指针，快指针一次移动两步，慢指针一次移动一步。如果链表中存在环，快指针最终会与慢指针相遇；如果不存在环，快指针会先到达链表末尾。</li>
+</ul>
+</li>
+<li><p>左右指针（双端指针）:  </p>
+<ul>
+<li>用途：常用于处理有序数组中的问题，如两数之和、三数之和、四数之和等。</li>
+<li>原理：设定一个指针指向数组的起始位置，另一个指针指向数组的末尾，根据当前指针对应的值与目标值的关系来移动指针，以缩小搜索范围。</li>
+</ul>
+</li>
+<li><p>滑动窗口:  </p>
+<ul>
+<li>用途：用于解决字符串或数组中满足特定条件的子串或子数组问题，如最长不重复子串、最小覆盖子串等。</li>
+<li>原理：通过维护一个“窗口”区间（左右边界通常由两个指针left和right表示），动态调整窗口的范围来高效地解决问题。窗口扩展：通常通过固定左指针left、右移（枚举）右指针right来扩大窗口，纳入新的元素；窗口收缩：当窗口内不满足条件时，通过固定右指针right、右移左指针left来缩小窗口，排除不需要的元素；动态调整：根据题目要求，动态调整窗口的大小和位置，直到找到满足条件的解。</li>
+</ul>
+</li>
+</ol>
+<p><br><br></p>
+<h2 id="例题：互相嘲笑的两个人"><a href="#例题：互相嘲笑的两个人" class="headerlink" title="例题：互相嘲笑的两个人"></a>例题：互相嘲笑的两个人</h2><ul>
+<li><p>题目描述：<br>小红和小堡正在玩一个游戏，每一关都有一个分数。如果某人某一关分数比上一关高，但另一个人这一关分数比上一关低，那么他就可以嘲笑对方。如果两个人这一关游戏的分数都比上一关多，则增量更多的可以嘲笑对方;如果两个人这一关游戏的分数都比上一关少，则减量更少的可以嘲笑对方。只有当他们的增量相同或者减量相同时，才不会互相嘲笑。<br>例如，假设小红第一关的分数为2，第二关的分数为8;小堡第一关的分数为5，第二关的分数为10，显然小红增加的比小堡多，那么小红就可以嘲笑小堡。<br>现在给定了小红和小堡每一关的分数，你可以选择一段连续的关卡，使得一段关卡中两个人都不会互相嘲笑，问最多可以选择多少个关卡。特别的一段连续关卡中的第一关两人不会互相嘲笑。</p>
+</li>
+<li><p>输入：</p>
+<ul>
+<li>第一行输入一个正整数n,代表关卡数。</li>
+<li>第二行输入n个整数a_i,代表小红每一关的分数。</li>
+<li>第三行输入n个整数b_i,代表小堡每一关的分数。</li>
+</ul>
+</li>
+<li><p>输出：  </p>
+<ul>
+<li>输出可以选择最多的关卡数。</li>
+</ul>
+</li>
+<li><p>题解代码：</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(n)</span>,<span class="title">b</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 计算差分数组</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">diff_a</span><span class="params">(n - <span class="number">1</span>)</span>, <span class="title">diff_b</span><span class="params">(n - <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">        diff_a[i] = a[i + <span class="number">1</span>] - a[i];</span><br><span class="line">        diff_b[i] = b[i + <span class="number">1</span>] - b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>,res=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> m = diff_a.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(l&lt;m)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (r &lt; m &amp;&amp; diff_a[r] == diff_b[r]) &#123;</span><br><span class="line">            r++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 计算该区间的长度</span></span><br><span class="line">        res = <span class="built_in">max</span>(res, r - l + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 左指针移动到右指针的位置，开始新的检查</span></span><br><span class="line">        l = r + <span class="number">1</span>;</span><br><span class="line">        r = l;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; res &lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2025/08/31/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(7)%E2%80%94%E2%80%94%E5%8F%8C%E6%8C%87%E9%92%88/" data-id="cmgpbt79y000emk96hqn6e21d" data-title="算法笔记C++(7) ——双指针" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-算法笔记C++(6)——递归" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(6)%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" class="article-date">
   <time class="dt-published" datetime="2025-08-25T10:16:14.000Z" itemprop="datePublished">2025-08-25</time>
 </a>
     
@@ -94,7 +175,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/">算法笔记(C++) ——递归</a>
+      <a class="p-name article-title" href="/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(6)%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/">算法笔记C++(6) ——递归</a>
     </h1>
   
 
@@ -184,7 +265,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmg5d7ltw000b38961u1s7p7y" data-title="算法笔记(C++) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/25/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(6)%E2%80%94%E2%80%94%E9%80%92%E5%BD%92/" data-id="cmgpbt79u000dmk960iwnhyl9" data-title="算法笔记C++(6) ——递归" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -196,9 +277,9 @@
 
 
   
-    <article id="post-算法笔记-C-——二分法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-算法笔记C++(5)——二分法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" class="article-date">
+    <a href="/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(5)%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" class="article-date">
   <time class="dt-published" datetime="2025-08-23T11:40:53.000Z" itemprop="datePublished">2025-08-23</time>
 </a>
     
@@ -210,7 +291,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/">算法笔记(C++) ——二分法</a>
+      <a class="p-name article-title" href="/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(5)%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/">算法笔记C++(5) ——二分法</a>
     </h1>
   
 
@@ -271,7 +352,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmg5d7ltt0006389690mw8ddx" data-title="算法笔记(C++) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(5)%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%B3%95/" data-id="cmgpbt79t000cmk963pmj8e8x" data-title="算法笔记C++(5) ——二分法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -283,9 +364,9 @@
 
 
   
-    <article id="post-算法笔记-C-——哈希表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-算法笔记C++(4)——哈希表" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" class="article-date">
+    <a href="/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(4)%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" class="article-date">
   <time class="dt-published" datetime="2025-08-22T14:13:28.000Z" itemprop="datePublished">2025-08-22</time>
 </a>
     
@@ -297,7 +378,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/">算法笔记(C++) ——哈希表</a>
+      <a class="p-name article-title" href="/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(4)%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/">算法笔记C++(4) ——哈希表</a>
     </h1>
   
 
@@ -404,7 +485,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmg5d7ltv000938969un544i5" data-title="算法笔记(C++) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(4)%E2%80%94%E2%80%94%E5%93%88%E5%B8%8C%E8%A1%A8/" data-id="cmgpbt79t000bmk964k5xd63m" data-title="算法笔记C++(4) ——哈希表" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -416,9 +497,9 @@
 
 
   
-    <article id="post-算法笔记-C-——栈" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-算法笔记C++(3)——栈" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" class="article-date">
+    <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(3)%E2%80%94%E2%80%94%E6%A0%88/" class="article-date">
   <time class="dt-published" datetime="2025-08-15T09:36:38.000Z" itemprop="datePublished">2025-08-15</time>
 </a>
     
@@ -430,7 +511,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/">算法笔记(C++) ——栈</a>
+      <a class="p-name article-title" href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(3)%E2%80%94%E2%80%94%E6%A0%88/">算法笔记C++(3) ——栈</a>
     </h1>
   
 
@@ -491,7 +572,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmg5d7ltx000e3896gjy4dp0r" data-title="算法笔记(C++) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(3)%E2%80%94%E2%80%94%E6%A0%88/" data-id="cmgpbt79s000amk96ax39ahz2" data-title="算法笔记C++(3) ——栈" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -503,9 +584,9 @@
 
 
   
-    <article id="post-算法笔记-C-——字符串" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-算法笔记C++(2)——字符串" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="article-date">
+    <a href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(2)%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="article-date">
   <time class="dt-published" datetime="2025-08-15T08:51:38.000Z" itemprop="datePublished">2025-08-15</time>
 </a>
     
@@ -517,7 +598,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/">算法笔记(C++) ——字符串</a>
+      <a class="p-name article-title" href="/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(2)%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/">算法笔记C++(2) ——字符串</a>
     </h1>
   
 
@@ -537,7 +618,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmg5d7ltu000838963npt4pvd" data-title="算法笔记(C++) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/15/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(2)%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-id="cmgpbt79s0009mk960tp52i1k" data-title="算法笔记C++(2) ——字符串" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -549,9 +630,9 @@
 
 
   
-    <article id="post-算法笔记-C-——IO" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-算法笔记C++(1)——IO" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" class="article-date">
+    <a href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(1)%E2%80%94%E2%80%94IO/" class="article-date">
   <time class="dt-published" datetime="2025-08-14T14:18:35.000Z" itemprop="datePublished">2025-08-14</time>
 </a>
     
@@ -563,7 +644,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/">算法笔记(C++) ——IO</a>
+      <a class="p-name article-title" href="/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(1)%E2%80%94%E2%80%94IO/">算法笔记C++(1) ——IO</a>
     </h1>
   
 
@@ -573,7 +654,7 @@
       
         <h2 id="C-万能头文件"><a href="#C-万能头文件" class="headerlink" title="C++万能头文件"></a>C++万能头文件</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br></pre></td></tr></table></figure>
 <h4 id="它包含（但不限于）："><a href="#它包含（但不限于）：" class="headerlink" title="它包含（但不限于）："></a>它包含（但不限于）：</h4><ol>
-<li><p>基础头文件：<br><code>&lt;iostream</code>：输入输出流，包含cin、cout等 I&#x2F;O 操作<br><code>&lt;cstdio&gt;</code>：C 风格输入输出，包含printf、scanf等函数<br><code>&lt;cmath&gt;</code>：数学函数库，包含sin、cos、sqrt等数学运算     </p>
+<li><p>基础头文件：<br><code>&lt;iostream&gt;</code>：输入输出流，包含cin、cout等 I&#x2F;O 操作<br><code>&lt;cstdio&gt;</code>：C 风格输入输出，包含printf、scanf等函数<br><code>&lt;cmath&gt;</code>：数学函数库，包含sin、cos、sqrt等数学运算     </p>
 </li>
 <li><p>容器与数据结构:<br><code>&lt;vector&gt;</code>：动态数组容器<br><code>&lt;string&gt;</code>：字符串类及相关操作<br><code>&lt;map&gt;/&lt;unordered_map&gt;</code>：映射容器（键值对）<br><code>&lt;set&gt;/&lt;unordered_set&gt;</code>：集合容器<br><code>&lt;list&gt;</code>：双向链表容器<br><code>&lt;queue&gt;</code>：队列容器<br><code>&lt;stack&gt;</code>：栈容器<br><code>&lt;array&gt;</code>：固定大小数组（C++11）   </p>
 </li>
@@ -634,7 +715,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94IO/" data-id="cmg5d7ltr000338960zdp6i7i" data-title="算法笔记(C++) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/08/14/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(1)%E2%80%94%E2%80%94IO/" data-id="cmgpbt79o0003mk96eiqc3uaf" data-title="算法笔记C++(1) ——IO" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -700,7 +781,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmg5d7lti000038968av3a3e1" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/06/27/I-m-back/" data-id="cmgpbt79h0001mk96e8spakox" data-title="I&#39;m back!" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -735,7 +816,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li></ul>
     </div>
   </div>
 
@@ -748,23 +829,23 @@
       <ul>
         
           <li>
+            <a href="/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94DDL/">MySQL基础篇(1)——DDL</a>
+          </li>
+        
+          <li>
             <a href="/2025/09/28/%E9%9D%A2%E7%BB%8F%E7%AC%94%E8%AE%B0/">面经笔记</a>
           </li>
         
           <li>
-            <a href="/2025/09/28/Python-%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Python ——基本数据类型</a>
+            <a href="/2025/09/28/Python(2)%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Python(2) ——基本数据类型</a>
           </li>
         
           <li>
-            <a href="/2025/09/28/Python-%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">Python ——基础语法</a>
+            <a href="/2025/09/28/Python(1)%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">Python(1) ——基础语法</a>
           </li>
         
           <li>
-            <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">算法笔记(C++) ——并查集</a>
-          </li>
-        
-          <li>
-            <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-C-%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/">算法笔记(C++) ——贪心</a>
+            <a href="/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(13)%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/">算法笔记C++(13) ——并查集</a>
           </li>
         
       </ul>
