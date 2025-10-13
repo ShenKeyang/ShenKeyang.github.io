@@ -1,5 +1,5 @@
 ---
-title: Python ——基础语法
+title: Python(1) ——基础语法
 date: 2025-09-28 17:04:43
 tags:
 ---

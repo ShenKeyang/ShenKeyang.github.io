@@ -1,5 +1,5 @@
 ---
-title: Python ——基本数据类型
+title: Python(2) ——基本数据类型
 date: 2025-09-28 17:49:20
 tags:
 ---

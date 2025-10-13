@@ -1,5 +1,5 @@
 ---
-title: 算法笔记(C++) ——IO
+title: 算法笔记C++(1) ——IO
 date: 2025-08-14 22:18:35
 tags:
 ---
@@ -13,7 +13,7 @@ tags:
 ```
 #### 它包含（但不限于）：  
 1. 基础头文件：   
-`<iostream`：输入输出流，包含cin、cout等 I/O 操作  
+`<iostream>`：输入输出流，包含cin、cout等 I/O 操作  
 `<cstdio>`：C 风格输入输出，包含printf、scanf等函数  
 `<cmath>`：数学函数库，包含sin、cos、sqrt等数学运算     
 
