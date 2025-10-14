@@ -106,11 +106,34 @@
 <h2 id="DDL-数据库操作"><a href="#DDL-数据库操作" class="headerlink" title="DDL-数据库操作"></a>DDL-数据库操作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#查询所有数据库</span><br><span class="line">SHOW DATABASES;</span><br><span class="line"></span><br><span class="line">#查询当前数据库</span><br><span class="line">SELECT DATABASE();</span><br><span class="line"></span><br><span class="line">#创建数据库</span><br><span class="line">CREATE DATABASE 数据库名;</span><br><span class="line">或</span><br><span class="line">CREATE DATABASE [IF NOT EXITS] 数据库名 [DEFAULT CHARSET 字符集][COLLATE排序规则];</span><br><span class="line"></span><br><span class="line">#删除数据库</span><br><span class="line">DROP DATABASE 数据库名;</span><br><span class="line">或</span><br><span class="line">DROP DATABASE [IF EXITS] 数据库名;</span><br><span class="line"></span><br><span class="line">#使用/进入数据库</span><br><span class="line">USE 数据库名;</span><br></pre></td></tr></table></figure>
 
 
-<h2 id="DDL-表操作"><a href="#DDL-表操作" class="headerlink" title="DDL-表操作"></a>DDL-表操作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="DDL-表操作-查询"><a href="#DDL-表操作-查询" class="headerlink" title="DDL-表操作-查询"></a>DDL-表操作-查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#查询当前数据库所有表</span><br><span class="line">SHOW TABLES;</span><br><span class="line"></span><br><span class="line">#查询表结构</span><br><span class="line">DESC 表明;</span><br><span class="line"></span><br><span class="line">#查询指定表的建表语句</span><br><span class="line">SHOW CREATE TABLE 表名;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DDL-表操作-创建"><a href="#DDL-表操作-创建" class="headerlink" title="DDL-表操作-创建"></a>DDL-表操作-创建</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE 表名(</span><br><span class="line">    字段1 字段1类型[COMMENT 字段1注释],</span><br><span class="line">    字段2 字段2类型[COMMENT 字段1注释],</span><br><span class="line">    字段3 字段3类型[COMMENT 字段1注释],</span><br><span class="line">    ···</span><br><span class="line">    字段n 字段n类型[COMMENT 字段1注释]</span><br><span class="line">)[COMMENT 表注释];</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DDL-表操作-数据类型"><a href="#DDL-表操作-数据类型" class="headerlink" title="DDL-表操作-数据类型"></a>DDL-表操作-数据类型</h2><p>数值类型：<br><img src="/images/MySQL_2_1.png" alt=" "></p>
+<p>字符串类型：<br><img src="/images/MySQL_2_2.png" alt=" "></p>
+<p>日期时间类型：<br><img src="/images/MySQL_2_3.png" alt=" "></p>
+<p><strong>示例：</strong><br>设计一张员工信息表，要求如下：  </p>
+<ol>
+<li>编号（纯数字）</li>
+<li>员工工号（字符串类型，长度不超过10位）</li>
+<li>员工姓名（字符串类型，长度不超过10位）</li>
+<li>性别（男&#x2F;女）</li>
+<li>年龄（非负数）</li>
+<li>身份证号（定长字符串18位）</li>
+<li>入职时间（取值年月日即可）</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create table emp(</span><br><span class="line">    id int comment &#x27;编号&#x27;,</span><br><span class="line">    workno varchar(10) comment &#x27;工号&#x27;,</span><br><span class="line">    name varchar(10) comment &#x27;姓名&#x27;,</span><br><span class="line">    gender char(1) comment &#x27;性别&#x27;,</span><br><span class="line">    age tinyint unsigned comment &#x27;年龄&#x27;，</span><br><span class="line">    idcard char(18) comment &#x27;身份找号&#x27;,</span><br><span class="line">    entrydate date comment &#x27;入职时间&#x27;</span><br><span class="line">) comment &#x27;员工表&#x27;;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DDL-表操作-修改"><a href="#DDL-表操作-修改" class="headerlink" title="DDL-表操作-修改"></a>DDL-表操作-修改</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#添加字段</span><br><span class="line">ALTER TABLE 表名 ADD 字段名 类型(长度) [COMMENT 注释] [约束];</span><br><span class="line"></span><br><span class="line">#修改数据类型</span><br><span class="line">ALTER TABLE 表名 MODIFY 字段名 新数据类型(长度);</span><br><span class="line"></span><br><span class="line">#修改字段名和字段类型</span><br><span class="line">ALTER TABLE 表名 CHANGE 旧字段名 新字段名 类型(长度) [COMMENT 注释] [约束];</span><br><span class="line"></span><br><span class="line">#删除字段</span><br><span class="line">ALTER TABLE 表名 DROP 字段名;</span><br><span class="line"></span><br><span class="line">#修改表名</span><br><span class="line">ALTER TABLE 表名 RENAME TO 新表名;</span><br><span class="line"></span><br><span class="line">#删除表</span><br><span class="line">DROP TABLE [IF EXISTS] 表名;</span><br><span class="line"></span><br><span class="line">#删除指定表，并重新创建该表</span><br><span class="line">TRUNCATE TABLE 表名;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/10/14/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-2-%E2%80%94%E2%80%94DDL/" data-id="cmgplc8nm0001lo966inxasmg" data-title="MySQL基础篇(2)——DDL" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/10/14/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-2-%E2%80%94%E2%80%94DDL/" data-id="cmgqyypp60002ck9660w0eswx" data-title="MySQL基础篇(2)——DDL" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -144,7 +167,11 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="SQL的通用语法"><a href="#SQL的通用语法" class="headerlink" title="SQL的通用语法"></a>SQL的通用语法</h2><ol>
+        <h2 id="MySQL的基本操作"><a href="#MySQL的基本操作" class="headerlink" title="MySQL的基本操作"></a>MySQL的基本操作</h2><p>在CMD终端输入以下指令（确保在win+R&gt;services.msc中启动了MySQL），接着输入密码，即可启动数据库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+
+<p>输入<code>quit</code>指令即可退出数据库。</p>
+<h2 id="SQL的通用语法"><a href="#SQL的通用语法" class="headerlink" title="SQL的通用语法"></a>SQL的通用语法</h2><ol>
 <li>SQL语句可以单行或多行书写，以分号结尾；</li>
 <li>SQL语句可以使用空格&#x2F;缩进来增强语句的可读性；</li>
 <li>MySQL数据库的SQL语句不区分大小写，关键字建议使用大写；</li>
@@ -164,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95/" data-id="cmgplc8no0002lo96cu2ufkd4" data-title="MySQL基础篇(1)——SQL通用语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/10/13/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87-1-%E2%80%94%E2%80%94SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95/" data-id="cmgqyypp50001ck96b5clbvr7" data-title="MySQL基础篇(1)——SQL通用语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -548,7 +575,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/28/%E9%9D%A2%E7%BB%8F%E7%AC%94%E8%AE%B0/" data-id="cmgplc8nv000ilo96158c00cj" data-title="面经笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/28/%E9%9D%A2%E7%BB%8F%E7%AC%94%E8%AE%B0/" data-id="cmgqyyppe000ick960zrd1dis" data-title="面经笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -742,7 +769,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(2)%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="cmgplc8np0004lo967tft1aw1" data-title="Python(2) ——基本数据类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(2)%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="cmgqyypp70004ck967j9yddcg" data-title="Python(2) ——基本数据类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -871,7 +898,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(1)%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-id="cmgplc8no0003lo96f0lla4bm" data-title="Python(1) ——基础语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(1)%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-id="cmgqyypp70003ck96beod3nkw" data-title="Python(1) ——基础语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -969,7 +996,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(13)%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/" data-id="cmgplc8nr0008lo96d13c5vht" data-title="算法笔记C++(13) ——并查集" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(13)%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/" data-id="cmgqyyppb000ack96cxazbkk8" data-title="算法笔记C++(13) ——并查集" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1031,7 +1058,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(12)%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/" data-id="cmgplc8nq0006lo961raohkkz" data-title="算法笔记C++(12) ——贪心" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(12)%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/" data-id="cmgqyypp90008ck96gnzab0um" data-title="算法笔记C++(12) ——贪心" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1131,7 +1158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(11)%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-id="cmgplc8nq0007lo960mxmcdl8" data-title="算法笔记C++(11) ——动态规划" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/22/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(11)%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-id="cmgqyypp90007ck96gfe05tkm" data-title="算法笔记C++(11) ——动态规划" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1229,7 +1256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/20/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(10)%E2%80%94%E2%80%94%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmgplc8np0005lo969m14d8he" data-title="算法笔记C++(10) ——广度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/20/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(10)%E2%80%94%E2%80%94%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmgqyypp80005ck96g1hm9s5a" data-title="算法笔记C++(10) ——广度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1309,7 +1336,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(9)%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmgplc8nv000hlo96869t3uwn" data-title="算法笔记C++(9) ——深度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/10/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(9)%E2%80%94%E2%80%94%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-id="cmgqyyppd000hck96ae71h4cv" data-title="算法笔记C++(9) ——深度优先搜索" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
