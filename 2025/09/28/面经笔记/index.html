@@ -14,7 +14,7 @@
 <meta property="og:description" content="Redis 有哪些数据结构？Redis 提供了 5 种基础数据结构，以及基于这些扩展的高级结构：  字符串（String）：最基础的键值对，可存储文本、数字（支持自增自减），最大容量 512MB。 哈希（Hash）：键值对的集合，适合存储对象（如用户信息），每个哈希可包含最多 2^32-1 个字段。 列表（List）：有序字符串集合，支持两端插入 &#x2F; 删除，底层是双向链表，适合实现消息队">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-28T15:12:50.000Z">
-<meta property="article:modified_time" content="2025-10-13T15:49:50.554Z">
+<meta property="article:modified_time" content="2025-10-26T16:44:54.871Z">
 <meta property="article:author" content="ShenKeyang">
 <meta property="article:tag" content="sky">
 <meta property="article:tag" content="shenkeyang">
@@ -448,11 +448,83 @@
 <li><p>两者核心差异在设计理念与适用场景：PyTorch 默认动态计算图，语法贴近原生 Python，调试灵活，适合科研、论文复现等快速迭代场景；TensorFlow 早期以静态计算图为核心，虽支持动态图，但静态图优化更成熟，工业部署生态（如移动端 TensorFlow Lite、云端服务）更完善，适合大规模生产应用。此外，PyTorch 在学术界更流行，TensorFlow 在工业界应用更广，选择时可根据场景（科研 &#x2F; 工业）和使用习惯匹配。</p>
 </li>
 </ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+<h2 id="排序算法汇总"><a href="#排序算法汇总" class="headerlink" title="排序算法汇总"></a>排序算法汇总</h2><ul>
+<li><p>冒泡排序（O(n^2)）：</p>
+<ul>
+<li>排序机制：重复遍历数组，每次比较相邻元素，若顺序错误则交换，直到无需交换（数组有序）。大元素会像 “气泡” 一样逐步 “浮” 到末尾。</li>
+<li>时间复杂度：最好 O(n)，最坏 O(n^2)，平均O(n^2)。</li>
+<li>空间复杂度：O(1)（原地排序）。</li>
+</ul>
+</li>
+<li><p>插入排序（O(n^2)）：</p>
+<ul>
+<li>排序机制：类似整理扑克牌，从第一张开始逐一将元素逐个插入到已排序牌堆中的正确位置。</li>
+<li>时间复杂度：最好 O(n)，最坏 O(n^2)，平均O(n^2)。</li>
+<li>空间复杂度：O(1)（原地排序）。</li>
+</ul>
+</li>
+<li><p>选择排序（O(n^2)）：</p>
+<ul>
+<li>排序机制：每次从剩余未排序元素中找到最小（或最大）值，与未排序部分的首位交换，逐步将数组分为 “已排序” 和 “未排序” 两部分。</li>
+<li>时间复杂度：无论输入如何，均为 O(n^2)（需遍历所有元素找最值）。</li>
+<li>空间复杂度：O(1)（原地排序）。</li>
+</ul>
+</li>
+<li><p>希尔排序（O(n^1.3)）：</p>
+<ul>
+<li>排序机制：插入排序的改进版，通过 “增量” 将数组分成多组，每组内部用插入排序，然后减小增量重复，直到增量为 1（此时就是完整的插入排序）。增量选择影响效率（如希尔增量 n&#x2F;2^k 、Hibbard 增量 2^k −1等）。</li>
+<li>时间复杂度：依赖增量，平均约 O(n^1.3)，最坏 O(n^2)（希尔增量）或 O(n^3&#x2F;2)（Hibbard增量）。</li>
+<li>空间复杂度：O(1)（原地排序）。</li>
+</ul>
+</li>
+<li><p>归并排序（O(nlogn)）：</p>
+<ul>
+<li>排序机制：分治法思想：将数组递归分为两半，各自排序后 “归并”（合并两个有序子数组为一个有序数组）。</li>
+<li>时间复杂度：最好、最坏、平均均为 O(nlogn)（递归深度 logn，每层合并共 O(n)）。</li>
+<li>空间复杂度：O(n)（需临时数组存储合并结果）。</li>
+</ul>
+</li>
+<li><p>快速排序（O(nlogn)）：</p>
+<ul>
+<li>排序机制：分治法思想：选择一个 “基准值”，将数组分为 “小于基准” 和 “大于基准” 两部分，递归排序两部分。基准选择影响效率（如随机选择、三数取中等）。</li>
+<li>时间复杂度：最好、平均 O(nlogn)，基准选择影响效率（如选中间值可避免最坏情况），平均效率极高，是实际应用中最快的排序之一，最坏 O(n^2)（基准选最值，如已排序数组）。</li>
+<li>空间复杂度：O(logn)（递归栈开销，最坏 O(n)）。</li>
+</ul>
+</li>
+<li><p>堆排序（O(nlogn)）：</p>
+<ul>
+<li>排序机制：利用堆（完全二叉树）的特性：先将数组构建为大顶堆（父节点val ≥ 子节点val），然后反复提取堆顶（最大值），与末尾元素交换并调整堆，最终得到升序数组。</li>
+<li>时间复杂度：最好、最坏、平均均为 O(nlogn)。</li>
+<li>空间复杂度：O(1)（原地排序，递归实现需 O(logn) 栈空间）。</li>
+</ul>
+</li>
+<li><p>计数排序（O(n+k)）：</p>
+<ul>
+<li>排序机制：非比较排序，适用于整数且范围不大的场景：统计每个元素的出现次数，再根据次数计算元素在结果中的位置，直接构造有序数组。</li>
+<li>时间复杂度：O(n+k)（n 为元素数，k 为数值范围）。</li>
+<li>空间复杂度：O(n+k)（需计数数组和结果数组）。</li>
+</ul>
+</li>
+<li><p>桶排序（O(n+k)）：</p>
+<ul>
+<li>排序机制：非比较排序，将元素分到若干个 “桶” 中，每个桶内用其他排序算法（如插入排序）排序，最后合并所有桶。</li>
+<li>时间复杂度：平均 O(n+k)（k 为桶数，元素均匀分布时），最坏 O(n^2)（所有元素入同一桶）。</li>
+<li>空间复杂度：O(n+k)（桶和元素存储）。</li>
+</ul>
+</li>
+<li><p>基数排序（O(d*(n+k))）：</p>
+<ul>
+<li>排序机制：非比较排序，按 “位”（个位、十位、百位等）依次排序，低位优先（LSD）或高位优先（MSD）。每次位排序需用计数排序或桶排序作为子过程。</li>
+<li>时间复杂度：O(d*(n+k))（d为位数，k为每位的基数，如十进制 k&#x3D;10）。</li>
+<li>空间复杂度：O(n+k)。</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/28/%E9%9D%A2%E7%BB%8F%E7%AC%94%E8%AE%B0/" data-id="cmgqyyppe000ick960zrd1dis" data-title="面经笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/28/%E9%9D%A2%E7%BB%8F%E7%AC%94%E8%AE%B0/" data-id="cmh7xwxw7000g4o96hb9m1q98" data-title="面经笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
