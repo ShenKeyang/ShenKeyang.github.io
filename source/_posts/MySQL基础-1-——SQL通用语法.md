@@ -1,5 +1,5 @@
 ---
-title: MySQL基础篇(1)——SQL通用语法
+title: MySQL基础(1)——SQL通用语法
 date: 2025-10-13 23:55:46
 tags:
 ---

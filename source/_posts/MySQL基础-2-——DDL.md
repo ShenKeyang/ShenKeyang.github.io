@@ -1,5 +1,5 @@
 ---
-title: MySQL基础篇(2)——DDL
+title: MySQL基础(2)——DDL
 date: 2025-10-14 04:21:51
 tags:
 ---
