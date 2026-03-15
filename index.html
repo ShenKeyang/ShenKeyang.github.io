@@ -114,7 +114,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-5-%E2%80%94%E2%80%94DCL/" data-id="cmmrrxh1n0005b0964w9g6ran" data-title="MySQL基础(5)——DCL" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-5-%E2%80%94%E2%80%94DCL/" data-id="cmmrs5psp0004zw962fsuhd4h" data-title="MySQL基础(5)——DCL" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -175,7 +175,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-4-%E2%80%94%E2%80%94DQL/" data-id="cmmrrxh1m0004b09631av9m12" data-title="MySQL基础(4)——DQL" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-4-%E2%80%94%E2%80%94DQL/" data-id="cmmrs5psq0005zw966antfopc" data-title="MySQL基础(4)——DQL" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -219,7 +219,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-3-%E2%80%94%E2%80%94DML/" data-id="cmmrrxh1l0003b0960pqrd04r" data-title="MySQL基础(3)——DML" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-3-%E2%80%94%E2%80%94DML/" data-id="cmmrs5pso0002zw960zqt427u" data-title="MySQL基础(3)——DML" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -284,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/10/14/MySQL%E5%9F%BA%E7%A1%80-2-%E2%80%94%E2%80%94DDL/" data-id="cmmrrxh1l0002b0966hkx9z94" data-title="MySQL基础(2)——DDL" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/10/14/MySQL%E5%9F%BA%E7%A1%80-2-%E2%80%94%E2%80%94DDL/" data-id="cmmrs5psm0001zw9688555839" data-title="MySQL基础(2)——DDL" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -342,7 +342,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/10/13/MySQL%E5%9F%BA%E7%A1%80-1-%E2%80%94%E2%80%94SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95/" data-id="cmmrrxh1j0001b0962d9gh7a7" data-title="MySQL基础(1)——SQL通用语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/10/13/MySQL%E5%9F%BA%E7%A1%80-1-%E2%80%94%E2%80%94SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95/" data-id="cmmrs5psp0003zw9622afgsb5" data-title="MySQL基础(1)——SQL通用语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -427,7 +427,7 @@
 <li>使用层序遍历（BFS），记录每一层的最后一个节点。</li>
 <li>或使用深度优先遍历（DFS），优先访问右子树，确保每层第一个访问的节点是最右侧节点。</li>
 </ul>
-<h2 id="数据库连接池了解吗"><a href="#数据库连接池了解吗" class="headerlink" title="数据库连接池了解吗"></a>数据库连接池了解吗</h2><p>数据库连接池本质上是一个缓存和管理数据库连接的容器。应用程序启动时，连接池会预先创建一定数量的数据库连接并维护起来。当应用程序需要操作数据库时，它不再是自己新建一个连接，而是从连接池‘借用’一个现成的连接；用完后，也不是真正关<br>闭连接，而是‘归还’给连接池。<br>如果没有连接池，每次数据库请求都要经历一次完整的 TCP 三次握手、数据库认证、连接分配等过程，操作完毕后又要断开连接。这个过程非常耗时耗资源。<br>连接池通过复用连接 避免了频繁的创建和销毁，极大地节约了系统开销，显著提升了应用程序的响应速度 和整体的并发处理能力。同时，它还能统一管理连接资源，防止因程序漏洞导致连接无法关闭而引起的数据库连接耗尽（内存泄漏）。<br>核心参数：  </p>
+<h2 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h2><p>数据库连接池本质上是一个缓存和管理数据库连接的容器。应用程序启动时，连接池会预先创建一定数量的数据库连接并维护起来。当应用程序需要操作数据库时，它不再是自己新建一个连接，而是从连接池‘借用’一个现成的连接；用完后，也不是真正关<br>闭连接，而是‘归还’给连接池。<br>如果没有连接池，每次数据库请求都要经历一次完整的 TCP 三次握手、数据库认证、连接分配等过程，操作完毕后又要断开连接。这个过程非常耗时耗资源。<br>连接池通过复用连接 避免了频繁的创建和销毁，极大地节约了系统开销，显著提升了应用程序的响应速度 和整体的并发处理能力。同时，它还能统一管理连接资源，防止因程序漏洞导致连接无法关闭而引起的数据库连接耗尽（内存泄漏）。<br>核心参数：  </p>
 <ul>
 <li>初始连接数 (initialSize): 池启动时创建的初始连接数量。</li>
 <li>最大连接数 (maxTotal): 池中能同时存在的最大活动连接数。这取决于数据库和系统的负载能力。</li>
@@ -798,7 +798,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/28/%E9%9D%A2%E7%BB%8F%E7%AC%94%E8%AE%B0/" data-id="cmmrrxh1u000lb0964id1851n" data-title="面经笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/28/%E9%9D%A2%E7%BB%8F%E7%AC%94%E8%AE%B0/" data-id="cmmrs5psx000lzw96gbrxd5up" data-title="面经笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -992,7 +992,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(2)%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="cmmrrxh1o0008b0965tnjeuqn" data-title="Python(2) ——基本数据类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(2)%E2%80%94%E2%80%94%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="cmmrs5psr0007zw96fouf909s" data-title="Python(2) ——基本数据类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1121,7 +1121,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(1)%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-id="cmmrrxh1n0006b0965cxq4so2" data-title="Python(1) ——基础语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/28/Python(1)%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-id="cmmrs5psq0006zw968eeg2sqv" data-title="Python(1) ——基础语法" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1219,7 +1219,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(13)%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/" data-id="cmmrrxh1q000cb0968cubcx9q" data-title="算法笔记C++(13) ——并查集" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(13)%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/" data-id="cmmrs5pst000czw96g6915laj" data-title="算法笔记C++(13) ——并查集" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1281,7 +1281,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(12)%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/" data-id="cmmrrxh1q000bb096dktgfbdy" data-title="算法笔记C++(12) ——贪心" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://shenkeyang.github.io/2025/09/23/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0C++(12)%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/" data-id="cmmrs5pst000bzw9647bxc7cw" data-title="算法笔记C++(12) ——贪心" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
