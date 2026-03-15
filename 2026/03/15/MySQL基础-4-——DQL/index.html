@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MySQL基础(4)——DQL | YOLO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="DQL（Data Query Language，数据查询语言），用来查询数据库中表的记录。 DQL-语法1234567SELECT 字段列表    FROM 表名列表（配合聚合函数count&#x2F;max&#x2F;min&#x2F;avg&#x2F;sum）        WHERE 条件列表            GROUP BY 分组字段列表                HAVING 分组后条件列表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL基础(4)——DQL">
+<meta property="og:url" content="https://shenkeyang.github.io/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-4-%E2%80%94%E2%80%94DQL/index.html">
+<meta property="og:site_name" content="YOLO">
+<meta property="og:description" content="DQL（Data Query Language，数据查询语言），用来查询数据库中表的记录。 DQL-语法1234567SELECT 字段列表    FROM 表名列表（配合聚合函数count&#x2F;max&#x2F;min&#x2F;avg&#x2F;sum）        WHERE 条件列表            GROUP BY 分组字段列表                HAVING 分组后条件列表">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-15T12:08:38.000Z">
+<meta property="article:modified_time" content="2026-03-15T12:50:14.803Z">
+<meta property="article:author" content="ShenKeyang">
+<meta property="article:tag" content="sky">
+<meta property="article:tag" content="shenkeyang">
+<meta property="article:tag" content="YOLO">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="YOLO" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">YOLO</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">You Only Live Once.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://shenkeyang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-MySQL基础-4-——DQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-4-%E2%80%94%E2%80%94DQL/" class="article-date">
+  <time class="dt-published" datetime="2026-03-15T12:08:38.000Z" itemprop="datePublished">2026-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MySQL基础(4)——DQL
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>DQL（Data Query Language，数据查询语言），用来查询数据库中表的记录。</p>
+<h2 id="DQL-语法"><a href="#DQL-语法" class="headerlink" title="DQL-语法"></a>DQL-语法</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表</span><br><span class="line">    FROM 表名列表（配合聚合函数count/max/min/avg/sum）</span><br><span class="line">        WHERE 条件列表</span><br><span class="line">            GROUP BY 分组字段列表</span><br><span class="line">                HAVING 分组后条件列表</span><br><span class="line">                    ORDER BY 排序字段列表</span><br><span class="line">                        LIMIT 分页参数;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DQL-基本查询"><a href="#DQL-基本查询" class="headerlink" title="DQL-基本查询"></a>DQL-基本查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#查询多个字段</span><br><span class="line">SELECT 字段1,字段2,... FROM 表名;</span><br><span class="line">SELECT * FROM 表名;</span><br><span class="line"></span><br><span class="line">#设置别名</span><br><span class="line">SELECT 字段1[AS 别名1],字段2[AS 别名2]... FROM 表名;</span><br><span class="line"></span><br><span class="line">#去除重复记录</span><br><span class="line">SELECT DISTINCT 字段列表 FROM 表名;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DQL-条件查询"><a href="#DQL-条件查询" class="headerlink" title="DQL-条件查询"></a>DQL-条件查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#语法</span><br><span class="line">SELECT 字段列表 FROM 表名 WHERE 条件列表;</span><br><span class="line"></span><br><span class="line">#条件</span><br><span class="line">&gt;</span><br><span class="line">&gt;=</span><br><span class="line">&lt;</span><br><span class="line">&lt;=</span><br><span class="line">=</span><br><span class="line">&lt;&gt;或!=</span><br><span class="line">BETWEEN ... AND ...</span><br><span class="line">IN(...)</span><br><span class="line">LIKE 占位符</span><br><span class="line">IS NULL</span><br><span class="line">AND或&amp;&amp;</span><br><span class="line">OR或||</span><br><span class="line">NOT或!</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DQL-聚合函数"><a href="#DQL-聚合函数" class="headerlink" title="DQL-聚合函数"></a>DQL-聚合函数</h2><p>将一列数据作为一个整体，进行纵向计算，常见聚合函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">count   #统计数量</span><br><span class="line"></span><br><span class="line">max     #最大值</span><br><span class="line"></span><br><span class="line">min     #最小值</span><br><span class="line"></span><br><span class="line">avg     #平均值</span><br><span class="line"></span><br><span class="line">sum     #求和</span><br><span class="line"></span><br><span class="line">#语法</span><br><span class="line">SELECT 聚合函数(字段列表) FROM 表名;</span><br><span class="line">#注：所有的 NULL 值不参与聚合函数的运算。</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DQL-分组查询"><a href="#DQL-分组查询" class="headerlink" title="DQL-分组查询"></a>DQL-分组查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#语法</span><br><span class="line">SELECT 字段列表 FROM 表名 [WHERE 条件] GROUP BY 分组字段名 [HAVING 分组后过滤条件];</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DQL-排序查询"><a href="#DQL-排序查询" class="headerlink" title="DQL-排序查询"></a>DQL-排序查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#语法（支持多字段排序）</span><br><span class="line">SELECT 字段列表 FROM 表名 ORDER BY 字段1 排序方式1,字段 排序方式;</span><br><span class="line"></span><br><span class="line">#排序方式</span><br><span class="line">ASC     #升序</span><br><span class="line">DESC    #降序</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DQL-分页查询"><a href="#DQL-分页查询" class="headerlink" title="DQL-分页查询"></a>DQL-分页查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#语法</span><br><span class="line">SELECT 字段列表 FROM 表名 LIMIT 起始索引,查询记录数;</span><br><span class="line">/*注：</span><br><span class="line">    1.起始索引从0开始，起始索引=(查询页码-1)*每页显示记录数；</span><br><span class="line">    2.分页查询是数据库的方言，不同的数据库有不同的实现，MySQL中是LIMIT；</span><br><span class="line">    3.如果查询的是第一页数据，则起始索引可以省略，直接简写为LIMIT 记录查询数；</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DQL-执行顺序"><a href="#DQL-执行顺序" class="headerlink" title="DQL-执行顺序"></a>DQL-执行顺序</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">5 SELECT 字段列表</span><br><span class="line">1     FROM 表名列表（配合聚合函数count/max/min/avg/sum）</span><br><span class="line">2         WHERE 条件列表</span><br><span class="line">3             GROUP BY 分组字段列表</span><br><span class="line">4                  HAVING 分组后条件列表</span><br><span class="line">6                     ORDER BY 排序字段列表</span><br><span class="line">7                         LIMIT 分页参数;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-4-%E2%80%94%E2%80%94DQL/" data-id="cmmrrxh1m0004b09631av9m12" data-title="MySQL基础(4)——DQL" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-5-%E2%80%94%E2%80%94DCL/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          MySQL基础(5)——DCL
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-3-%E2%80%94%E2%80%94DML/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">MySQL基础(3)——DML</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-5-%E2%80%94%E2%80%94DCL/">MySQL基础(5)——DCL</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-4-%E2%80%94%E2%80%94DQL/">MySQL基础(4)——DQL</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-3-%E2%80%94%E2%80%94DML/">MySQL基础(3)——DML</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/14/MySQL%E5%9F%BA%E7%A1%80-2-%E2%80%94%E2%80%94DDL/">MySQL基础(2)——DDL</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/13/MySQL%E5%9F%BA%E7%A1%80-1-%E2%80%94%E2%80%94SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95/">MySQL基础(1)——SQL通用语法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 ShenKeyang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

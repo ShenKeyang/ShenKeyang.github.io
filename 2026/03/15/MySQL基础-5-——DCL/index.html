@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>MySQL基础(5)——DCL | YOLO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="DCL（Data Control Language，数据控制语言），用来管理数据库用户、控制数据库的访问权限。 DCL-管理用户123456789101112#查询用户USE mysql;SELECT * FROM user; #直接访问系统数据库中的user表#创建用户CREATE USER &#x27;用户名&#x27;@&#x27;主机名&#x27; IDENTIFIED &#x27;密码&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL基础(5)——DCL">
+<meta property="og:url" content="https://shenkeyang.github.io/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-5-%E2%80%94%E2%80%94DCL/index.html">
+<meta property="og:site_name" content="YOLO">
+<meta property="og:description" content="DCL（Data Control Language，数据控制语言），用来管理数据库用户、控制数据库的访问权限。 DCL-管理用户123456789101112#查询用户USE mysql;SELECT * FROM user; #直接访问系统数据库中的user表#创建用户CREATE USER &#x27;用户名&#x27;@&#x27;主机名&#x27; IDENTIFIED &#x27;密码&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-15T12:45:15.000Z">
+<meta property="article:modified_time" content="2026-03-15T13:10:38.526Z">
+<meta property="article:author" content="ShenKeyang">
+<meta property="article:tag" content="sky">
+<meta property="article:tag" content="shenkeyang">
+<meta property="article:tag" content="YOLO">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="YOLO" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">YOLO</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">You Only Live Once.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://shenkeyang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-MySQL基础-5-——DCL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-5-%E2%80%94%E2%80%94DCL/" class="article-date">
+  <time class="dt-published" datetime="2026-03-15T12:45:15.000Z" itemprop="datePublished">2026-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      MySQL基础(5)——DCL
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>DCL（Data Control Language，数据控制语言），用来管理数据库用户、控制数据库的访问权限。</p>
+<h2 id="DCL-管理用户"><a href="#DCL-管理用户" class="headerlink" title="DCL-管理用户"></a>DCL-管理用户</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#查询用户</span><br><span class="line">USE mysql;</span><br><span class="line">SELECT * FROM user; #直接访问系统数据库中的user表</span><br><span class="line"></span><br><span class="line">#创建用户</span><br><span class="line">CREATE USER &#x27;用户名&#x27;@&#x27;主机名&#x27; IDENTIFIED &#x27;密码&#x27;;</span><br><span class="line"></span><br><span class="line">#修改用户密码</span><br><span class="line">ALTER USER &#x27;用户名&#x27;@&#x27;主机名&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;新密码&#x27;;</span><br><span class="line"></span><br><span class="line">#删除用户</span><br><span class="line">DROP USER &#x27;用户名&#x27;@&#x27;主机名&#x27;;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DCL-权限控制"><a href="#DCL-权限控制" class="headerlink" title="DCL-权限控制"></a>DCL-权限控制</h2><p>MySQL中的常用权限：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ALL,ALL PRIVILEGES  #所有权限</span><br><span class="line">SELECT              #查询数据</span><br><span class="line">INSERT              #插入数据</span><br><span class="line">UPDATE              #修改数据</span><br><span class="line">DELETE              #删除数据</span><br><span class="line">ALTER               #修改表</span><br><span class="line">DROP                #删除数据库/表/视图</span><br><span class="line">CREATE              #创建数据库/表</span><br></pre></td></tr></table></figure>
+
+<p>权限控制语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#查看权限</span><br><span class="line">SHOW GRANTS FOR &#x27;用户名&#x27;@&#x27;主机名&#x27;;</span><br><span class="line"></span><br><span class="line">#授予权限</span><br><span class="line">GRANTS 权限列表 ON 数据库名 表名 TO &#x27;用户名&#x27;@&#x27;主机名&#x27;;</span><br><span class="line"></span><br><span class="line">#撤销权限</span><br><span class="line">REVOKE 权限列表 ON 数据库名 表名 FROM &#x27;用户名&#x27;@&#x27;主机名&#x27;;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shenkeyang.github.io/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-5-%E2%80%94%E2%80%94DCL/" data-id="cmmrrxh1n0005b0964w9g6ran" data-title="MySQL基础(5)——DCL" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-4-%E2%80%94%E2%80%94DQL/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">MySQL基础(4)——DQL</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-5-%E2%80%94%E2%80%94DCL/">MySQL基础(5)——DCL</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-4-%E2%80%94%E2%80%94DQL/">MySQL基础(4)——DQL</a>
+          </li>
+        
+          <li>
+            <a href="/2026/03/15/MySQL%E5%9F%BA%E7%A1%80-3-%E2%80%94%E2%80%94DML/">MySQL基础(3)——DML</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/14/MySQL%E5%9F%BA%E7%A1%80-2-%E2%80%94%E2%80%94DDL/">MySQL基础(2)——DDL</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/13/MySQL%E5%9F%BA%E7%A1%80-1-%E2%80%94%E2%80%94SQL%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95/">MySQL基础(1)——SQL通用语法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 ShenKeyang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
